@@ -3,6 +3,7 @@ node_js:
   - "8"
   - "10"
   - "12"
+dist: trusty
 cache: yarn
 install: yarn
 before_script:
@@ -11,7 +12,12 @@ script:
   - yarn build
   - rm -rf `ls -a | sed "/^dist$/d; /^\.$/d; /^\.\.$/d"`
   - mv dist/* .
-after_script:
-  - "[ $TRAVIS_NODE_VERSION != 10 ] && exit 1"
-  - gem install dpl dpl-pages
-  - dpl --provider=pages --github-token=$GITHUB_TOKEN --keep_history --skip_cleanup --target-branch=dist
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN
+  keep-history: true
+  target-branch: dist
+  on:
+    branch: master
+    condition: $TRAVIS_NODE_VERSION = 10
