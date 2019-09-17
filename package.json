@@ -4,20 +4,26 @@
   "main": "dist/main.js",
   "license": "MIT",
   "scripts": {
-    "build:landing": "parcel build src/pages/landing/index.html --public-url vscode-resource -d dist/landing --cache-dir .cache/landing --no-source-maps",
-    "build:repo": "parcel build src/pages/repository-creation/index.html --public-url vscode-resource -d dist/repository-creation --cache-dir .cache/repository-creation --no-source-maps",
-    "watch:landing": "parcel src/pages/landing/index.html -d dist/landing --cache-dir .cache/landing",
-    "watch:repo": "parcel src/pages/repository-creation/index.html -d dist/repository-creation --cache-dir .cache/repository-creation"
+    "build": "yarn clean && parcel build src/pages/**/*.html --public-url . --cache-dir .cache/all --no-source-maps && node scripts/postprocess.js",
+    "watch:landing": "parcel src/pages/landing/landing.html -d dist-watch/landing --cache-dir .cache/landing",
+    "watch:repo": "parcel src/pages/repository-creation/repository-creation.html -d dist-watch/repository-creation --cache-dir .cache/repository-creation",
+    "watch:settings": "parcel src/pages/settings/settings.html -d dist-watch/settings --cache-dir .cache/settings",
+    "clean": "shx rm -rf dist"
   },
   "devDependencies": {
     "@types/bootstrap": "^4.3.1",
+    "@types/fs-extra": "^8.0.0",
     "@types/jquery": "^3.3.31",
+    "@types/lodash": "^4.14.138",
     "@types/node": "^12.7.5",
     "@types/react": "^16.9.2",
     "@types/react-dom": "^16.9.0",
+    "fast-glob": "^3.0.4",
+    "fs-extra": "^8.1.0",
     "parcel-bundler": "^1.12.3",
     "prettier": "^1.18.2",
     "sass": "^1.22.12",
+    "shx": "^0.3.2",
     "tslib": "^1.10.0",
     "tslint": "^5.20.0",
     "tslint-config-airbnb": "^5.11.1",
@@ -26,7 +32,6 @@
   },
   "dependencies": {
     "bootstrap": "4.3.1",
-    "font-awesome": "^4.7.0",
     "jqu": "^0.3.1",
     "jquery": "^3.4.1",
     "lodash": "^4.17.15",

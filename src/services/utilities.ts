@@ -32,8 +32,16 @@ export class Utilities {
     }
 
     const acquireFakeApi = () => ({ postMessage: console.log });
-    vscodeCache = (window.acquireVsCodeApi || acquireFakeApi)();
+    vscodeCache = (this.runningOnVSCode() || acquireFakeApi)();
 
     return vscodeCache;
+  }
+
+  public static runningOnVSCode() {
+    try {
+      return acquireVsCodeApi;
+    } catch {
+      return false;
+    }
   }
 }

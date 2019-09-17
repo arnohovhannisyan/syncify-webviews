@@ -1,3 +1,6 @@
+import "../../vendor/fontawesome/css/fontawesome.min.css";
+import "../../vendor/fontawesome/css/solid.min.css";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../styles/main.scss";
 import "../../vendor/google/*.ttf";
@@ -5,13 +8,13 @@ import "../../vendor/google/*.ttf";
 import React, { Fragment } from "react";
 import { render } from "react-dom";
 import { HeaderComponent } from "../../components";
-import { ChangelogComponent } from "../../components/changelog";
+import { ChangelogComponent } from "../../components/landing/changelog";
 import { IChange } from "../../models";
 import { Utilities } from "../../services";
 
 const vscode = Utilities.getVSCode();
 
-const changes: IChange[] = window.acquireVsCodeApi
+const changes: IChange[] = Utilities.runningOnVSCode()
   ? Utilities.getData("changes")
   : [
       {
@@ -31,7 +34,7 @@ const changes: IChange[] = window.acquireVsCodeApi
       }
     ];
 
-const version = window.acquireVsCodeApi
+const version = Utilities.runningOnVSCode()
   ? Utilities.getData("version")
   : "1.13.0";
 

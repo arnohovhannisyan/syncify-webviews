@@ -1,3 +1,6 @@
+import "../../vendor/fontawesome/css/fontawesome.min.css";
+import "../../vendor/fontawesome/css/solid.min.css";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../styles/main.scss";
 import "../../vendor/google/*.ttf";
@@ -6,7 +9,7 @@ import $ from "jquery";
 import React, { Fragment } from "react";
 import { render } from "react-dom";
 import { IContent, ModalComponent } from "../../components";
-import { IModalControls } from "../../models/modalControls";
+import { IModalControls } from "../../models";
 import { Utilities } from "../../services";
 
 const vscode = Utilities.getVSCode();

@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { IChange } from "../models";
+import { IChange } from "../../models";
 
 const repoUrl = `https://github.com/arnohovhannisyan/vscode-syncify`;
 
@@ -13,10 +13,12 @@ function generateThanks({ pullRequest, author }: IChange) {
   );
 }
 
-export class ChangelogComponent extends Component<{
+interface IProps {
   changes: IChange[];
   version: string;
-}> {
+}
+
+export class ChangelogComponent extends Component<IProps> {
   public render() {
     return (
       <Fragment>

@@ -19,7 +19,6 @@ bower_components
 build/Release
 node_modules/
 jspm_packages/
-typings/
 *.tsbuildinfo
 .npm
 .eslintcache
@@ -36,3 +35,4 @@ typings/
 .fusebox/
 .dynamodb/
 dist/
+dist-watch/

@@ -59,6 +59,7 @@ body {
 
 .scrollable {
   overflow-y: auto;
+  height: 100%;
 }
 
 .content {
@@ -72,12 +73,6 @@ body {
   --btn-click: #0e3450;
   --link: dodgerblue;
   --link-hover: rgb(15, 109, 204);
-}
-
-.docked {
-  position: fixed;
-  top: 4rem;
-  left: 4rem;
 }
 
 #edit {
