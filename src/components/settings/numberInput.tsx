@@ -3,10 +3,6 @@ import { Utilities } from "../../services";
 
 const vscode = Utilities.getVSCode();
 
-interface IState {
-  value: number;
-}
-
 interface IProps {
   correspondingSetting: string;
   value: number;
@@ -14,11 +10,7 @@ interface IProps {
   placeholder: string;
 }
 
-export class NumberInputComponent extends Component<IProps, IState> {
-  public state: IState = {
-    value: this.props.value
-  };
-
+export class NumberInputComponent extends Component<IProps> {
   public render() {
     return (
       <div className="form-group mb-4">
@@ -27,11 +19,10 @@ export class NumberInputComponent extends Component<IProps, IState> {
         </label>
         <input
           type="number"
-          value={this.state.value}
+          defaultValue={this.props.value.toString()}
           className="form-control number"
           id={`setting:${this.props.correspondingSetting}`}
           placeholder={this.props.placeholder}
-          onChange={e => this.setState({ value: Number(e.target.value) })}
           onBlur={({ target }) => {
             vscode.postMessage({
               setting: this.props.correspondingSetting,

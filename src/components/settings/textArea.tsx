@@ -3,10 +3,6 @@ import { Utilities } from "../../services";
 
 const vscode = Utilities.getVSCode();
 
-interface IState {
-  value: string[];
-}
-
 interface IProps {
   correspondingSetting: string;
   value: string[];
@@ -14,11 +10,7 @@ interface IProps {
   placeholder: string;
 }
 
-export class TextAreaComponent extends Component<IProps, IState> {
-  public state: IState = {
-    value: this.props.value
-  };
-
+export class TextAreaComponent extends Component<IProps> {
   public render() {
     return (
       <div className="form-group mb-3">
@@ -30,8 +22,7 @@ export class TextAreaComponent extends Component<IProps, IState> {
           id={`setting:${this.props.correspondingSetting}`}
           rows={this.props.value.length}
           placeholder={this.props.placeholder}
-          value={this.state.value.join("\n")}
-          onChange={e => this.setState({ value: e.target.value.split("\n") })}
+          defaultValue={this.props.value.join("\n")}
           onBlur={e => {
             vscode.postMessage({
               setting: this.props.correspondingSetting,

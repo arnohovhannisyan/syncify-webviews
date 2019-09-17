@@ -8,10 +8,6 @@ export interface IOption {
   name: string;
 }
 
-interface IState {
-  value: string;
-}
-
 interface IProps {
   correspondingSetting: string;
   value: string;
@@ -19,11 +15,7 @@ interface IProps {
   options: IOption[];
 }
 
-export class SelectComponent extends Component<IProps, IState> {
-  public state: IState = {
-    value: this.props.value
-  };
-
+export class SelectComponent extends Component<IProps> {
   public render() {
     return (
       <div className="form-group mb-3">
@@ -33,7 +25,7 @@ export class SelectComponent extends Component<IProps, IState> {
         <select
           className="form-control select"
           id={`setting:${this.props.correspondingSetting}`}
-          value={this.state.value}
+          defaultValue={this.props.value}
           onChange={({ target }) => {
             this.setState({ value: target.value });
             vscode.postMessage({
