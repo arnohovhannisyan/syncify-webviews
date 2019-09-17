@@ -12,6 +12,10 @@ import { ChangelogComponent } from "../../components/landing/changelog";
 import { IChange } from "../../models";
 import { Utilities } from "../../services";
 
+if (!Utilities.runningOnVSCode()) {
+  document.body.classList.add("runningOnWeb");
+}
+
 const vscode = Utilities.getVSCode();
 
 const changes: IChange[] = Utilities.runningOnVSCode()

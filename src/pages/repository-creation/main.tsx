@@ -12,6 +12,10 @@ import { IContent, ModalComponent } from "../../components";
 import { IModalControls } from "../../models";
 import { Utilities } from "../../services";
 
+if (!Utilities.runningOnVSCode()) {
+  document.body.classList.add("runningOnWeb");
+}
+
 const vscode = Utilities.getVSCode();
 
 const githubData = Utilities.getData("github");

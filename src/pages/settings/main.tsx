@@ -11,6 +11,10 @@ import { HeaderComponent, SectionComponent } from "../../components";
 import { ISection, ISettingType } from "../../models";
 import { Utilities } from "../../services";
 
+if (!Utilities.runningOnVSCode()) {
+  document.body.classList.add("runningOnWeb");
+}
+
 const vscode = Utilities.getVSCode();
 
 const settings = Utilities.runningOnVSCode()
@@ -88,7 +92,9 @@ render(
         >
           <i className="fa fa-pen"></i>
         </button>
-        <p id="save-help">Settings are saved after clicking off the input</p>
+        <p id="save-help">
+          Settings are saved automatically after clicking off an input
+        </p>
       </div>
     </div>
   </Fragment>,

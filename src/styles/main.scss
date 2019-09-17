@@ -19,6 +19,12 @@ body {
     background-color: #fff;
     color: #1b1b1b;
   }
+
+  &.runningOnWeb {
+    .scrollable {
+      height: 100%;
+    }
+  }
 }
 
 .tooltip {
@@ -59,7 +65,6 @@ body {
 
 .scrollable {
   overflow-y: auto;
-  height: 100%;
 }
 
 .content {
@@ -95,6 +100,12 @@ body {
     align-items: center;
     justify-content: center;
   }
+}
+
+#save-help {
+  position: fixed;
+  bottom: 0.5rem;
+  left: 2rem;
 }
 
 .change {
