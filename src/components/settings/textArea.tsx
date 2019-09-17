@@ -31,11 +31,11 @@ export class TextAreaComponent extends Component<IProps, IState> {
           rows={this.props.value.length}
           placeholder={this.props.placeholder}
           value={this.state.value.join("\n")}
-          onChange={({ target }) => {
-            this.setState({ value: target.value.split("\n") });
+          onChange={e => this.setState({ value: e.target.value.split("\n") })}
+          onBlur={e => {
             vscode.postMessage({
               setting: this.props.correspondingSetting,
-              value: target.value
+              value: e.target.value
                 .split("\n")
                 .filter(a => !!a && !/^\s*$/.test(a))
             });

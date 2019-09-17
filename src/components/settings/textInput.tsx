@@ -31,11 +31,11 @@ export class TextInputComponent extends Component<IProps, IState> {
           value={this.state.value}
           id={`setting:${this.props.correspondingSetting}`}
           placeholder={this.props.placeholder}
-          onChange={({ target }) => {
-            this.setState({ value: target.value });
+          onChange={e => this.setState({ value: e.target.value })}
+          onBlur={e => {
             vscode.postMessage({
               setting: this.props.correspondingSetting,
-              value: target.value
+              value: e.target.value
             });
           }}
         />

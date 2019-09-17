@@ -31,8 +31,8 @@ export class NumberInputComponent extends Component<IProps, IState> {
           className="form-control number"
           id={`setting:${this.props.correspondingSetting}`}
           placeholder={this.props.placeholder}
-          onChange={({ target }) => {
-            this.setState({ value: Number(target.value) });
+          onChange={e => this.setState({ value: Number(e.target.value) })}
+          onBlur={({ target }) => {
             vscode.postMessage({
               setting: this.props.correspondingSetting,
               value: Number(target.value)
