@@ -8,7 +8,7 @@ import "../../vendor/google/*.ttf";
 import $ from "jquery";
 import React, { Fragment } from "react";
 import { render } from "react-dom";
-import { IContent, ModalComponent } from "../../components";
+import { ModalComponent } from "../../components";
 import { IModalControls } from "../../models";
 import { Utilities } from "../../services";
 
@@ -104,7 +104,7 @@ async function createNew() {
           action: () => null
         }
       ]
-    } as IContent);
+    });
 
     return modalControls.show();
   }
@@ -145,7 +145,7 @@ async function createNew() {
           action: () => vscode.postMessage({ close: true })
         }
       ]
-    } as IContent);
+    });
 
     modalControls.show();
   } else {
@@ -160,7 +160,7 @@ async function createNew() {
           action: () => null
         }
       ]
-    } as IContent);
+    });
 
     return modalControls.show();
   }
@@ -181,7 +181,7 @@ async function useExisting() {
           action: () => null
         }
       ]
-    } as IContent);
+    });
 
     return modalControls.show();
   }
@@ -213,7 +213,7 @@ async function useExisting() {
           action: () => vscode.postMessage({ close: true })
         }
       ]
-    } as IContent);
+    });
 
     modalControls.show();
   } else {
@@ -228,7 +228,7 @@ async function useExisting() {
           action: () => null
         }
       ]
-    } as IContent);
+    });
 
     modalControls.show();
   }

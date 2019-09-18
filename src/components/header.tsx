@@ -1,6 +1,6 @@
 import React from "react";
 
-const headerComponent = () => (
+export const HeaderComponent = () => (
   <div>
     <h1 className="pb-4 header-h1">Syncify</h1>
     <h2 className="mx-auto pt-2">
@@ -11,5 +11,3 @@ const headerComponent = () => (
     </h2>
   </div>
 );
-
-export { headerComponent as HeaderComponent };

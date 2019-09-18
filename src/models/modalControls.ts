@@ -1,7 +1,7 @@
-import { IContent } from "../components";
+import { IModalContent } from "./modalContent";
 
 export interface IModalControls {
   show: () => void;
   hide: () => void;
-  setContent: (content: IContent) => void;
+  setContent: (content: IModalContent) => void;
 }
