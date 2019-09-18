@@ -16,10 +16,10 @@ export const CheckboxComponent = (props: IProps) => (
       defaultChecked={props.value}
       type="checkbox"
       id={`setting:${props.correspondingSetting}`}
-      onChange={({ target }) =>
+      onChange={e =>
         vscode.postMessage({
           setting: props.correspondingSetting,
-          value: target.checked
+          value: e.target.checked
         })
       }
     />

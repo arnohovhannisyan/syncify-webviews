@@ -24,10 +24,10 @@ export const SelectComponent = (props: IProps) => (
       className="form-control select"
       id={`setting:${props.correspondingSetting}`}
       defaultValue={props.value}
-      onChange={({ target }) => {
+      onChange={e => {
         vscode.postMessage({
           setting: props.correspondingSetting,
-          value: target.value
+          value: e.target.value
         });
       }}
     >

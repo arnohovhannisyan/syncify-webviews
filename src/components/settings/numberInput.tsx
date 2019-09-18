@@ -21,10 +21,10 @@ export const NumberInputComponent = (props: IProps) => (
       className="form-control number"
       id={`setting:${props.correspondingSetting}`}
       placeholder={props.placeholder}
-      onBlur={({ target }) => {
+      onBlur={e => {
         vscode.postMessage({
           setting: props.correspondingSetting,
-          value: Number(target.value)
+          value: Number(e.target.value)
         });
       }}
     />
