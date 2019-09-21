@@ -1,10 +1,44 @@
 import { IOption } from "../components";
 import { ISettingType } from "./settingType";
 
-export interface ISettingMap {
-  correspondingSetting: string;
+interface ICheckbox {
   name: string;
-  placeholder?: string;
-  type: ISettingType;
-  options?: IOption[];
+  type: ISettingType.Checkbox;
+  correspondingSetting: string;
 }
+
+interface ITextInput {
+  name: string;
+  type: ISettingType.TextInput;
+  correspondingSetting: string;
+  placeholder: string;
+}
+
+interface ITextArea {
+  name: string;
+  type: ISettingType.TextArea;
+  correspondingSetting: string;
+  placeholder: string;
+}
+
+interface INumberInput {
+  name: string;
+  type: ISettingType.NumberInput;
+  correspondingSetting: string;
+  placeholder: string;
+}
+
+interface ISelect {
+  name: string;
+  type: ISettingType.Select;
+  correspondingSetting: string;
+  placeholder: string;
+  options: IOption[];
+}
+
+export type ISettingMap =
+  | ICheckbox
+  | ISelect
+  | ITextArea
+  | ITextInput
+  | INumberInput;
