@@ -1,17 +1,26 @@
 @font-face {
   font-family: "Open Sans";
-  src: url("../vendor/google/OpenSans-Bold.ttf");
+  src: local("Open Sans Bold"), local("OpenSans-Bold"),
+    url("../fonts/OpenSans-Bold.woff2");
+  font-style: normal;
   font-weight: bold;
+  font-display: swap;
 }
 
 @font-face {
   font-family: "Roboto";
-  src: url("../vendor/google/Roboto-Regular.ttf");
+  src: local("Roboto"), local("Roboto-Regular"),
+    url("../fonts/Roboto-Regular.woff2");
+  font-style: normal;
   font-weight: normal;
+  font-display: swap;
 }
 
 @font-face {
   font-family: "Roboto";
-  src: url("../vendor/google/Roboto-Bold.ttf");
-  font-weight: bold;
+  src: local("Roboto Bold"), local("Roboto-Bold"),
+    url("../fonts/Roboto-Bold.woff2");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
 }
