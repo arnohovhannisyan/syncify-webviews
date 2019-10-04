@@ -6,9 +6,15 @@ let vscodeCache: IVSCode;
 
 export class Utilities {
   public static getData(name: string) {
-    const data = unescape(
-      document.querySelector("data-receiver").getAttribute(`data-${name}`)
-    );
+    const receiver = document.querySelector("data-receiver");
+
+    if (!receiver) return;
+
+    const attr = receiver.getAttribute(`data-${name}`);
+
+    if (!attr) return;
+
+    const data = unescape(attr);
 
     if (this.isJSON(data)) {
       return JSON.parse(data);
