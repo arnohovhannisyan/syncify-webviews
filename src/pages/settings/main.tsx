@@ -1,9 +1,5 @@
-import "@fortawesome/fontawesome-free/css/fontawesome.min.css";
-import "@fortawesome/fontawesome-free/css/solid.min.css";
-
 import "bootstrap/dist/css/bootstrap.min.css";
-import "../../styles/main.scss";
-import "../../vendor/google/*.ttf";
+import "../../styles";
 
 import React, { Fragment } from "react";
 import { render } from "react-dom";
@@ -26,6 +22,7 @@ const settings = Utilities.runningOnVSCode()
       testSelect: "1",
       testBool: true
     };
+
 const sections: ISection[] = Utilities.runningOnVSCode()
   ? Utilities.getData("sections")
   : [
@@ -72,31 +69,18 @@ const sections: ISection[] = Utilities.runningOnVSCode()
 
 render(
   <Fragment>
-    <HeaderComponent></HeaderComponent>
-    <div className="row content-row text-left">
-      <div className="col mt-2 scrollable">
-        <form>
-          {sections.map(section => (
-            <SectionComponent
-              name={section.name}
-              map={section.settings}
-              settings={settings}
-              key={section.name}
-            ></SectionComponent>
-          ))}
-        </form>
-        <button
-          className="btn btn-secondary btn-lg"
-          id="edit"
-          onClick={() => vscode.postMessage("edit")}
-        >
-          <i className="fa fa-pen"></i>
-        </button>
-        <p id="save-help">
-          Settings are saved automatically after clicking off an input
-        </p>
-      </div>
-    </div>
+    <HeaderComponent />
+    <a href="#" onClick={() => vscode.postMessage("edit")}>
+      Open file in editor
+    </a>
+    {sections.map(section => (
+      <SectionComponent
+        name={section.name}
+        map={section.settings}
+        settings={settings}
+        key={section.name}
+      />
+    ))}
   </Fragment>,
   document.querySelector("#root")
 );

@@ -1,12 +1,10 @@
 import React from "react";
 
 export const HeaderComponent = () => (
-  <div>
-    <h1 className="pb-4 header-h1">Syncify</h1>
-    <h2 className="mx-auto pt-2">
-      Sync your <b>settings</b> and <b>extensions</b> across multiple machines
-    </h2>
-    <h2 className="mx-auto pb-4">
+  <div className="text-center mb-4">
+    <h1 className="mb-4">Syncify</h1>
+    <h2>A reliable way of syncing your VSCode settings and extensions</h2>
+    <h2>
       by <a href="https://github.com/arnohovhannisyan">@arnohovhannisyan</a>
     </h2>
   </div>

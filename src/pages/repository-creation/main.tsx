@@ -1,14 +1,10 @@
-import "@fortawesome/fontawesome-free/css/fontawesome.min.css";
-import "@fortawesome/fontawesome-free/css/solid.min.css";
-
 import "bootstrap/dist/css/bootstrap.min.css";
-import "../../styles/main.scss";
-import "../../vendor/google/*.ttf";
+import "../../styles";
 
 import $ from "jquery";
 import React, { Fragment } from "react";
 import { render } from "react-dom";
-import { ModalComponent } from "../../components";
+import { HeaderComponent, ModalComponent } from "../../components";
 import { IModalControls } from "../../models";
 import { Utilities } from "../../services";
 
@@ -24,67 +20,64 @@ let modalControls: IModalControls;
 
 render(
   <Fragment>
+    <HeaderComponent />
     <ModalComponent
       onMount={controls => {
         modalControls = controls;
       }}
-    ></ModalComponent>
-    <div className="row content-row text-left">
-      <div className="col mt-2 scrollable">
-        <h3 className="mx-auto mt-2 text-center">New Repository</h3>
-        <form>
-          <div className="form-group">
-            <label htmlFor="new-text">Repository Name</label>
-            <input
-              type="text"
-              className="form-control form-control-lg text"
-              id="new-text"
-              placeholder="Enter New Repository Name"
-            />
-          </div>
-          <div className="custom-control custom-checkbox mb-3">
-            <input
-              type="checkbox"
-              className="custom-control-input"
-              id="new-private"
-              defaultChecked
-            />
-            <label className="custom-control-label" htmlFor="new-private">
-              Private
-            </label>
-          </div>
-          <button
-            type="button"
-            className="btn btn-primary btn-lg"
-            onClick={() => createNew()}
-          >
-            Create
-          </button>
-        </form>
-      </div>
+    />
+    <div>
+      <h3>New Repository</h3>
+      <form>
+        <div className="form-group">
+          <label htmlFor="new-text">Repository Name</label>
+          <input
+            type="text"
+            className="form-control form-control-lg text"
+            id="new-text"
+            placeholder="Enter New Repository Name"
+          />
+        </div>
+        <div className="custom-control custom-checkbox mb-3">
+          <input
+            type="checkbox"
+            className="custom-control-input"
+            id="new-private"
+            defaultChecked
+          />
+          <label className="custom-control-label" htmlFor="new-private">
+            Private
+          </label>
+        </div>
+        <button
+          type="button"
+          className="btn btn-primary btn-lg"
+          onClick={() => createNew()}
+        >
+          Create
+        </button>
+      </form>
     </div>
-    <div className="row content-row text-left">
-      <div className="col mt-2 scrollable">
-        <h3 className="mx-auto mt-2 text-center">Existing Repository</h3>
-        <form>
-          <div className="form-group">
-            <label htmlFor="existing">Repository Name</label>
-            <input
-              type="text"
-              className="form-control form-control-lg text"
-              id="existing"
-              placeholder="Enter Existing Repository Name"
-            />
-          </div>
-          <button
-            type="button"
-            className="btn btn-primary btn-lg"
-            onClick={() => useExisting()}
-          >
-            Use This
-          </button>
-        </form>
-      </div>
+    <div className="mt-4">
+      <h3>Existing Repository</h3>
+      <form>
+        <div className="form-group">
+          <label htmlFor="existing">Repository Name</label>
+          <input
+            type="text"
+            className="form-control form-control-lg text"
+            id="existing"
+            placeholder="Enter Existing Repository Name"
+          />
+        </div>
+        <button
+          type="button"
+          className="btn btn-primary btn-lg"
+          onClick={() => useExisting()}
+        >
+          Use This
+        </button>
+      </form>
     </div>
   </Fragment>,
   document.querySelector("#root")

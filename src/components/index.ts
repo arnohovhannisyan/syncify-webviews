@@ -1,6 +1,5 @@
 export * from "./header";
 export * from "./modal";
-export * from "./landing/changelog";
 export * from "./settings/textInput";
 export * from "./settings/numberInput";
 export * from "./settings/checkbox";

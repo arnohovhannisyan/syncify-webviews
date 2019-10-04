@@ -10,7 +10,7 @@ interface IProps {
 }
 
 export const CheckboxComponent = (props: IProps) => (
-  <div className="custom-control custom-checkbox my-1 mr-sm-2 mb-4">
+  <div className="custom-control custom-checkbox my-2">
     <input
       className="custom-control-input checkbox"
       defaultChecked={props.value}

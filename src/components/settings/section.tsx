@@ -1,5 +1,5 @@
 import get from "lodash/get";
-import React from "react";
+import React, { Fragment } from "react";
 import { ISettingMap, ISettingType } from "../../models";
 import { CheckboxComponent } from "./checkbox";
 import { NumberInputComponent } from "./numberInput";
@@ -14,8 +14,8 @@ interface IProps {
 }
 
 export const SectionComponent = (props: IProps) => (
-  <div>
-    <h3 className="mx-auto mt-2 text-left">{props.name}</h3>
+  <Fragment>
+    <h3 className="mt-2">{props.name}</h3>
     {props.map.map(setting => {
       switch (setting.type) {
         case ISettingType.TextInput:
@@ -69,5 +69,5 @@ export const SectionComponent = (props: IProps) => (
           );
       }
     })}
-  </div>
+  </Fragment>
 );

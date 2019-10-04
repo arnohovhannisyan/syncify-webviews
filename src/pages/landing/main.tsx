@@ -1,15 +1,9 @@
-import "@fortawesome/fontawesome-free/css/fontawesome.min.css";
-import "@fortawesome/fontawesome-free/css/solid.min.css";
-
 import "bootstrap/dist/css/bootstrap.min.css";
-import "../../styles/main.scss";
-import "../../vendor/google/*.ttf";
+import "../../styles";
 
 import React, { Fragment } from "react";
 import { render } from "react-dom";
 import { HeaderComponent } from "../../components";
-import { ChangelogComponent } from "../../components/landing/changelog";
-import { IChange } from "../../models";
 import { Utilities } from "../../services";
 
 if (!Utilities.runningOnVSCode()) {
@@ -18,84 +12,79 @@ if (!Utilities.runningOnVSCode()) {
 
 const vscode = Utilities.getVSCode();
 
-const changes: IChange[] = Utilities.runningOnVSCode()
-  ? Utilities.getData("changes")
-  : [
-      {
-        details: "Pragma Support",
-        type: "NEW",
-        color: "success"
-      },
-      {
-        details: "Fix Repository Creation",
-        type: "FIX",
-        color: "danger"
-      },
-      {
-        details: "GUI for Settings and Setup",
-        type: "NEW",
-        color: "success"
-      }
-    ];
-
-const version = Utilities.runningOnVSCode()
-  ? Utilities.getData("version")
-  : "1.13.0";
-
 render(
   <Fragment>
-    <HeaderComponent></HeaderComponent>
-    <div className="row content-row">
-      <div className="col text-left mt-2 scrollable">
-        <ChangelogComponent
-          changes={changes}
-          version={version}
-        ></ChangelogComponent>
+    <HeaderComponent />
+    <div className="row flex-lg-grow-1 align-content-start">
+      <div className="col-lg overflow-auto">
+        <h3 className="mx-auto mb-3">Getting Started</h3>
+        <div className="row">
+          <div className="col-lg mb-2">
+            <a
+              href="#"
+              onClick={() => vscode.postMessage("loginWithGitHub")}
+              title="Login with GitHub"
+              className="btn btn-primary font-weight-bold"
+            >
+              Login with GitHub
+            </a>
+          </div>
+          <div className="w-100"></div>
+          <div className="col-lg">
+            <a
+              href="#"
+              onClick={() => vscode.postMessage("openSettings")}
+              title="Open Settings"
+              className="btn btn-primary font-weight-bold"
+            >
+              Open Settings
+            </a>
+          </div>
+        </div>
       </div>
-      <div className="col mt-2 scrollable">
-        <h3 className="mx-auto mt-2 text-left">Getting Started</h3>
-        <p className="mx-auto mt-2 mb-3 text-left">
-          Login via GitHub to setup Syncify, or configure the settings manually.
-        </p>
-        <div className="container p-0 mb-3">
-          <div className="row">
-            <div className="col">
-              <a
-                href="#"
-                onClick={() => vscode.postMessage("loginWithGitHub")}
-                title="Login with GitHub"
-                className="btn btn-primary font-weight-bold"
-              >
-                Login with GitHub
-              </a>
-            </div>
-            <div className="col">
-              <a
-                href="#"
-                onClick={() => vscode.postMessage("editConfiguration")}
-                title="Edit Configuration"
-                className="btn btn-primary font-weight-bold"
-              >
-                Edit Configuration
-              </a>
-            </div>
+      <div className="col-lg overflow-auto">
+        <h3 className="mx-auto mt-2 mt-lg-0 mb-3">Need Help?</h3>
+        <div className="row">
+          <div className="col-lg mb-2 pr-lg-0">
+            <a
+              href="https://github.com/arnohovhannisyan/vscode-syncify/"
+              title="Homepage"
+              className="btn btn-primary font-weight-bold"
+            >
+              Homepage
+            </a>
+          </div>
+          <div className="col-lg mb-2">
+            <a
+              href="https://github.com/arnohovhannisyan/vscode-syncify/wiki/Quick-Start"
+              title="Quick Start Guide"
+              className="btn btn-primary font-weight-bold"
+            >
+              Quick Start Guide
+            </a>
+          </div>
+          <div className="w-100"></div>
+          <div className="col-lg mb-2 mb-lg-0 pr-lg-0">
+            <a
+              href="https://github.com/arnohovhannisyan/vscode-syncify/issues"
+              title="Issues"
+              className="btn btn-primary font-weight-bold"
+            >
+              Issues
+            </a>
+          </div>
+          <div className="col-lg">
+            <a
+              href="https://join.slack.com/t/vscode-syncify/shared_invite/enQtNzc5MjYyMjYyNzEwLWQ5MGMxNDljZjk5NmYwNWZlYTBmYjk0MjliNjgyYWRkM2NiYjU2YjExY2RmODg2MGIyZTUwY2YzYWM2YThjMmM"
+              title="Join our Slack"
+              className="btn btn-primary font-weight-bold"
+            >
+              Join our Slack
+            </a>
           </div>
         </div>
       </div>
     </div>
-    <footer className="footer row text-left">
-      <div className="col col-one">
-        <h3 className="mx-auto mb-3">Need Help?</h3>
-        <a href="https://github.com/arnohovhannisyan/vscode-syncify/">
-          Homepage
-        </a>
-        <br />
-        <a href="https://github.com/arnohovhannisyan/vscode-syncify/issues">
-          Questions & Issues
-        </a>
-        <br />
-      </div>
-    </footer>
   </Fragment>,
   document.querySelector("#root")
 );
