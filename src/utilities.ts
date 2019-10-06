@@ -4,7 +4,7 @@ interface IVSCode {
 
 let vscodeCache: IVSCode;
 
-export class Utilities {
+export default class Utilities {
   public static getData(name: string) {
     const receiver = document.querySelector("data-receiver");
 
@@ -38,16 +38,23 @@ export class Utilities {
     }
 
     const acquireFakeApi = () => ({ postMessage: console.log });
-    vscodeCache = (this.runningOnVSCode() || acquireFakeApi)();
+    vscodeCache = (this.runningOnVSCode()
+      ? acquireVsCodeApi
+      : acquireFakeApi)();
 
     return vscodeCache;
   }
 
   public static runningOnVSCode() {
     try {
-      return acquireVsCodeApi;
+      return !!acquireVsCodeApi;
     } catch {
       return false;
     }
   }
 }
+
+export const getData = Utilities.getData;
+export const isJSON = Utilities.isJSON;
+export const getVSCode = Utilities.getVSCode;
+export const runningOnVSCode = Utilities.runningOnVSCode;

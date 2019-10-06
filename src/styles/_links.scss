@@ -1,0 +1,9 @@
+a {
+  color: #5fb0ff;
+
+  &:focus,
+  &:hover {
+    text-decoration: none;
+    color: rgb(91, 152, 212);
+  }
+}

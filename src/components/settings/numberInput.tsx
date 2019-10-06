@@ -1,7 +1,7 @@
 import React from "react";
-import { Utilities } from "../../utilities";
+import { getVSCode } from "~/utilities";
 
-const vscode = Utilities.getVSCode();
+const vscode = getVSCode();
 
 interface IProps {
   correspondingSetting: string;

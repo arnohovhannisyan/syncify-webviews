@@ -1,14 +1,12 @@
 {
   "name": "syncify-webviews",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "main": "dist/main.js",
   "description": "A reliable way of syncing your VSCode settings and extensions",
   "license": "MIT",
   "scripts": {
-    "build": "yarn clean && parcel build src/pages/**/*.html --public-url . --cache-dir .cache/all --no-source-maps && yarn postprocess",
-    "watch:landing": "parcel src/pages/landing/landing.html -d dist-watch/landing --cache-dir .cache/landing",
-    "watch:repo": "parcel src/pages/repository-creation/repository-creation.html -d dist-watch/repository-creation --cache-dir .cache/repository-creation",
-    "watch:settings": "parcel src/pages/settings/settings.html -d dist-watch/settings --cache-dir .cache/settings",
+    "build": "yarn clean && parcel build src/index.html --public-url . --no-source-maps && yarn postprocess",
+    "watch": "yarn clean && parcel src/index.html",
     "clean": "shx rm -rf dist",
     "postprocess": "node scripts/postprocess.js"
   },
@@ -20,7 +18,6 @@
     "@types/node": "^12.7.11",
     "@types/react": "^16.9.5",
     "@types/react-dom": "^16.9.1",
-    "fast-glob": "^3.1.0",
     "fs-extra": "^8.1.0",
     "parcel-bundler": "^1.12.4",
     "prettier": "^1.18.2",

@@ -1,4 +1,4 @@
-import { ISettingMap } from "./settingMap";
+import { ISettingMap } from "~/models";
 
 export interface ISection {
   name: string;

@@ -1,12 +1,8 @@
 import React from "react";
-import { Utilities } from "../../utilities";
+import { IOption } from "~/models";
+import { getVSCode } from "~/utilities";
 
-const vscode = Utilities.getVSCode();
-
-export interface IOption {
-  value: string;
-  name: string;
-}
+const vscode = getVSCode();
 
 interface IProps {
   correspondingSetting: string;

@@ -1,4 +1,4 @@
-import { IModalButton } from "./modalButton";
+import { IModalButton } from "~/models";
 
 export interface IModalContent {
   id: string;

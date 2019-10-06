@@ -1,0 +1,13 @@
+.modal {
+  &-header {
+    border-bottom: none;
+  }
+
+  &-footer {
+    border-top: none;
+  }
+
+  &-body {
+    padding: 0rem 1rem;
+  }
+}

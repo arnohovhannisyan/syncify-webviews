@@ -1,4 +1,4 @@
-import { IModalContent } from "./modalContent";
+import { IModalContent } from "~/models";
 
 export interface IModalControls {
   show: () => void;

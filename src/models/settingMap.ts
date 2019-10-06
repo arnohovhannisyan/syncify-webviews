@@ -1,5 +1,4 @@
-import { IOption } from "../components";
-import { ISettingType } from "./settingType";
+import { IOption, ISettingType } from "~/models";
 
 interface ICheckbox {
   name: string;

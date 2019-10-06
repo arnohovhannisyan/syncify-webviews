@@ -1,7 +1,7 @@
 import "bootstrap";
 import $ from "jquery";
 import React, { useState } from "react";
-import { IModalContent, IModalControls } from "../models";
+import { IModalContent, IModalControls } from "~/models";
 
 interface IProps {
   onMount: (controls: IModalControls) => void;

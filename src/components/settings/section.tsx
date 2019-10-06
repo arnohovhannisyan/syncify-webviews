@@ -1,11 +1,13 @@
 import get from "lodash/get";
 import React, { Fragment } from "react";
-import { ISettingMap, ISettingType } from "../../models";
-import { CheckboxComponent } from "./checkbox";
-import { NumberInputComponent } from "./numberInput";
-import { SelectComponent } from "./select";
-import { TextAreaComponent } from "./textArea";
-import { TextInputComponent } from "./textInput";
+import {
+  CheckboxComponent,
+  NumberInputComponent,
+  SelectComponent,
+  TextAreaComponent,
+  TextInputComponent
+} from "~/components";
+import { ISettingMap, ISettingType } from "~/models";
 
 interface IProps {
   name: string;
