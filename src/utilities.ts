@@ -20,7 +20,7 @@ export class Utilities {
       return JSON.parse(data);
     }
 
-    return data;
+    return data as any;
   }
 
   public static isJSON(json: string) {

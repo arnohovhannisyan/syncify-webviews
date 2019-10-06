@@ -5,7 +5,7 @@ import React, { Fragment } from "react";
 import { render } from "react-dom";
 import { HeaderComponent, SectionComponent } from "../../components";
 import { ISection, ISettingType } from "../../models";
-import { Utilities } from "../../services";
+import { Utilities } from "../../utilities";
 
 if (!Utilities.runningOnVSCode()) {
   document.body.classList.add("runningOnWeb");

@@ -6,7 +6,7 @@ import React, { Fragment } from "react";
 import { render } from "react-dom";
 import { HeaderComponent, ModalComponent } from "../../components";
 import { IModalControls } from "../../models";
-import { Utilities } from "../../services";
+import { Utilities } from "../../utilities";
 
 if (!Utilities.runningOnVSCode()) {
   document.body.classList.add("runningOnWeb");

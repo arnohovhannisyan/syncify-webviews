@@ -4,7 +4,7 @@ import "../../styles";
 import React, { Fragment } from "react";
 import { render } from "react-dom";
 import { HeaderComponent } from "../../components";
-import { Utilities } from "../../services";
+import { Utilities } from "../../utilities";
 
 if (!Utilities.runningOnVSCode()) {
   document.body.classList.add("runningOnWeb");
@@ -29,7 +29,7 @@ render(
               Login with GitHub
             </a>
           </div>
-          <div className="w-100"></div>
+          <div className="w-100" />
           <div className="col-lg">
             <a
               href="#"
@@ -63,7 +63,7 @@ render(
               Quick Start Guide
             </a>
           </div>
-          <div className="w-100"></div>
+          <div className="w-100" />
           <div className="col-lg mb-2 mb-lg-0 pr-lg-0">
             <a
               href="https://github.com/arnohovhannisyan/vscode-syncify/issues"

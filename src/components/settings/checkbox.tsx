@@ -1,5 +1,5 @@
 import React from "react";
-import { Utilities } from "../../services";
+import { Utilities } from "../../utilities";
 
 const vscode = Utilities.getVSCode();
 

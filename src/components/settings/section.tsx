@@ -10,7 +10,7 @@ import { TextInputComponent } from "./textInput";
 interface IProps {
   name: string;
   map: ISettingMap[];
-  settings: any[];
+  settings: any;
 }
 
 export const SectionComponent = (props: IProps) => (
@@ -26,7 +26,7 @@ export const SectionComponent = (props: IProps) => (
               placeholder={setting.placeholder}
               value={get(props.settings, setting.correspondingSetting)}
               key={setting.correspondingSetting}
-            ></TextInputComponent>
+            />
           );
         case ISettingType.NumberInput:
           return (
@@ -36,7 +36,7 @@ export const SectionComponent = (props: IProps) => (
               placeholder={setting.placeholder}
               value={get(props.settings, setting.correspondingSetting)}
               key={setting.correspondingSetting}
-            ></NumberInputComponent>
+            />
           );
         case ISettingType.Select:
           return (
@@ -46,7 +46,7 @@ export const SectionComponent = (props: IProps) => (
               value={get(props.settings, setting.correspondingSetting)}
               key={setting.correspondingSetting}
               options={setting.options}
-            ></SelectComponent>
+            />
           );
         case ISettingType.Checkbox:
           return (
@@ -55,7 +55,7 @@ export const SectionComponent = (props: IProps) => (
               correspondingSetting={setting.correspondingSetting}
               value={get(props.settings, setting.correspondingSetting)}
               key={setting.correspondingSetting}
-            ></CheckboxComponent>
+            />
           );
         case ISettingType.TextArea:
           return (
@@ -65,8 +65,10 @@ export const SectionComponent = (props: IProps) => (
               placeholder={setting.placeholder}
               value={get(props.settings, setting.correspondingSetting)}
               key={setting.correspondingSetting}
-            ></TextAreaComponent>
+            />
           );
+        default:
+          return <p>Invalid map</p>;
       }
     })}
   </Fragment>

@@ -1,5 +1,5 @@
 import React from "react";
-import { Utilities } from "../../services";
+import { Utilities } from "../../utilities";
 
 const vscode = Utilities.getVSCode();
 
@@ -27,6 +27,6 @@ export const TextAreaComponent = (props: IProps) => (
           value: e.target.value.split("\n").filter(a => !!a && !/^\s*$/.test(a))
         });
       }}
-    ></textarea>
+    />
   </div>
 );
