@@ -16,19 +16,19 @@
     "@types/bootstrap": "^4.3.1",
     "@types/fs-extra": "^8.0.0",
     "@types/jquery": "^3.3.31",
-    "@types/lodash": "^4.14.138",
-    "@types/node": "^12.7.5",
-    "@types/react": "^16.9.2",
-    "@types/react-dom": "^16.9.0",
-    "fast-glob": "^3.0.4",
+    "@types/lodash": "^4.14.141",
+    "@types/node": "^12.7.11",
+    "@types/react": "^16.9.5",
+    "@types/react-dom": "^16.9.1",
+    "fast-glob": "^3.1.0",
     "fs-extra": "^8.1.0",
-    "parcel-bundler": "^1.12.3",
+    "parcel-bundler": "^1.12.4",
     "prettier": "^1.18.2",
-    "sass": "^1.22.12",
+    "sass": "^1.23.0",
     "shx": "^0.3.2",
     "tslib": "^1.10.0",
     "tslint": "^5.20.0",
-    "tslint-config-airbnb": "^5.11.1",
+    "tslint-config-airbnb": "^5.11.2",
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^3.6.3"
   },
@@ -37,8 +37,8 @@
     "jquery": "^3.4.1",
     "lodash": "^4.17.15",
     "popper.js": "^1.15.0",
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0"
+    "react": "^16.10.2",
+    "react-dom": "^16.10.2"
   },
   "browserslist": [
     "last 10 Chrome versions"
