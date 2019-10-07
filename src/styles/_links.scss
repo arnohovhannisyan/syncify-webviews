@@ -1,9 +1,23 @@
-a {
-  color: #5fb0ff;
+$color-dark: #99ded5;
+$color-light: #346962;
+$color-hover: #6ab7ad;
 
+%link-hover {
   &:focus,
   &:hover {
     text-decoration: none;
-    color: rgb(91, 152, 212);
+    color: $color-hover;
   }
+}
+
+a {
+  color: $color-dark;
+
+  body.vscode-light & {
+    color: $color-light;
+
+    @extend %link-hover;
+  }
+
+  @extend %link-hover;
 }

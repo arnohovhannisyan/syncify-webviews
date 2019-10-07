@@ -16,6 +16,10 @@ body {
   &.vscode-light {
     background-color: #fff;
     color: #1b1b1b;
+
+    h1 {
+      color: #848484;
+    }
   }
 
   &.runningOnWeb .scrollable {
@@ -26,7 +30,7 @@ body {
     font-size: 3.5rem;
     line-height: 2.5rem;
     font-weight: bold;
-    color: #c0c0c0 !important;
+    color: #c0c0c0;
     display: flex;
     align-items: center;
     justify-content: center;
