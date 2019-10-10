@@ -21,7 +21,15 @@ const PageElement = () => {
     case PageType.Landing:
       return <LandingPage />;
     case PageType.Repo:
-      return <RepoPage githubData={Utilities.getData("github")} />;
+      const params = new URLSearchParams(location.search.slice(1));
+      const data = Utilities.runningOnVSCode()
+        ? Utilities.getData("github")
+        : {
+            token: params.get("token"),
+            user: params.get("user")
+          };
+
+      return <RepoPage githubData={data} />;
     case PageType.Settings:
       return (
         <SettingsPage

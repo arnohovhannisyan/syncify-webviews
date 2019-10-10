@@ -1,5 +1,6 @@
-import $ from "jquery";
-import React, { Fragment } from "react";
+import axios from "axios";
+import Fuse from "fuse.js";
+import React, { Fragment, useState } from "react";
 import { HeaderComponent, ModalComponent } from "~/components";
 import { IModalControls } from "~/models";
 import { getVSCode } from "~/utilities";
@@ -7,7 +8,13 @@ import { getVSCode } from "~/utilities";
 interface IGitHubData {
   token: string;
   user: string;
-  host: string;
+}
+
+interface IRepo {
+  name: string;
+  description: string;
+  private: boolean;
+  url: string;
 }
 
 interface IProps {
@@ -17,12 +24,37 @@ interface IProps {
 export const RepoPage = (props: IProps) => {
   const { githubData } = props;
 
+  const [repos, setRepos] = useState<IRepo[]>([]);
+  const [filter, setFilter] = useState("");
+
   const vscode = getVSCode();
 
   let modalControls: IModalControls;
 
-  async function createNew() {
-    const name = $("#new-text").val() as string;
+  async function getRepos() {
+    const { data } = await axios.get(`https://api.github.com/user/repos`, {
+      headers: {
+        Authorization: `token ${githubData.token}`
+      }
+    });
+
+    setRepos(
+      [...data].map<IRepo>(r => ({
+        name: r.name,
+        description: r.description,
+        private: r.private,
+        url: r.html_url
+      }))
+    );
+  }
+
+  const createNew = async () => {
+    const nameInput = document.querySelector<HTMLInputElement>("#name");
+
+    if (!nameInput) return;
+
+    const name = nameInput.value;
+
     if (!name) {
       modalControls.setContent({
         id: "invalidName",
@@ -40,28 +72,29 @@ export const RepoPage = (props: IProps) => {
       return modalControls.show();
     }
 
-    const isPrivate = $("#new-private").is(":checked");
+    const privateCheckbox = document.querySelector<HTMLInputElement>(
+      "#isPrivate"
+    );
 
-    console.log(isPrivate);
+    if (!privateCheckbox) return;
 
-    const host = new URL(githubData.host).hostname;
+    const isPrivate = privateCheckbox.checked;
 
-    const res = await fetch(`https://api.${host}/user/repos`, {
-      body: JSON.stringify({
-        name,
-        owner: githubData.user,
-        description: `${githubData.user}'s Syncify Settings Repository`,
-        private: isPrivate
-      }),
-      method: "POST",
-      headers: {
-        Authorization: `token ${githubData.token}`
-      }
-    });
+    const body = {
+      name,
+      owner: githubData.user,
+      description: `${githubData.user}'s Syncify Settings Repository`,
+      private: isPrivate
+    };
 
-    const repo = await res.json();
+    try {
+      await axios.post(`https://api.github.com/user/repos`, {
+        data: body,
+        headers: {
+          Authorization: `token ${githubData.token}`
+        }
+      });
 
-    if (repo.name) {
       sendMessage(name);
 
       modalControls.setContent({
@@ -79,11 +112,11 @@ export const RepoPage = (props: IProps) => {
       });
 
       modalControls.show();
-    } else {
+    } catch (err) {
       modalControls.setContent({
-        id: "errorCreating",
+        id: "created",
         title: "Error Creating Repository!",
-        message: repo.message,
+        message: err,
         buttons: [
           {
             name: "Back",
@@ -93,84 +126,51 @@ export const RepoPage = (props: IProps) => {
         ]
       });
 
-      return modalControls.show();
+      modalControls.show();
     }
-  }
+  };
 
-  async function useExisting() {
-    const name = $("#existing").val() as string;
+  const useExisting = async (name: string) => {
+    const url = `https://api.github.com/repos/${githubData.user}/${name}`;
 
-    if (!name) {
-      modalControls.setContent({
-        id: "invalidRepo",
-        title: "Invalid Repository Name!",
-        message: `The name of the repository must not be empty.`,
-        buttons: [
-          {
-            name: "Back",
-            color: "secondary",
-            action: () => null
-          }
-        ]
-      });
-
-      return modalControls.show();
-    }
-
-    const host = new URL(githubData.host).hostname;
-
-    const res = await fetch(
-      `https://api.${host}/repos/${githubData.user}/${name}`,
-      {
-        headers: {
-          Authorization: `token ${githubData.token}`
-        }
+    await axios.get(url, {
+      headers: {
+        Authorization: `token ${githubData.token}`
       }
-    );
+    });
 
-    const repo = await res.json();
-    if (repo.message !== "Not Found") {
-      sendMessage(name);
+    sendMessage(name);
 
-      modalControls.setContent({
-        id: "registered",
-        title: "Repository Registered!",
-        message: `The repository has been registered with Syncify! You may now lose
-      this tab.`,
-        buttons: [
-          {
-            name: "Close",
-            color: "primary",
-            action: () => vscode.postMessage({ close: true })
-          }
-        ]
-      });
+    modalControls.setContent({
+      id: "registered",
+      title: "Repository Registered!",
+      message: `The repository has been registered with Syncify! You may now lose
+    this tab.`,
+      buttons: [
+        {
+          name: "Close",
+          color: "primary",
+          action: () => vscode.postMessage({ close: true })
+        }
+      ]
+    });
 
-      modalControls.show();
-    } else {
-      modalControls.setContent({
-        id: "errorRegistering",
-        title: "Error Registering Repository!",
-        message: `The repository you requested was not found.`,
-        buttons: [
-          {
-            name: "Back",
-            color: "secondary",
-            action: () => null
-          }
-        ]
-      });
+    modalControls.show();
+  };
 
-      modalControls.show();
-    }
-  }
-
-  function sendMessage(name: string) {
-    const host = new URL(githubData.host).hostname;
+  const sendMessage = (name: string) => {
     vscode.postMessage(
-      `https://${githubData.user}:${githubData.token}@${host}/${githubData.user}/${name}`
+      `https://${githubData.user}:${githubData.token}@github.com/${githubData.user}/${name}`
     );
-  }
+  };
+
+  const formatRepos = () => {
+    if (filter) {
+      return new Fuse(repos, { keys: ["name", "description"] }).search(filter);
+    }
+
+    return repos;
+  };
 
   return (
     <Fragment>
@@ -184,11 +184,11 @@ export const RepoPage = (props: IProps) => {
         <h3>New Repository</h3>
         <form>
           <div className="form-group">
-            <label htmlFor="new-text">Repository Name</label>
+            <label htmlFor="name">Repository Name</label>
             <input
               type="text"
               className="form-control form-control-lg text"
-              id="new-text"
+              id="name"
               placeholder="Enter New Repository Name"
             />
           </div>
@@ -196,10 +196,10 @@ export const RepoPage = (props: IProps) => {
             <input
               type="checkbox"
               className="custom-control-input"
-              id="new-private"
+              id="isPrivate"
               defaultChecked
             />
-            <label className="custom-control-label" htmlFor="new-private">
+            <label className="custom-control-label" htmlFor="isPrivate">
               Private
             </label>
           </div>
@@ -213,25 +213,71 @@ export const RepoPage = (props: IProps) => {
         </form>
       </div>
       <div className="mt-4">
-        <h3>Existing Repository</h3>
-        <form>
-          <div className="form-group">
-            <label htmlFor="existing">Repository Name</label>
-            <input
-              type="text"
-              className="form-control form-control-lg text"
-              id="existing"
-              placeholder="Enter Existing Repository Name"
-            />
-          </div>
+        <h3 className="mb-3">Existing Repository</h3>
+        {!!repos.length && (
+          <Fragment>
+            <div className="form-group">
+              <input
+                type="text"
+                className="form-control form-control-lg text"
+                id="filter"
+                placeholder="Search Repositories"
+                onChange={e => setFilter(e.target.value)}
+              />
+            </div>
+            <div className="list-group">
+              {formatRepos().map(r => (
+                <span
+                  className="list-group-item d-flex flex-column flex-sm-row justify-content-between"
+                  key={r.name}
+                >
+                  <div>
+                    <h5 className="mb-1">{r.name}</h5>
+                    {r.description && <p className="mb-0">{r.description}</p>}
+                    {r.private && (
+                      <h5 className="mb-0">
+                        <span className="badge badge-secondary">Private</span>
+                      </h5>
+                    )}
+                  </div>
+                  <div className="d-flex justify-content-between">
+                    <a
+                      href={r.url}
+                      target="_blank"
+                      rel="noopener"
+                      className="btn btn-primary btn-lg w-sm-auto mt-2 mt-sm-0 mr-2"
+                    >
+                      View
+                    </a>
+                    <button
+                      onClick={() => useExisting(r.name)}
+                      className="btn btn-primary btn-lg w-sm-auto mt-2 mt-sm-0"
+                    >
+                      Use This
+                    </button>
+                  </div>
+                </span>
+              ))}
+              {!formatRepos().length && (
+                <span className="list-group-item">
+                  <h5 className="mb-1">No Repositories Found</h5>
+                  <p className="mb-0">
+                    There are no repositories matching your search query.
+                  </p>
+                </span>
+              )}
+            </div>
+          </Fragment>
+        )}
+        {!repos.length && (
           <button
             type="button"
             className="btn btn-primary btn-lg"
-            onClick={() => useExisting()}
+            onClick={() => getRepos()}
           >
-            Use This
+            Load Repositories
           </button>
-        </form>
+        )}
       </div>
     </Fragment>
   );
