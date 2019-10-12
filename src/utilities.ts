@@ -16,9 +16,7 @@ export default class Utilities {
 
     const data = unescape(attr);
 
-    if (this.isJSON(data)) {
-      return JSON.parse(data);
-    }
+    if (this.isJSON(data)) return JSON.parse(data);
 
     return data as any;
   }
@@ -33,14 +31,11 @@ export default class Utilities {
   }
 
   public static getVSCode(): IVSCode {
-    if (vscodeCache) {
-      return vscodeCache;
-    }
+    if (vscodeCache) return vscodeCache;
 
-    const acquireFakeApi = () => ({ postMessage: console.log });
-    vscodeCache = (this.runningOnVSCode()
-      ? acquireVsCodeApi
-      : acquireFakeApi)();
+    vscodeCache = this.runningOnVSCode()
+      ? acquireVsCodeApi()
+      : { postMessage: console.log };
 
     return vscodeCache;
   }
