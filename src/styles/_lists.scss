@@ -3,4 +3,12 @@
   color: #1b1b1b;
 
   border: 0;
+
+  &:first-child {
+    padding-top: 1.25rem !important;
+  }
+
+  &:last-child {
+    padding-bottom: 1.25rem !important;
+  }
 }

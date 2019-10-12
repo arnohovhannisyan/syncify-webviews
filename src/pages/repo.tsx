@@ -13,7 +13,6 @@ interface IGitHubData {
 interface IRepo {
   name: string;
   description: string;
-  private: boolean;
   url: string;
 }
 
@@ -42,7 +41,6 @@ export const RepoPage = (props: IProps) => {
       [...data].map<IRepo>(r => ({
         name: r.name,
         description: r.description,
-        private: r.private,
         url: r.html_url
       }))
     );
@@ -229,12 +227,9 @@ export const RepoPage = (props: IProps) => {
                 >
                   <div>
                     <h5 className="mb-1">{r.name}</h5>
-                    {r.description && <p className="mb-0">{r.description}</p>}
-                    {r.private && (
-                      <h5 className="mb-0">
-                        <span className="badge badge-secondary">Private</span>
-                      </h5>
-                    )}
+                    <p className="mb-0">
+                      {r.description || "No description for this repository."}
+                    </p>
                   </div>
                   <div className="d-flex justify-content-between">
                     <a
