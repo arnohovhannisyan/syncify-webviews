@@ -164,13 +164,9 @@ export const RepoPage = (props: IProps) => {
     );
   };
 
-  const formatRepos = () => {
-    if (filter) {
-      return new Fuse(repos, { keys: ["name", "description"] }).search(filter);
-    }
+  const fuse = new Fuse(repos, { keys: ["name", "description"] });
 
-    return repos;
-  };
+  const formatRepos = () => (filter ? fuse.search(filter) : repos);
 
   return (
     <Fragment>
