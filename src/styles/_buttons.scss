@@ -1,7 +1,6 @@
 .btn {
   box-shadow: 0 0.1875rem 0.1875rem 0 rgba(0, 0, 0, 0.1) !important;
   padding: 1rem;
-  font-size: 80%;
   text-transform: uppercase;
   letter-spacing: 0.15rem;
   border: 0;
@@ -22,6 +21,48 @@
     &:hover,
     &:active {
       background-color: #356d65 !important;
+    }
+  }
+
+  &-github {
+    color: #fff !important;
+
+    &,
+    &:focus {
+      background-color: #4f5a58 !important;
+    }
+
+    &:hover,
+    &:active {
+      background-color: #3f4746 !important;
+    }
+  }
+
+  &-gitlab {
+    color: #fff !important;
+
+    &,
+    &:focus {
+      background-color: #dd8929 !important;
+    }
+
+    &:hover,
+    &:active {
+      background-color: #a36a29 !important;
+    }
+  }
+
+  &-bitbucket {
+    color: #fff !important;
+
+    &,
+    &:focus {
+      background-color: #1f9bcc !important;
+    }
+
+    &:hover,
+    &:active {
+      background-color: #327e9c !important;
     }
   }
 }

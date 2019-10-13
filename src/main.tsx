@@ -23,13 +23,14 @@ const PageElement = () => {
     case PageType.Repo:
       const params = new URLSearchParams(location.search.slice(1));
       const data = Utilities.runningOnVSCode()
-        ? Utilities.getData("github")
+        ? Utilities.getData("auth")
         : {
             token: params.get("token"),
-            user: params.get("user")
+            user: params.get("user"),
+            provider: params.get("provider")
           };
 
-      return <RepoPage githubData={data} />;
+      return <RepoPage authData={data} />;
     case PageType.Settings:
       return (
         <SettingsPage

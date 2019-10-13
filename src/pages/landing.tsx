@@ -8,37 +8,55 @@ export const LandingPage = () => {
   return (
     <Fragment>
       <HeaderComponent />
-      <div className="row flex-lg-grow-1 align-content-start">
+      <div className="row flex-sm-grow-1 align-content-start">
         <div className="col-lg overflow-auto">
           <h3 className="mx-auto mb-3">Getting Started</h3>
           <div className="row">
             <div className="col-lg mb-2">
-              <a
-                href="#"
-                onClick={() => vscode.postMessage("loginWithGitHub")}
+              <button
+                onClick={() => vscode.postMessage("github")}
                 title="Login with GitHub"
-                className="btn btn-primary font-weight-bold"
+                className="btn btn-github font-weight-bold"
               >
-                Login with GitHub
-              </a>
+                <span className="fab fa-github mr-2" /> Login with GitHub
+              </button>
             </div>
             <div className="w-100" />
-            <div className="col-lg">
-              <a
-                href="#"
-                onClick={() => vscode.postMessage("openSettings")}
+            <div className="col-lg mb-2">
+              <button
+                onClick={() => vscode.postMessage("gitlab")}
+                title="Login with GitLab"
+                className="btn btn-gitlab font-weight-bold"
+              >
+                <span className="fab fa-gitlab mr-2" /> Login with GitLab
+              </button>
+            </div>
+            <div className="w-100"></div>
+            <div className="col-lg mb-2">
+              <button
+                onClick={() => vscode.postMessage("bitbucket")}
+                title="Login with BitBucket"
+                className="btn btn-bitbucket font-weight-bold"
+              >
+                <span className="fab fa-bitbucket mr-2" /> Login with BitBucket
+              </button>
+            </div>
+            <div className="w-100"></div>
+            <div className="col-lg mb-2">
+              <button
+                onClick={() => vscode.postMessage("settings")}
                 title="Open Settings"
                 className="btn btn-primary font-weight-bold"
               >
-                Open Settings
-              </a>
+                <span className="fas fa-cog mr-2" /> Open Settings
+              </button>
             </div>
           </div>
         </div>
         <div className="col-lg overflow-auto">
-          <h3 className="mx-auto mt-2 mt-lg-0 mb-3">Need Help?</h3>
+          <h3 className="mx-auto mt-2 mt-sm-0 mb-3">Need Help?</h3>
           <div className="row">
-            <div className="col-lg mb-2 pr-lg-0">
+            <div className="col-lg mb-2">
               <a
                 href="https://github.com/arnohovhannisyan/vscode-syncify/"
                 title="Homepage"
@@ -47,6 +65,7 @@ export const LandingPage = () => {
                 Homepage
               </a>
             </div>
+            <div className="w-100" />
             <div className="col-lg mb-2">
               <a
                 href="https://github.com/arnohovhannisyan/vscode-syncify/wiki/Quick-Start"
@@ -57,7 +76,7 @@ export const LandingPage = () => {
               </a>
             </div>
             <div className="w-100" />
-            <div className="col-lg mb-2 mb-lg-0 pr-lg-0">
+            <div className="col-lg mb-2">
               <a
                 href="https://github.com/arnohovhannisyan/vscode-syncify/issues"
                 title="Issues"
@@ -66,7 +85,8 @@ export const LandingPage = () => {
                 Issues
               </a>
             </div>
-            <div className="col-lg">
+            <div className="w-100" />
+            <div className="col-lg mb-2">
               <a
                 href="https://join.slack.com/t/vscode-syncify/shared_invite/enQtNzc5MjYyMjYyNzEwLWQ5MGMxNDljZjk5NmYwNWZlYTBmYjk0MjliNjgyYWRkM2NiYjU2YjExY2RmODg2MGIyZTUwY2YzYWM2YThjMmM"
                 title="Join our Slack"

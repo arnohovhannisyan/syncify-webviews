@@ -1,27 +1,30 @@
-import axios from "axios";
 import Fuse from "fuse.js";
 import React, { Fragment, useState } from "react";
 import { HeaderComponent, ModalComponent } from "~/components";
 import { IModalControls } from "~/models";
+import { Data } from "~/pages/repo/data";
 import { getVSCode } from "~/utilities";
 
-interface IGitHubData {
+export type Provider = "github" | "gitlab" | "bitbucket";
+
+export interface IAuthData {
   token: string;
   user: string;
+  provider: Provider;
 }
 
-interface IRepo {
+export interface IRepo {
   name: string;
   description: string;
   url: string;
 }
 
 interface IProps {
-  githubData: IGitHubData;
+  authData: IAuthData;
 }
 
 export const RepoPage = (props: IProps) => {
-  const { githubData } = props;
+  const { authData } = props;
 
   const [repos, setRepos] = useState<IRepo[]>([]);
   const [filter, setFilter] = useState("");
@@ -31,19 +34,7 @@ export const RepoPage = (props: IProps) => {
   let modalControls: IModalControls;
 
   async function getRepos() {
-    const { data } = await axios.get(`https://api.github.com/user/repos`, {
-      headers: {
-        Authorization: `token ${githubData.token}`
-      }
-    });
-
-    setRepos(
-      [...data].map<IRepo>(r => ({
-        name: r.name,
-        description: r.description,
-        url: r.html_url
-      }))
-    );
+    setRepos(await Data.getRepos(authData));
   }
 
   const createNew = async () => {
@@ -78,20 +69,8 @@ export const RepoPage = (props: IProps) => {
 
     const isPrivate = privateCheckbox.checked;
 
-    const body = {
-      name,
-      owner: githubData.user,
-      description: `${githubData.user}'s Syncify Settings Repository`,
-      private: isPrivate
-    };
-
     try {
-      await axios.post(`https://api.github.com/user/repos`, {
-        data: body,
-        headers: {
-          Authorization: `token ${githubData.token}`
-        }
-      });
+      await Data.createNew(name, isPrivate, authData);
 
       sendMessage(name);
 
@@ -114,7 +93,7 @@ export const RepoPage = (props: IProps) => {
       modalControls.setContent({
         id: "created",
         title: "Error Creating Repository!",
-        message: err,
+        message: err.message,
         buttons: [
           {
             name: "Back",
@@ -129,14 +108,6 @@ export const RepoPage = (props: IProps) => {
   };
 
   const useExisting = async (name: string) => {
-    const url = `https://api.github.com/repos/${githubData.user}/${name}`;
-
-    await axios.get(url, {
-      headers: {
-        Authorization: `token ${githubData.token}`
-      }
-    });
-
     sendMessage(name);
 
     modalControls.setContent({
@@ -157,9 +128,13 @@ export const RepoPage = (props: IProps) => {
   };
 
   const sendMessage = (name: string) => {
-    vscode.postMessage(
-      `https://${githubData.user}:${githubData.token}@github.com/${githubData.user}/${name}`
-    );
+    const urls = {
+      github: `https://${authData.user}:${authData.token}@github.com/${authData.user}/${name}`,
+      gitlab: `https://oauth2:${authData.token}@gitlab.com/${authData.user}/${name}`,
+      bitbucket: `https://x-token-auth:${authData.token}@bitbucket.org/${authData.user}/${name}`
+    };
+
+    vscode.postMessage(urls[authData.provider]);
   };
 
   const fuse = new Fuse(repos, { keys: ["name", "description"] });

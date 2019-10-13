@@ -1,0 +1,23 @@
+.fab {
+  font-family: "Font Awesome 5 Brands";
+}
+
+.fas {
+  font-family: "Font Awesome 5 Solid";
+}
+
+.fa-gitlab:before {
+  content: "\f296";
+}
+
+.fa-github:before {
+  content: "\f09b";
+}
+
+.fa-bitbucket:before {
+  content: "\f171";
+}
+
+.fa-cog:before {
+  content: "\f013";
+}
