@@ -1,19 +1,27 @@
-.icon {
+[class^="icon-"] {
   font-family: Icons;
+}
 
-  &.icon-gitlab:before {
-    content: "\e902";
+@mixin icon($code) {
+  &:before {
+    content: $code;
+  }
+}
+
+.icon {
+  &-gitlab {
+    @include icon("\e902");
   }
 
-  &.icon-github:before {
-    content: "\e901";
+  &-github {
+    @include icon("\e901");
   }
 
-  &.icon-bitbucket:before {
-    content: "\e900";
+  &-bitbucket {
+    @include icon("\e900");
   }
 
-  &.icon-cog:before {
-    content: "\e994";
+  &-cog {
+    @include icon("\e994");
   }
 }

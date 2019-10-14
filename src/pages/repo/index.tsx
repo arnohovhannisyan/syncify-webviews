@@ -198,7 +198,7 @@ export const RepoPage = (props: IProps) => {
             <div className="list-group">
               {formatRepos().map(r => (
                 <span
-                  className="list-group-item d-flex flex-column flex-sm-row justify-content-between"
+                  className="list-group-item d-flex flex-column flex-lg-row justify-content-between"
                   key={r.name}
                 >
                   <div>
@@ -212,13 +212,13 @@ export const RepoPage = (props: IProps) => {
                       href={r.url}
                       target="_blank"
                       rel="noopener"
-                      className="btn btn-primary btn-lg w-sm-auto mt-2 mt-sm-0 mr-2"
+                      className="btn btn-primary btn-lg w-lg-auto mt-2 mt-lg-0 mr-2"
                     >
                       View
                     </a>
                     <button
                       onClick={() => useExisting(r.name)}
-                      className="btn btn-primary btn-lg w-sm-auto mt-2 mt-sm-0"
+                      className="btn btn-primary btn-lg w-lg-auto mt-2 mt-lg-0"
                     >
                       Use This
                     </button>
