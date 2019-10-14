@@ -17,16 +17,8 @@
 }
 
 @font-face {
-  font-family: "Font Awesome 5 Brands";
-  src: url("~/fonts/fa-brands.woff2");
-  font-style: normal;
-  font-weight: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Font Awesome 5 Solid";
-  src: url("~/fonts/fa-solid.woff2");
+  font-family: Icons;
+  src: url("~/fonts/icons.woff");
   font-style: normal;
   font-weight: normal;
   font-display: swap;

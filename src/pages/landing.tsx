@@ -18,7 +18,7 @@ export const LandingPage = () => {
                 title="Login with GitHub"
                 className="btn btn-github font-weight-bold"
               >
-                <span className="fab fa-github mr-2" /> Login with GitHub
+                <span className="icon icon-github mr-2" /> Login with GitHub
               </button>
             </div>
             <div className="w-100" />
@@ -28,7 +28,7 @@ export const LandingPage = () => {
                 title="Login with GitLab"
                 className="btn btn-gitlab font-weight-bold"
               >
-                <span className="fab fa-gitlab mr-2" /> Login with GitLab
+                <span className="icon icon-gitlab mr-2" /> Login with GitLab
               </button>
             </div>
             <div className="w-100"></div>
@@ -38,7 +38,8 @@ export const LandingPage = () => {
                 title="Login with BitBucket"
                 className="btn btn-bitbucket font-weight-bold"
               >
-                <span className="fab fa-bitbucket mr-2" /> Login with BitBucket
+                <span className="icon icon-bitbucket mr-2" /> Login with
+                BitBucket
               </button>
             </div>
             <div className="w-100"></div>
@@ -48,7 +49,7 @@ export const LandingPage = () => {
                 title="Open Settings"
                 className="btn btn-primary font-weight-bold"
               >
-                <span className="fas fa-cog mr-2" /> Open Settings
+                <span className="icon icon-cog mr-2" /> Open Settings
               </button>
             </div>
           </div>

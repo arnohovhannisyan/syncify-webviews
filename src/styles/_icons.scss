@@ -1,0 +1,19 @@
+.icon {
+  font-family: Icons;
+
+  &.icon-gitlab:before {
+    content: "\e902";
+  }
+
+  &.icon-github:before {
+    content: "\e901";
+  }
+
+  &.icon-bitbucket:before {
+    content: "\e900";
+  }
+
+  &.icon-cog:before {
+    content: "\e994";
+  }
+}
