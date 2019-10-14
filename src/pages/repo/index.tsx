@@ -1,3 +1,4 @@
+import dashify from "dashify";
 import Fuse from "fuse.js";
 import React, { Fragment, useState } from "react";
 import { HeaderComponent, ModalComponent } from "~/components";
@@ -42,7 +43,7 @@ export const RepoPage = (props: IProps) => {
 
     if (!nameInput) return;
 
-    const name = nameInput.value;
+    const name = dashify(nameInput.value);
 
     if (!name) {
       modalControls.setContent({

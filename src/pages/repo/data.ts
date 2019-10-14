@@ -1,5 +1,4 @@
 import axios from "axios";
-import dashify from "dashify";
 import { IAuthData, IRepo } from "~/pages/repo";
 
 const getAuthHeaders = (token: string) => ({
@@ -40,7 +39,7 @@ export class Data {
       bitbucket: (r: any) => ({
         name: r.name,
         description: r.description,
-        url: r.html_url
+        url: r.links.html.href
       })
     };
 
@@ -52,31 +51,29 @@ export class Data {
     isPrivate: boolean,
     authData: IAuthData
   ) {
-    const newName = dashify(name);
-
     const { token, user, provider } = authData;
 
-    const gitlabParams = `path=${newName}&description=${`${user}'s Syncify Settings Repository`}&visibility=${
+    const gitlabParams = `path=${name}&description=${`${user}'s Syncify Settings Repository`}&visibility=${
       isPrivate ? "private" : "public"
     }`;
 
     const urls = {
       github: `https://api.github.com/user/repos`,
       gitlab: `https://gitlab.com/api/v4/projects?${gitlabParams}`,
-      bitbucket: `https://api.bitbucket.org/2.0/repositories/${user}/${newName}`
+      bitbucket: `https://api.bitbucket.org/2.0/repositories/${user}/${name}`
     };
 
     const bodies = {
       github: {
-        newName,
+        name,
         owner: user,
         description: `${user}'s Syncify Settings Repository`,
         private: isPrivate
       },
       gitlab: {},
       bitbucket: {
+        name,
         scm: "git",
-        name: newName,
         description: `${user}'s Syncify Settings Repository`,
         is_private: isPrivate
       }
