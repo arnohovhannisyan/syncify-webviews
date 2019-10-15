@@ -5,7 +5,7 @@ import React from "react";
 import { render } from "react-dom";
 import { defaultSections, defaultSettings } from "~/defaults";
 import { PageType } from "~/models";
-import { LandingPage, RepoPage, SettingsPage } from "~/pages";
+import { ErrorPage, LandingPage, RepoPage, SettingsPage } from "~/pages";
 import Utilities from "~/utilities";
 
 if (!Utilities.runningOnVSCode()) {
@@ -46,6 +46,12 @@ const PageElement = () => {
           }
         />
       );
+    case PageType.Error:
+      const error = Utilities.runningOnVSCode()
+        ? Utilities.getData("error")
+        : Utilities.runningOnVSCode.toString();
+
+      return <ErrorPage error={error} />;
     default:
       return <LandingPage />;
   }

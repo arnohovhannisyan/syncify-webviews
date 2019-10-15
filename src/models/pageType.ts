@@ -1,5 +1,6 @@
 export enum PageType {
   Landing = "landing",
   Repo = "repo",
-  Settings = "settings"
+  Settings = "settings",
+  Error = "error"
 }

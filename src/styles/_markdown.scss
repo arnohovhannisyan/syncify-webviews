@@ -1,0 +1,18 @@
+.markdown {
+  & ul,
+  & ol,
+  & p {
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+  }
+
+  & ul,
+  & ol {
+    padding-left: 20px;
+  }
+
+  p,
+  li {
+    font-size: 1.2rem;
+  }
+}

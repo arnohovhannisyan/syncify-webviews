@@ -1,5 +1,5 @@
 import axios from "axios";
-import { IAuthData, IRepo } from "~/pages/repo";
+import { IAuthData, IRepo } from "~/models";
 
 const getAuthHeaders = (token: string) => ({
   github: `token ${token}`,

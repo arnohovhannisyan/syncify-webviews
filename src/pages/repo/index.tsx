@@ -2,23 +2,9 @@ import dashify from "dashify";
 import Fuse from "fuse.js";
 import React, { Fragment, useState } from "react";
 import { HeaderComponent, ModalComponent } from "~/components";
-import { IModalControls } from "~/models";
+import { IAuthData, IModalControls, IRepo } from "~/models";
 import { Data } from "~/pages/repo/data";
 import { getVSCode } from "~/utilities";
-
-export type Provider = "github" | "gitlab" | "bitbucket";
-
-export interface IAuthData {
-  token: string;
-  user: string;
-  provider: Provider;
-}
-
-export interface IRepo {
-  name: string;
-  description: string;
-  url: string;
-}
 
 interface IProps {
   authData: IAuthData;
