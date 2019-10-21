@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Subject } from "rxjs";
 import { debounceTime } from "rxjs/operators";
 import { IUpdate } from "~/models";
@@ -16,9 +16,13 @@ interface IProps {
 export const NumberInputComponent = (props: IProps) => {
   const subject = new Subject<IUpdate>();
 
-  subject
-    .pipe(debounceTime(1000))
-    .subscribe(update => vscode.postMessage(update));
+  useEffect(() => {
+    const subscription = subject
+      .pipe(debounceTime(1000))
+      .subscribe(update => vscode.postMessage(update));
+
+    return () => subscription.unsubscribe();
+  });
 
   return (
     <div className="form-group mb-4">

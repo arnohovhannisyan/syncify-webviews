@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "start": "yarn clean && parcel src/index.html",
-    "build": "yarn clean && parcel build src/index.html --public-url . --no-source-maps && yarn postprocess",
+    "build": "yarn clean && parcel build src/index.html --public-url . --no-source-maps --experimental-scope-hoisting && yarn postprocess",
     "clean": "shx rm -rf dist",
     "postprocess": "node scripts/postprocess.js"
   },

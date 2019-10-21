@@ -49,7 +49,8 @@ const PageElement = () => {
     case PageType.Error:
       const error = Utilities.runningOnVSCode()
         ? Utilities.getData("error")
-        : Utilities.runningOnVSCode.toString();
+        : new URLSearchParams(location.search.slice(1)).get("error") ||
+          Utilities.runningOnVSCode.toString();
 
       return <ErrorPage error={error} />;
     default:
