@@ -1,6 +1,1 @@
-export enum PageType {
-  Landing = "landing",
-  Repo = "repo",
-  Settings = "settings",
-  Error = "error"
-}
+export type PageType = "landing" | "repo" | "settings" | "error";

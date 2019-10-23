@@ -6,53 +6,43 @@ import { render } from "react-dom";
 import { defaultSections, defaultSettings } from "~/defaults";
 import { PageType } from "~/models";
 import { ErrorPage, LandingPage, RepoPage, SettingsPage } from "~/pages";
-import Utilities from "~/utilities";
+import { getData, runningOnVSCode, useSearchParam } from "~/utilities";
 
-if (!Utilities.runningOnVSCode()) {
+if (!runningOnVSCode()) {
   document.body.classList.add("runningOnWeb");
 }
 
-const page: PageType = Utilities.runningOnVSCode()
-  ? Utilities.getData("page")
+const page: PageType = runningOnVSCode()
+  ? getData("page")
   : window.location.pathname.slice(1);
 
 const PageElement = () => {
   switch (page) {
-    case PageType.Landing:
+    case "landing":
       return <LandingPage />;
-    case PageType.Repo:
-      const params = new URLSearchParams(location.search.slice(1));
-      const data = Utilities.runningOnVSCode()
-        ? Utilities.getData("auth")
+    case "repo":
+      const data = runningOnVSCode()
+        ? getData("auth")
         : {
-            token: params.get("token"),
-            user: params.get("user"),
-            provider: params.get("provider")
+            token: useSearchParam("token"),
+            user: useSearchParam("user"),
+            provider: useSearchParam("provider")
           };
 
       return <RepoPage authData={data} />;
-    case PageType.Settings:
+    case "settings":
       return (
         <SettingsPage
-          sections={
-            Utilities.runningOnVSCode()
-              ? Utilities.getData("sections")
-              : defaultSections
-          }
-          settings={
-            Utilities.runningOnVSCode()
-              ? Utilities.getData("settings")
-              : defaultSettings
-          }
+          sections={runningOnVSCode() ? getData("sections") : defaultSections}
+          settings={runningOnVSCode() ? getData("settings") : defaultSettings}
         />
       );
-    case PageType.Error:
-      const error = Utilities.runningOnVSCode()
-        ? Utilities.getData("error")
-        : new URLSearchParams(location.search.slice(1)).get("error") ||
-          Utilities.runningOnVSCode.toString();
+    case "error":
+      const err = runningOnVSCode()
+        ? getData("error")
+        : useSearchParam("error") || "";
 
-      return <ErrorPage error={error} />;
+      return <ErrorPage error={err} />;
     default:
       return <LandingPage />;
   }
