@@ -13,6 +13,8 @@ interface IProps {
 }
 
 export const CheckboxComponent = (props: IProps) => {
+  const { name, value, correspondingSetting } = props;
+
   const subject = new Subject<IUpdate>();
 
   useEffect(() => {
@@ -24,24 +26,24 @@ export const CheckboxComponent = (props: IProps) => {
   });
 
   return (
-    <div className="custom-control custom-checkbox my-2">
+    <div className="custom-control custom-control-lg custom-checkbox my-2">
       <input
-        className="custom-control-input checkbox"
-        defaultChecked={props.value}
+        className="custom-control-input"
+        defaultChecked={value}
         type="checkbox"
-        id={`setting:${props.correspondingSetting}`}
+        id={`setting:${correspondingSetting}`}
         onChange={e =>
           subject.next({
-            setting: props.correspondingSetting,
+            setting: correspondingSetting,
             value: e.target.checked
           })
         }
       />
       <label
-        htmlFor={`setting:${props.correspondingSetting}`}
+        htmlFor={`setting:${correspondingSetting}`}
         className="custom-control-label"
       >
-        {props.name}
+        {name}
       </label>
     </div>
   );

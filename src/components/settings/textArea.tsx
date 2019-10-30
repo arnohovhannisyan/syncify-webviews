@@ -14,6 +14,8 @@ interface IProps {
 }
 
 export const TextAreaComponent = (props: IProps) => {
+  const { name, value, placeholder, correspondingSetting } = props;
+
   const subject = new Subject<IUpdate>();
 
   useEffect(() => {
@@ -26,18 +28,16 @@ export const TextAreaComponent = (props: IProps) => {
 
   return (
     <div className="form-group mb-3">
-      <label htmlFor={`setting:${props.correspondingSetting}`}>
-        {props.name}
-      </label>
+      <label htmlFor={`setting:${correspondingSetting}`}>{name}</label>
       <textarea
-        className="form-control textarea"
-        id={`setting:${props.correspondingSetting}`}
-        rows={props.value.length}
-        placeholder={props.placeholder}
-        defaultValue={props.value.join("\n")}
+        className="form-control padded-input"
+        id={`setting:${correspondingSetting}`}
+        rows={value.length}
+        placeholder={placeholder}
+        defaultValue={value.join("\n")}
         onChange={e => {
           subject.next({
-            setting: props.correspondingSetting,
+            setting: correspondingSetting,
             value: e.target.value
               .split("\n")
               .filter(a => !!a && !/^\s*$/.test(a))

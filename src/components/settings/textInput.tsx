@@ -14,6 +14,8 @@ interface IProps {
 }
 
 export const TextInputComponent = (props: IProps) => {
+  const { name, value, placeholder, correspondingSetting } = props;
+
   const subject = new Subject<IUpdate>();
 
   useEffect(() => {
@@ -26,18 +28,16 @@ export const TextInputComponent = (props: IProps) => {
 
   return (
     <div className="form-group mb-4">
-      <label htmlFor={`setting:${props.correspondingSetting}`}>
-        {props.name}
-      </label>
+      <label htmlFor={`setting:${correspondingSetting}`}>{name}</label>
       <input
         type="text"
-        className="form-control text"
-        defaultValue={props.value}
-        id={`setting:${props.correspondingSetting}`}
-        placeholder={props.placeholder}
+        className="form-control padded-input"
+        defaultValue={value}
+        id={`setting:${correspondingSetting}`}
+        placeholder={placeholder}
         onChange={e => {
           subject.next({
-            setting: props.correspondingSetting,
+            setting: correspondingSetting,
             value: e.target.value
           });
         }}
