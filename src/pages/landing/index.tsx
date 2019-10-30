@@ -1,9 +1,9 @@
 import React, { Fragment } from "react";
 import { HeaderComponent } from "~/components";
-import { getVSCode } from "~/utilities";
+import { useVSCode } from "~/utilities";
 
 export const LandingPage = () => {
-  const vscode = getVSCode();
+  const vscode = useVSCode();
 
   return (
     <Fragment>

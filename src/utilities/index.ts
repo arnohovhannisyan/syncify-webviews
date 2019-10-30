@@ -1,15 +1,15 @@
 import { getData } from "~/utilities/getData";
-import { getVSCode } from "~/utilities/getVSCode";
 import { isJSON } from "~/utilities/isJSON";
 import { runningOnVSCode } from "~/utilities/runningOnVSCode";
 import { useSearchParam } from "~/utilities/useSearchParam";
+import { useVSCode } from "~/utilities/useVSCode";
 
-export { getData, getVSCode, isJSON, runningOnVSCode, useSearchParam };
+export { getData, useVSCode, isJSON, runningOnVSCode, useSearchParam };
 
 export default {
   isJSON,
   runningOnVSCode,
-  getVSCode,
+  useVSCode,
   getData,
   useSearchParam
 };

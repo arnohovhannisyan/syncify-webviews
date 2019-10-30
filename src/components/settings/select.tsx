@@ -2,9 +2,7 @@ import React, { useEffect } from "react";
 import { Subject } from "rxjs";
 import { debounceTime } from "rxjs/operators";
 import { IOption, IUpdate } from "~/models";
-import { getVSCode } from "~/utilities";
-
-const vscode = getVSCode();
+import { useVSCode } from "~/utilities";
 
 interface IProps {
   correspondingSetting: string;
@@ -14,6 +12,8 @@ interface IProps {
 }
 
 export const SelectComponent = (props: IProps) => {
+  const vscode = useVSCode();
+
   const { name, value, options, correspondingSetting } = props;
 
   const subject = new Subject<IUpdate>();

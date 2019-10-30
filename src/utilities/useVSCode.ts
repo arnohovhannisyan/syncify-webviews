@@ -1,12 +1,12 @@
 import { runningOnVSCode } from "~/utilities";
 
 interface IVSCode {
-  postMessage: (message: any) => void;
+  postMessage: (message: any) => any;
 }
 
 let vscodeCache: IVSCode;
 
-export function getVSCode(): IVSCode {
+export function useVSCode(): IVSCode {
   if (vscodeCache) return vscodeCache;
 
   vscodeCache = runningOnVSCode()

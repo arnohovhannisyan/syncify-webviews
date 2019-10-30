@@ -4,7 +4,7 @@ import React, { Fragment, useState } from "react";
 import { HeaderComponent, ModalComponent } from "~/components";
 import { IAuthData, IModalControls, IRepo } from "~/models";
 import { Data } from "~/pages/repo/data";
-import { getVSCode } from "~/utilities";
+import { useVSCode } from "~/utilities";
 
 interface IProps {
   authData: IAuthData;
@@ -16,7 +16,7 @@ export const RepoPage = (props: IProps) => {
   const [repos, setRepos] = useState<IRepo[]>([]);
   const [filter, setFilter] = useState("");
 
-  const vscode = getVSCode();
+  const vscode = useVSCode();
 
   let modalControls: IModalControls;
 
