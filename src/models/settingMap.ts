@@ -31,7 +31,6 @@ interface ISelect {
   name: string;
   type: ISettingType.Select;
   correspondingSetting: string;
-  placeholder: string;
   options: IOption[];
 }
 
