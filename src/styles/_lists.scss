@@ -12,3 +12,11 @@
     padding-bottom: 1.25rem !important;
   }
 }
+
+.element-counter {
+  color: rgba(255, 255, 255, 0.5) !important;
+
+  body.vscode-light & {
+    color: rgba(0, 0, 0, 0.5) !important;
+  }
+}
