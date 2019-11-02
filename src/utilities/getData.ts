@@ -9,7 +9,7 @@ export function getData(name: string) {
 
   if (!attr) return;
 
-  const data = unescape(attr);
+  const data = decodeURIComponent(attr);
 
   if (isJSON(data)) return JSON.parse(data);
 
