@@ -6,3 +6,4 @@ export * from "~/components/settings/checkbox";
 export * from "~/components/settings/textArea";
 export * from "~/components/settings/section";
 export * from "~/components/settings/select";
+export * from "~/components/settings/objectArray";

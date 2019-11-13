@@ -1,17 +1,13 @@
 import { isJSON } from "~/utilities";
 
-export function getData(name: string) {
-  const receiver = document.querySelector("data-receiver");
+export function getData(name: string): any {
+  const data = decodeURIComponent(
+    document.querySelector("data-receiver")?.getAttribute(`data-${name}`) ?? ""
+  );
 
-  if (!receiver) return;
-
-  const attr = receiver.getAttribute(`data-${name}`);
-
-  if (!attr) return;
-
-  const data = decodeURIComponent(attr);
+  if (!data) return;
 
   if (isJSON(data)) return JSON.parse(data);
 
-  return data as any;
+  return data;
 }

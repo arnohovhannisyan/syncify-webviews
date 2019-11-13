@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Subject } from "rxjs";
 import { debounceTime } from "rxjs/operators";
 import { IUpdate } from "~/models";
@@ -9,14 +9,20 @@ interface IProps {
   value: string[];
   name: string;
   placeholder: string;
+  onChange?: (update: IUpdate) => any;
 }
 
 export const TextAreaComponent = (props: IProps) => {
   const vscode = useVSCode();
 
-  const { name, value, placeholder, correspondingSetting } = props;
+  const { name, placeholder, correspondingSetting } = props;
 
-  const subject = new Subject<IUpdate>();
+  const [value, setValue] = useState(props.value);
+  const [subject] = useState(new Subject<IUpdate>());
+
+  useEffect(() => {
+    setValue(props.value);
+  }, [props.value]);
 
   useEffect(() => {
     const subscription = subject
@@ -24,7 +30,7 @@ export const TextAreaComponent = (props: IProps) => {
       .subscribe(update => vscode.postMessage(update));
 
     return () => subscription.unsubscribe();
-  });
+  }, []);
 
   return (
     <div className="form-group mb-3">
@@ -34,14 +40,19 @@ export const TextAreaComponent = (props: IProps) => {
         id={`setting:${correspondingSetting}`}
         rows={value.length}
         placeholder={placeholder}
-        defaultValue={value.join("\n")}
+        value={value.join("\n")}
         onChange={e => {
-          subject.next({
+          const update: IUpdate = {
             setting: correspondingSetting,
             value: e.target.value
               .split("\n")
               .filter(a => !!a && !/^\s*$/.test(a))
-          });
+          };
+
+          setValue(update.value);
+
+          subject.next(update);
+          if (props.onChange) props.onChange(update);
         }}
       />
     </div>

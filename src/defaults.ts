@@ -1,6 +1,6 @@
-import { ISettingType } from "~/models";
+import { ISection, ISettingType } from "~/models";
 
-export const defaultSections = [
+export const defaultSections: ISection[] = [
   {
     name: "General",
     settings: [
@@ -26,12 +26,31 @@ export const defaultSections = [
         name: "Test Select",
         correspondingSetting: "testSelect",
         type: ISettingType.Select,
-        placeholder: "Choose one!",
         options: [
           { name: "One", value: "1" },
           { name: "Two", value: "2" },
           { name: "Three", value: "3" }
         ]
+      },
+      {
+        name: "Test Object Array",
+        correspondingSetting: "testObjectArray",
+        type: ISettingType.ObjectArray,
+        schema: [
+          {
+            name: "Hello!",
+            correspondingSetting: "hello",
+            placeholder: "Enter Hello!",
+            type: ISettingType.TextInput
+          },
+          {
+            name: "Goodbye!",
+            correspondingSetting: "goodbye",
+            placeholder: "Enter Goodbye!",
+            type: ISettingType.NumberInput
+          }
+        ],
+        newTemplate: { hello: "Hi!", goodbye: 1 }
       },
       {
         name: "Test Boolean",
@@ -47,5 +66,6 @@ export const defaultSettings = {
   testString: "Hello!",
   testArray: ["1!", "2!", "3!"],
   testSelect: "2",
-  testBool: true
+  testBool: true,
+  testObjectArray: [{ hello: "Hi!", goodbye: 1 }]
 };

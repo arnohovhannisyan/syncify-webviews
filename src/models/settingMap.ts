@@ -34,9 +34,18 @@ interface ISelect {
   options: IOption[];
 }
 
+interface IObjectArray {
+  name: string;
+  type: ISettingType.ObjectArray;
+  correspondingSetting: string;
+  schema: ISettingMap[];
+  newTemplate: object;
+}
+
 export type ISettingMap =
   | ICheckbox
   | ISelect
   | ITextArea
   | ITextInput
-  | INumberInput;
+  | INumberInput
+  | IObjectArray;
