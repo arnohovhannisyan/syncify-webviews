@@ -38,43 +38,49 @@ export const ObjectArrayComponent = (props: IProps) => {
         const settings = set({}, rootPath, val);
 
         return (
-          <div className="mb-4" key={i}>
-            <p className="element-counter mb-1">Element {i}</p>
-            {Object.keys(val).map(key => (
-              <div key={key}>
-                {getSettingComponent(
-                  settings,
-                  {
-                    ...schema.filter(s => s.correspondingSetting === key)[0],
-                    correspondingSetting: `${rootPath}.${key}`
-                  },
-                  update => {
-                    const path = update.setting.slice(rootPath.length + 1);
+          <div className="mb-4 mb-sm-0" key={i}>
+            <div className="d-flex flex-wrap">
+              <div className="flex-grow-1">
+                <p className="element-counter mb-1">Element {i}</p>
+                {Object.keys(val).map(key => (
+                  <div key={key}>
+                    {getSettingComponent(
+                      settings,
+                      {
+                        ...schema.filter(
+                          s => s.correspondingSetting === key
+                        )[0],
+                        correspondingSetting: `${rootPath}.${key}`
+                      },
+                      update => {
+                        const path = update.setting.slice(rootPath.length + 1);
 
-                    setValue(prev =>
-                      set([...prev], `[${i}].${path}`, update.value)
-                    );
-                  }
-                )}
+                        setValue(prev =>
+                          set([...prev], `[${i}].${path}`, update.value)
+                        );
+                      }
+                    )}
+                  </div>
+                ))}
               </div>
-            ))}
-            <button
-              className="btn btn-primary"
-              onClick={() => {
-                setValue(prev => {
-                  const newVal = prev.filter(v => v !== val);
+              <button
+                className="btn btn-primary w-sm-auto w-100 h-auto ml-sm-4 mb-sm-4"
+                onClick={() => {
+                  setValue(prev => {
+                    const newVal = prev.filter(v => v !== val);
 
-                  subject.next({
-                    setting: correspondingSetting,
-                    value: newVal
+                    subject.next({
+                      setting: correspondingSetting,
+                      value: newVal
+                    });
+
+                    return newVal;
                   });
-
-                  return newVal;
-                });
-              }}
-            >
-              Remove
-            </button>
+                }}
+              >
+                <span className="icon-close"></span>
+              </button>
+            </div>
           </div>
         );
       })}
@@ -93,7 +99,7 @@ export const ObjectArrayComponent = (props: IProps) => {
           })
         }
       >
-        Add New
+        <span className="icon-plus"></span>
       </button>
     </div>
   );

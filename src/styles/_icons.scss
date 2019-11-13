@@ -24,4 +24,12 @@
   &-cog {
     @include icon("\e994");
   }
+
+  &-plus {
+    @include icon("\ea0a");
+  }
+
+  &-close {
+    @include icon("\ea0f");
+  }
 }
