@@ -143,7 +143,7 @@ export const RepoPage = (props: IProps) => {
             <label htmlFor="name">Repository Name</label>
             <input
               type="text"
-              className="form-control form-control-lg text"
+              className="form-control form-control-lg padded-input"
               id="name"
               placeholder="Enter New Repository Name"
             />
@@ -175,7 +175,7 @@ export const RepoPage = (props: IProps) => {
             <div className="form-group">
               <input
                 type="text"
-                className="form-control form-control-lg text"
+                className="form-control form-control-lg padded-input"
                 id="filter"
                 placeholder="Search Repositories"
                 onChange={e => setFilter(e.target.value)}

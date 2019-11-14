@@ -79,15 +79,6 @@ export class Data {
       }
     };
 
-    if (provider === "github") {
-      return axios.post(urls[provider], {
-        data: bodies[provider],
-        headers: {
-          Authorization: getAuthHeaders(token)[provider]
-        }
-      });
-    }
-
     return fetch(urls[provider], {
       method: "POST",
       body: JSON.stringify(bodies[provider]),
