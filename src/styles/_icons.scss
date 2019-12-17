@@ -32,4 +32,8 @@
   &-close {
     @include icon("\ea0f");
   }
+
+  &-arrow-down {
+    @include icon("\ea3e");
+  }
 }

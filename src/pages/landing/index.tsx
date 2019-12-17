@@ -47,6 +47,15 @@ export const LandingPage = () => {
                 <span className="icon-cog mr-2" /> Open Settings
               </button>
             </div>
+            <div className="w-100"></div>
+            <div className="col-lg mb-2">
+              <button
+                onClick={() => vscode.postMessage("nologin")}
+                className="btn btn-primary"
+              >
+                <span className="icon-arrow-down mr-2" /> Download Without Login
+              </button>
+            </div>
           </div>
         </div>
         <div className="col-lg overflow-auto">
