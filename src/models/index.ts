@@ -10,4 +10,3 @@ export * from "~/models/repo";
 export * from "~/models/descriptor";
 export * from "~/models/modal/button";
 export * from "~/models/modal/content";
-export * from "~/models/modal/controls";

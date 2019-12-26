@@ -10,4 +10,12 @@
   &-body {
     padding: 0rem 1rem;
   }
+
+  &-content {
+    border: 0;
+
+    & > div {
+      border-radius: 0.1rem;
+    }
+  }
 }

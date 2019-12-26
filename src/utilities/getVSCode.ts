@@ -6,7 +6,7 @@ interface IVSCode {
 
 let vscodeCache: IVSCode;
 
-export function useVSCode(): IVSCode {
+export function getVSCode(): IVSCode {
   if (vscodeCache) return vscodeCache;
 
   vscodeCache = runningOnVSCode()

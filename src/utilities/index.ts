@@ -1,24 +1,6 @@
-import { getData } from "~/utilities/getData";
-import { getSettingComponent } from "~/utilities/getSettingComponent";
-import { isJSON } from "~/utilities/isJSON";
-import { runningOnVSCode } from "~/utilities/runningOnVSCode";
-import { useSearchParam } from "~/utilities/useSearchParam";
-import { useVSCode } from "~/utilities/useVSCode";
-
-export {
-  getData,
-  useVSCode,
-  isJSON,
-  runningOnVSCode,
-  useSearchParam,
-  getSettingComponent
-};
-
-export default {
-  isJSON,
-  runningOnVSCode,
-  useVSCode,
-  getData,
-  useSearchParam,
-  getSettingComponent
-};
+export { getData } from "~/utilities/getData";
+export { getSettingComponent } from "~/utilities/getSettingComponent";
+export { isJSON } from "~/utilities/isJSON";
+export { runningOnVSCode } from "~/utilities/runningOnVSCode";
+export { useSearchParam } from "~/utilities/useSearchParam";
+export { getVSCode as useVSCode } from "~/utilities/getVSCode";

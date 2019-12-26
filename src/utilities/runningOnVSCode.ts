@@ -1,7 +1,3 @@
 export function runningOnVSCode() {
-  try {
-    return !!acquireVsCodeApi;
-  } catch {
-    return false;
-  }
+  return typeof acquireVsCodeApi !== "undefined";
 }

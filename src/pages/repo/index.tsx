@@ -2,7 +2,7 @@ import dashify from "dashify";
 import Fuse from "fuse.js";
 import React, { Fragment, useState } from "react";
 import { HeaderComponent, ModalComponent } from "~/components";
-import { IAuthData, IModalControls, IRepo } from "~/models";
+import { IAuthData, IModalContent, IRepo } from "~/models";
 import { Data } from "~/pages/repo/data";
 import { useVSCode } from "~/utilities";
 
@@ -16,9 +16,16 @@ export const RepoPage = (props: IProps) => {
   const [repos, setRepos] = useState<IRepo[]>([]);
   const [filter, setFilter] = useState("");
 
-  const vscode = useVSCode();
+  const [modalContent, setModalContent] = useState<IModalContent>({
+    buttons: [],
+    id: "",
+    message: "",
+    title: ""
+  });
 
-  let modalControls: IModalControls;
+  const [showModal, setShowModal] = useState(false);
+
+  const vscode = useVSCode();
 
   async function getRepos() {
     setRepos(await Data.getRepos(authData));
@@ -32,7 +39,7 @@ export const RepoPage = (props: IProps) => {
     const name = dashify(nameInput.value);
 
     if (!name) {
-      modalControls.setContent({
+      setModalContent({
         id: "invalidName",
         title: "Invalid Repository Name!",
         message: `The name of the repository must not be empty.`,
@@ -45,7 +52,7 @@ export const RepoPage = (props: IProps) => {
         ]
       });
 
-      return modalControls.show();
+      return setShowModal(true);
     }
 
     const privateCheckbox = document.querySelector<HTMLInputElement>(
@@ -61,7 +68,7 @@ export const RepoPage = (props: IProps) => {
 
       sendMessage(name);
 
-      modalControls.setContent({
+      setModalContent({
         id: "created",
         title: "Repository Created!",
         message: `The repository has been created and registered with Syncify! You may now lose
@@ -75,9 +82,9 @@ export const RepoPage = (props: IProps) => {
         ]
       });
 
-      modalControls.show();
+      setShowModal(true);
     } catch (err) {
-      modalControls.setContent({
+      setModalContent({
         id: "created",
         title: "Error Creating Repository!",
         message: err.message,
@@ -90,14 +97,14 @@ export const RepoPage = (props: IProps) => {
         ]
       });
 
-      modalControls.show();
+      setShowModal(true);
     }
   };
 
   const useExisting = async (name: string) => {
     sendMessage(name);
 
-    modalControls.setContent({
+    setModalContent({
       id: "registered",
       title: "Repository Registered!",
       message: `The repository has been registered with Syncify! You may now lose
@@ -111,7 +118,7 @@ export const RepoPage = (props: IProps) => {
       ]
     });
 
-    modalControls.show();
+    setShowModal(true);
   };
 
   const sendMessage = (name: string) => {
@@ -132,9 +139,9 @@ export const RepoPage = (props: IProps) => {
     <Fragment>
       <HeaderComponent />
       <ModalComponent
-        onMount={controls => {
-          modalControls = controls;
-        }}
+        content={modalContent}
+        handleClose={() => setShowModal(false)}
+        show={showModal}
       />
       <div>
         <h3>New Repository</h3>
@@ -148,7 +155,7 @@ export const RepoPage = (props: IProps) => {
               placeholder="Enter New Repository Name"
             />
           </div>
-          <div className="custom-control custom-checkbox mb-3">
+          <div className="custom-control custom-checkbox custom-control-lg mb-3">
             <input
               type="checkbox"
               className="custom-control-input"
@@ -189,7 +196,7 @@ export const RepoPage = (props: IProps) => {
                 >
                   <div>
                     <h5 className="mb-1">{r.name}</h5>
-                    <p className="mb-0">
+                    <p className="mb-0 pr-2">
                       {r.description || "No description for this repository."}
                     </p>
                   </div>
@@ -204,7 +211,7 @@ export const RepoPage = (props: IProps) => {
                     </a>
                     <button
                       onClick={() => useExisting(r.name)}
-                      className="btn btn-primary btn-lg w-lg-auto mt-2 mt-lg-0"
+                      className="btn btn-primary btn-lg w-lg-auto mt-2 mt-lg-0 text-nowrap"
                     >
                       Use This
                     </button>

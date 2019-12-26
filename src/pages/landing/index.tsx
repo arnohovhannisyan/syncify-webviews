@@ -41,19 +41,19 @@ export const LandingPage = () => {
             <div className="w-100"></div>
             <div className="col-lg mb-2">
               <button
-                onClick={() => vscode.postMessage("settings")}
+                onClick={() => vscode.postMessage("nologin")}
                 className="btn btn-primary"
               >
-                <span className="icon-cog mr-2" /> Open Settings
+                <span className="icon-arrow-down mr-2" /> Download Without Login
               </button>
             </div>
             <div className="w-100"></div>
             <div className="col-lg mb-2">
               <button
-                onClick={() => vscode.postMessage("nologin")}
+                onClick={() => vscode.postMessage("settings")}
                 className="btn btn-primary"
               >
-                <span className="icon-arrow-down mr-2" /> Download Without Login
+                <span className="icon-cog mr-2" /> Open Settings
               </button>
             </div>
           </div>

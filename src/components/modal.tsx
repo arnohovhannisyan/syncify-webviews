@@ -1,64 +1,42 @@
 import "bootstrap";
-import $ from "jquery";
-import React, { useState } from "react";
-import { IModalContent, IModalControls } from "~/models";
+import React from "react";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import { IModalContent } from "~/models";
 
 interface IProps {
-  onMount: (controls: IModalControls) => void;
+  content: IModalContent;
+  show: boolean;
+  handleClose: () => any;
 }
 
-export const ModalComponent = (props: IProps) => {
-  const [content, setContent] = useState<IModalContent>({
-    buttons: [],
-    id: "",
-    message: "",
-    title: ""
-  });
-
-  props.onMount({
-    show: () => $(".modal").modal("show"),
-    hide: () => $(".modal").modal("hide"),
-    setContent: (c: IModalContent) => setContent(c)
-  });
-
-  return (
+export const ModalComponent = (props: IProps) => (
+  <Modal show={props.show} onHide={props.handleClose} centered>
     <div
-      className="modal fade"
-      id={`modal-${content.id}`}
-      tabIndex={-1}
-      role="dialog"
-      aria-labelledby="exampleModalCenterTitle"
-      aria-hidden="true"
+      className={
+        document.body.className.includes("vscode-light")
+          ? "bg-light"
+          : "bg-dark"
+      }
     >
-      <div className="modal-dialog modal-dialog-centered" role="document">
-        <div
-          className={`modal-content ${
-            document.body.className.includes("vscode-light")
-              ? "bg-light"
-              : "bg-dark"
-          }`}
-        >
-          <div className="modal-header">
-            <h5 className="modal-title text-left" id="exampleModalCenterTitle">
-              {content.title}
-            </h5>
-          </div>
-          <div className="modal-body text-left">{content.message}</div>
-          <div className="modal-footer">
-            {content.buttons.map(btn => (
-              <button
-                type="button"
-                className={`btn btn-${btn.color}`}
-                data-dismiss="modal"
-                onClick={() => btn.action()}
-                key={btn.name}
-              >
-                {btn.name}
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
+      <Modal.Header>
+        <Modal.Title>{props.content.title}</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>{props.content.message}</Modal.Body>
+      <Modal.Footer>
+        {props.content.buttons.map(btn => (
+          <Button
+            onClick={() => {
+              props.handleClose();
+              btn.action();
+            }}
+            key={btn.name}
+            variant={btn.color}
+          >
+            {btn.name}
+          </Button>
+        ))}
+      </Modal.Footer>
     </div>
-  );
-};
+  </Modal>
+);

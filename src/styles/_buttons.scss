@@ -10,10 +10,9 @@
   justify-content: center;
   align-items: center;
   font-weight: bold;
+  color: #fff !important;
 
   &-primary {
-    color: #fff !important;
-
     &,
     &:focus {
       background-color: #488a81 !important;
@@ -26,11 +25,9 @@
   }
 
   &-github {
-    color: #fff !important;
-
     &,
     &:focus {
-      background-color: #4f5a58 !important;
+      background-color: #4f5a58;
     }
 
     &:hover,
@@ -40,8 +37,6 @@
   }
 
   &-gitlab {
-    color: #fff !important;
-
     &,
     &:focus {
       background-color: #dd8929 !important;
@@ -54,8 +49,6 @@
   }
 
   &-bitbucket {
-    color: #fff !important;
-
     &,
     &:focus {
       background-color: #1f9bcc !important;

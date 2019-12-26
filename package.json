@@ -18,19 +18,19 @@
     "@types/jquery": "^3.3.31",
     "@types/lodash": "^4.14.149",
     "@types/marked": "^0.7.2",
-    "@types/node": "^12.12.14",
-    "@types/react": "^16.9.15",
+    "@types/node": "^13.1.0",
+    "@types/react": "^16.9.17",
     "@types/react-dom": "^16.9.4",
     "fs-extra": "^8.1.0",
     "parcel-bundler": "^1.12.4",
     "prettier": "^1.19.1",
-    "sass": "^1.23.7",
+    "sass": "^1.24.0",
     "shx": "^0.3.2",
     "tslib": "^1.10.0",
     "tslint": "^5.20.1",
     "tslint-config-airbnb": "^5.11.2",
     "tslint-config-prettier": "^1.18.0",
-    "typescript": "^3.7.3"
+    "typescript": "^3.7.4"
   },
   "dependencies": {
     "axios": "^0.19.0",
@@ -40,11 +40,12 @@
     "fuse.js": "^3.4.6",
     "jquery": "^3.4.1",
     "lodash": "^4.17.15",
-    "marked": "^0.7.0",
+    "marked": "^0.8.0",
     "popper.js": "^1.16.0",
     "react": "^16.12.0",
+    "react-bootstrap": "^1.0.0-beta.16",
     "react-dom": "^16.12.0",
-    "react-use": "^13.10.2",
+    "react-use": "^13.12.2",
     "rxjs": "^6.5.3"
   },
   "browserslist": [
