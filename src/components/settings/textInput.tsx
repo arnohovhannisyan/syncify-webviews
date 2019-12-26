@@ -1,21 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { Subject } from "rxjs";
 import { debounceTime } from "rxjs/operators";
-import { IUpdate } from "~/models";
+import { ITextInput, IUpdate } from "~/models";
 import { useVSCode } from "~/utilities";
 
 interface IProps {
-  correspondingSetting: string;
+  map: ITextInput;
   value: string;
-  name: string;
-  placeholder: string;
   onChange?: (update: IUpdate) => any;
 }
 
 export const TextInputComponent = (props: IProps) => {
   const vscode = useVSCode();
 
-  const { name, placeholder, correspondingSetting } = props;
+  const { name, placeholder, correspondingSetting } = props.map;
 
   const [value, setValue] = useState(props.value);
   const [subject] = useState(new Subject<IUpdate>());

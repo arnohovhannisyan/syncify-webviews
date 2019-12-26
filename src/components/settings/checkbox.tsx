@@ -1,20 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { Subject } from "rxjs";
 import { debounceTime } from "rxjs/operators";
-import { IUpdate } from "~/models";
+import { ICheckbox, IUpdate } from "~/models";
 import { useVSCode } from "~/utilities";
 
 interface IProps {
-  correspondingSetting: string;
+  map: ICheckbox;
   value: boolean;
-  name: string;
   onChange?: (update: IUpdate) => any;
 }
 
 export const CheckboxComponent = (props: IProps) => {
   const vscode = useVSCode();
 
-  const { name, correspondingSetting } = props;
+  const { name, correspondingSetting } = props.map;
 
   const [value, setValue] = useState(props.value);
   const [subject] = useState(new Subject<IUpdate>());

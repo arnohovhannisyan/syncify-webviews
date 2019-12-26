@@ -19,9 +19,7 @@ export const getSettingComponent = (
     case ISettingType.TextInput:
       return (
         <TextInputComponent
-          name={map.name}
-          correspondingSetting={map.correspondingSetting}
-          placeholder={map.placeholder}
+          map={map}
           value={get(settings, map.correspondingSetting)}
           key={map.correspondingSetting}
           onChange={onChange}
@@ -30,30 +28,24 @@ export const getSettingComponent = (
     case ISettingType.NumberInput:
       return (
         <NumberInputComponent
-          name={map.name}
-          correspondingSetting={map.correspondingSetting}
-          placeholder={map.placeholder}
+          map={map}
           value={get(settings, map.correspondingSetting)}
-          key={map.correspondingSetting}
           onChange={onChange}
         />
       );
     case ISettingType.Select:
       return (
         <SelectComponent
-          name={map.name}
-          correspondingSetting={map.correspondingSetting}
+          map={map}
           value={get(settings, map.correspondingSetting)}
           key={map.correspondingSetting}
-          options={map.options}
           onChange={onChange}
         />
       );
     case ISettingType.Checkbox:
       return (
         <CheckboxComponent
-          name={map.name}
-          correspondingSetting={map.correspondingSetting}
+          map={map}
           value={get(settings, map.correspondingSetting)}
           key={map.correspondingSetting}
           onChange={onChange}
@@ -62,9 +54,7 @@ export const getSettingComponent = (
     case ISettingType.TextArea:
       return (
         <TextAreaComponent
-          name={map.name}
-          correspondingSetting={map.correspondingSetting}
-          placeholder={map.placeholder}
+          map={map}
           value={get(settings, map.correspondingSetting)}
           key={map.correspondingSetting}
           onChange={onChange}
@@ -73,11 +63,8 @@ export const getSettingComponent = (
     case ISettingType.ObjectArray:
       return (
         <ObjectArrayComponent
-          name={map.name}
-          correspondingSetting={map.correspondingSetting}
+          map={map}
           value={get(settings, map.correspondingSetting)}
-          schema={map.schema}
-          newTemplate={map.newTemplate}
           key={map.correspondingSetting}
         />
       );

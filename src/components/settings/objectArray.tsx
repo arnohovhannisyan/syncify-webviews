@@ -3,21 +3,18 @@ import set from "lodash/set";
 import React, { useEffect, useState } from "react";
 import { Subject } from "rxjs";
 import { debounceTime } from "rxjs/operators";
-import { ISettingMap, IUpdate } from "~/models";
+import { IObjectArray, IUpdate } from "~/models";
 import { getSettingComponent, useVSCode } from "~/utilities";
 
 interface IProps {
-  correspondingSetting: string;
-  schema: ISettingMap[];
+  map: IObjectArray;
   value: object[];
-  name: string;
-  newTemplate: object;
 }
 
 export const ObjectArrayComponent = (props: IProps) => {
   const vscode = useVSCode();
 
-  const { name, schema, newTemplate, correspondingSetting } = props;
+  const { name, schema, newTemplate, correspondingSetting } = props.map;
 
   const [value, setValue] = useState(props.value);
   const [subject] = useState(new Subject<IUpdate>());

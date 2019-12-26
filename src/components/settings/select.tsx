@@ -1,21 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { Subject } from "rxjs";
 import { debounceTime } from "rxjs/operators";
-import { IOption, IUpdate } from "~/models";
+import { ISelect, IUpdate } from "~/models";
 import { useVSCode } from "~/utilities";
 
 interface IProps {
-  correspondingSetting: string;
+  map: ISelect;
   value: string;
-  name: string;
-  options: IOption[];
   onChange?: (update: IUpdate) => any;
 }
 
 export const SelectComponent = (props: IProps) => {
   const vscode = useVSCode();
 
-  const { name, options, correspondingSetting } = props;
+  const { name, options, correspondingSetting } = props.map;
 
   const [value, setValue] = useState(props.value);
   const [subject] = useState(new Subject<IUpdate>());

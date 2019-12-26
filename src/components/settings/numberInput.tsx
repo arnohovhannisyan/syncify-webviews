@@ -1,21 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { Subject } from "rxjs";
 import { debounceTime } from "rxjs/operators";
-import { IUpdate } from "~/models";
+import { INumberInput, IUpdate } from "~/models";
 import { useVSCode } from "~/utilities";
 
 interface IProps {
-  correspondingSetting: string;
+  map: INumberInput;
   value: number;
-  name: string;
-  placeholder: string;
   onChange?: (update: IUpdate) => any;
 }
 
 export const NumberInputComponent = (props: IProps) => {
   const vscode = useVSCode();
 
-  const { name, placeholder, correspondingSetting } = props;
+  const { name, placeholder, correspondingSetting, min, max } = props.map;
 
   const [value, setValue] = useState(props.value);
   const [subject] = useState(new Subject<IUpdate>());
@@ -41,6 +39,8 @@ export const NumberInputComponent = (props: IProps) => {
         className="form-control padded-input"
         id={`setting:${correspondingSetting}`}
         placeholder={placeholder}
+        min={min}
+        max={max}
         onChange={e => {
           const update: IUpdate = {
             setting: correspondingSetting,
