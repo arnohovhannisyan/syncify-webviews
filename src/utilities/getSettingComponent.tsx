@@ -30,6 +30,7 @@ export const getSettingComponent = (
         <NumberInputComponent
           map={map}
           value={get(settings, map.correspondingSetting)}
+          key={map.correspondingSetting}
           onChange={onChange}
         />
       );

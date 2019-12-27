@@ -1,10 +1,11 @@
 import cloneDeep from "lodash/cloneDeep";
 import set from "lodash/set";
 import React, { useEffect, useState } from "react";
+import Button from "react-bootstrap/Button";
 import { Subject } from "rxjs";
 import { debounceTime } from "rxjs/operators";
 import { IObjectArray, IUpdate } from "~/models";
-import { getSettingComponent, useVSCode } from "~/utilities";
+import { getSettingComponent, getVSCode } from "~/utilities";
 
 interface IProps {
   map: IObjectArray;
@@ -12,7 +13,7 @@ interface IProps {
 }
 
 export const ObjectArrayComponent = (props: IProps) => {
-  const vscode = useVSCode();
+  const vscode = getVSCode();
 
   const { name, schema, newTemplate, correspondingSetting } = props.map;
 
@@ -60,8 +61,8 @@ export const ObjectArrayComponent = (props: IProps) => {
                   </div>
                 ))}
               </div>
-              <button
-                className="btn btn-primary w-sm-auto w-100 h-auto ml-sm-4 mb-sm-4"
+              <Button
+                className="w-sm-auto w-100 h-auto ml-sm-4 mb-sm-4"
                 onClick={() => {
                   setValue(prev => {
                     const newVal = prev.filter(v => v !== val);
@@ -75,14 +76,13 @@ export const ObjectArrayComponent = (props: IProps) => {
                   });
                 }}
               >
-                <span className="icon-close"></span>
-              </button>
+                <span className="icon-close" />
+              </Button>
             </div>
           </div>
         );
       })}
-      <button
-        className="btn btn-primary"
+      <Button
         onClick={() =>
           setValue(prev => {
             const newVal = [...prev, cloneDeep(newTemplate)];
@@ -96,8 +96,8 @@ export const ObjectArrayComponent = (props: IProps) => {
           })
         }
       >
-        <span className="icon-plus"></span>
-      </button>
+        <span className="icon-plus" />
+      </Button>
     </div>
   );
 };

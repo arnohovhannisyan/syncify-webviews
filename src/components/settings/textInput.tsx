@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
+import Form from "react-bootstrap/Form";
 import { Subject } from "rxjs";
 import { debounceTime } from "rxjs/operators";
-import { ITextInput, IUpdate } from "~/models";
-import { useVSCode } from "~/utilities";
+import { ChangeEvent, ITextInput, IUpdate } from "~/models";
+import { getVSCode } from "~/utilities";
 
 interface IProps {
   map: ITextInput;
@@ -11,7 +12,7 @@ interface IProps {
 }
 
 export const TextInputComponent = (props: IProps) => {
-  const vscode = useVSCode();
+  const vscode = getVSCode();
 
   const { name, placeholder, correspondingSetting } = props.map;
 
@@ -31,18 +32,18 @@ export const TextInputComponent = (props: IProps) => {
   }, []);
 
   return (
-    <div className="form-group mb-4">
-      <label htmlFor={`setting:${correspondingSetting}`}>{name}</label>
-      <input
+    <Form.Group className="mb-4">
+      <Form.Label>{name}</Form.Label>
+      <Form.Control
         type="text"
-        className="form-control padded-input"
+        className="padded-input"
         value={value}
         id={`setting:${correspondingSetting}`}
         placeholder={placeholder}
-        onChange={e => {
+        onChange={(e: ChangeEvent) => {
           const update: IUpdate = {
             setting: correspondingSetting,
-            value: e.target.value
+            value: e.currentTarget.value
           };
 
           setValue(update.value);
@@ -50,7 +51,7 @@ export const TextInputComponent = (props: IProps) => {
           subject.next(update);
           if (props.onChange) props.onChange(update);
         }}
-      />
-    </div>
+      ></Form.Control>
+    </Form.Group>
   );
 };

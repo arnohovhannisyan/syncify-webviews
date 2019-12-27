@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
+import Form from "react-bootstrap/Form";
 import { Subject } from "rxjs";
 import { debounceTime } from "rxjs/operators";
 import { ISelect, IUpdate } from "~/models";
-import { useVSCode } from "~/utilities";
+import { getVSCode } from "~/utilities";
 
 interface IProps {
   map: ISelect;
@@ -11,7 +12,7 @@ interface IProps {
 }
 
 export const SelectComponent = (props: IProps) => {
-  const vscode = useVSCode();
+  const vscode = getVSCode();
 
   const { name, options, correspondingSetting } = props.map;
 
@@ -31,16 +32,17 @@ export const SelectComponent = (props: IProps) => {
   }, []);
 
   return (
-    <div className="form-group mb-3">
-      <label htmlFor={`setting:${correspondingSetting}`}>{name}</label>
-      <select
-        className="form-control padded-input"
+    <Form.Group className="mb-3">
+      <Form.Label>{name}</Form.Label>
+      <Form.Control
+        as="select"
+        className="padded-input"
         id={`setting:${correspondingSetting}`}
         value={value}
         onChange={e => {
           const update: IUpdate = {
             setting: correspondingSetting,
-            value: e.target.value
+            value: e.currentTarget.value
           };
 
           setValue(update.value);
@@ -54,7 +56,7 @@ export const SelectComponent = (props: IProps) => {
             {option.name}
           </option>
         ))}
-      </select>
-    </div>
+      </Form.Control>
+    </Form.Group>
   );
 };

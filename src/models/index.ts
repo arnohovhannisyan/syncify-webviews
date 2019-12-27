@@ -7,6 +7,7 @@ export * from "~/models/update";
 export * from "~/models/authData";
 export * from "~/models/provider";
 export * from "~/models/repo";
+export * from "~/models/changeEvent";
 export * from "~/models/descriptor";
 export * from "~/models/modal/button";
 export * from "~/models/modal/content";

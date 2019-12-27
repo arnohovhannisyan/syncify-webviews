@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
+import Form from "react-bootstrap/Form";
 import { Subject } from "rxjs";
 import { debounceTime } from "rxjs/operators";
-import { INumberInput, IUpdate } from "~/models";
-import { useVSCode } from "~/utilities";
+import { ChangeEvent, INumberInput, IUpdate } from "~/models";
+import { getVSCode } from "~/utilities";
 
 interface IProps {
   map: INumberInput;
@@ -11,7 +12,7 @@ interface IProps {
 }
 
 export const NumberInputComponent = (props: IProps) => {
-  const vscode = useVSCode();
+  const vscode = getVSCode();
 
   const { name, placeholder, correspondingSetting, min, max } = props.map;
 
@@ -31,20 +32,20 @@ export const NumberInputComponent = (props: IProps) => {
   }, []);
 
   return (
-    <div className="form-group mb-4">
-      <label htmlFor={`setting:${correspondingSetting}`}>{name}</label>
-      <input
+    <Form.Group className="mb-4">
+      <Form.Label>{name}</Form.Label>
+      <Form.Control
         type="number"
         value={value.toString()}
-        className="form-control padded-input"
+        className="padded-input"
         id={`setting:${correspondingSetting}`}
         placeholder={placeholder}
         min={min}
         max={max}
-        onChange={e => {
+        onChange={(e: ChangeEvent) => {
           const update: IUpdate = {
             setting: correspondingSetting,
-            value: Number(e.target.value)
+            value: Number(e.currentTarget.value)
           };
 
           setValue(update.value);
@@ -53,6 +54,6 @@ export const NumberInputComponent = (props: IProps) => {
           if (props.onChange) props.onChange(update);
         }}
       />
-    </div>
+    </Form.Group>
   );
 };

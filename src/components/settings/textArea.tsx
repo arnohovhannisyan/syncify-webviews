@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
+import Form from "react-bootstrap/Form";
 import { Subject } from "rxjs";
 import { debounceTime } from "rxjs/operators";
 import { ITextArea, IUpdate } from "~/models";
-import { useVSCode } from "~/utilities";
+import { getVSCode } from "~/utilities";
 
 interface IProps {
   map: ITextArea;
@@ -11,7 +12,7 @@ interface IProps {
 }
 
 export const TextAreaComponent = (props: IProps) => {
-  const vscode = useVSCode();
+  const vscode = getVSCode();
 
   const { name, placeholder, correspondingSetting } = props.map;
 
@@ -31,10 +32,11 @@ export const TextAreaComponent = (props: IProps) => {
   }, []);
 
   return (
-    <div className="form-group mb-3">
-      <label htmlFor={`setting:${correspondingSetting}`}>{name}</label>
-      <textarea
-        className="form-control padded-input"
+    <Form.Group className="mb-3">
+      <Form.Label>{name}</Form.Label>
+      <Form.Control
+        as="textarea"
+        className="padded-input"
         id={`setting:${correspondingSetting}`}
         rows={value.length}
         placeholder={placeholder}
@@ -42,7 +44,7 @@ export const TextAreaComponent = (props: IProps) => {
         onChange={e => {
           const update: IUpdate = {
             setting: correspondingSetting,
-            value: e.target.value
+            value: e.currentTarget.value
               .split("\n")
               .filter(a => !!a && !/^\s*$/.test(a))
           };
@@ -52,7 +54,7 @@ export const TextAreaComponent = (props: IProps) => {
           subject.next(update);
           if (props.onChange) props.onChange(update);
         }}
-      />
-    </div>
+      ></Form.Control>
+    </Form.Group>
   );
 };

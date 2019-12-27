@@ -2,6 +2,8 @@ import axios from "axios";
 import { sanitize } from "dompurify";
 import marked from "marked";
 import React, { Fragment, useEffect, useState } from "react";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
 import { HeaderComponent } from "~/components";
 import { IDescriptor } from "~/models";
 
@@ -45,8 +47,8 @@ export const ErrorPage = (props: IProps) => {
   return (
     <Fragment>
       <HeaderComponent />
-      <div className="row flex-lg-grow-1 align-content-start">
-        <div className="col-lg overflow-auto">
+      <Row>
+        <Col lg>
           <h3 className="mx-auto mb-3">Description</h3>
           <p
             className="markdown"
@@ -54,14 +56,14 @@ export const ErrorPage = (props: IProps) => {
               __html: getDescription()
             }}
           />
-        </div>
-        <div className="col-lg overflow-auto">
+        </Col>
+        <Col lg>
           <h3 className="mx-auto mt-2 mt-lg-0 mb-3">Error</h3>
           <pre>
             <code>{error}</code>
           </pre>
-        </div>
-      </div>
+        </Col>
+      </Row>
     </Fragment>
   );
 };

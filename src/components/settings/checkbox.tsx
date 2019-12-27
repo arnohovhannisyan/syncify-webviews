@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
+import Form from "react-bootstrap/Form";
 import { Subject } from "rxjs";
 import { debounceTime } from "rxjs/operators";
-import { ICheckbox, IUpdate } from "~/models";
-import { useVSCode } from "~/utilities";
+import { ChangeEvent, ICheckbox, IUpdate } from "~/models";
+import { getVSCode } from "~/utilities";
 
 interface IProps {
   map: ICheckbox;
@@ -11,7 +12,7 @@ interface IProps {
 }
 
 export const CheckboxComponent = (props: IProps) => {
-  const vscode = useVSCode();
+  const vscode = getVSCode();
 
   const { name, correspondingSetting } = props.map;
 
@@ -31,30 +32,23 @@ export const CheckboxComponent = (props: IProps) => {
   }, []);
 
   return (
-    <div className="custom-control custom-control-lg custom-checkbox my-2">
-      <input
-        className="custom-control-input"
-        checked={value}
-        type="checkbox"
-        id={`setting:${correspondingSetting}`}
-        onChange={e => {
-          const update: IUpdate = {
-            setting: correspondingSetting,
-            value: e.target.checked
-          };
+    <Form.Check
+      custom
+      className="custom-control-lg my-2"
+      checked={value}
+      id={`setting:${correspondingSetting}`}
+      onChange={(e: ChangeEvent) => {
+        const update: IUpdate = {
+          setting: correspondingSetting,
+          value: e.target.checked
+        };
 
-          setValue(update.value);
+        setValue(update.value);
 
-          subject.next(update);
-          if (props.onChange) props.onChange(update);
-        }}
-      />
-      <label
-        htmlFor={`setting:${correspondingSetting}`}
-        className="custom-control-label"
-      >
-        {name}
-      </label>
-    </div>
+        subject.next(update);
+        if (props.onChange) props.onChange(update);
+      }}
+      label={name}
+    />
   );
 };

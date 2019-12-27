@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import { HeaderComponent, SectionComponent } from "~/components";
 import { ISection } from "~/models";
-import { useVSCode } from "~/utilities";
+import { getVSCode } from "~/utilities";
 
 interface IProps {
   settings: any;
@@ -11,7 +11,7 @@ interface IProps {
 export const SettingsPage = (props: IProps) => {
   const { sections, settings } = props;
 
-  const vscode = useVSCode();
+  const vscode = getVSCode();
 
   return (
     <Fragment>

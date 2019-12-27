@@ -1,10 +1,13 @@
 import dashify from "dashify";
 import Fuse from "fuse.js";
 import React, { Fragment, useState } from "react";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import ListGroup from "react-bootstrap/ListGroup";
 import { HeaderComponent, ModalComponent } from "~/components";
-import { IAuthData, IModalContent, IRepo } from "~/models";
+import { ChangeEvent, IAuthData, IModalContent, IRepo } from "~/models";
 import { Data } from "~/pages/repo/data";
-import { useVSCode } from "~/utilities";
+import { getVSCode } from "~/utilities";
 
 interface IProps {
   authData: IAuthData;
@@ -16,6 +19,9 @@ export const RepoPage = (props: IProps) => {
   const [repos, setRepos] = useState<IRepo[]>([]);
   const [filter, setFilter] = useState("");
 
+  const [repoName, setRepoName] = useState("");
+  const [isPrivate, setIsPrivate] = useState(true);
+
   const [modalContent, setModalContent] = useState<IModalContent>({
     buttons: [],
     id: "",
@@ -25,20 +31,12 @@ export const RepoPage = (props: IProps) => {
 
   const [showModal, setShowModal] = useState(false);
 
-  const vscode = useVSCode();
+  const vscode = getVSCode();
 
-  async function getRepos() {
-    setRepos(await Data.getRepos(authData));
-  }
+  const getRepos = async () => setRepos(await Data.getRepos(authData));
 
   const createNew = async () => {
-    const nameInput = document.querySelector<HTMLInputElement>("#name");
-
-    if (!nameInput) return;
-
-    const name = dashify(nameInput.value);
-
-    if (!name) {
+    if (!repoName) {
       setModalContent({
         id: "invalidName",
         title: "Invalid Repository Name!",
@@ -55,13 +53,7 @@ export const RepoPage = (props: IProps) => {
       return setShowModal(true);
     }
 
-    const privateCheckbox = document.querySelector<HTMLInputElement>(
-      "#isPrivate"
-    );
-
-    if (!privateCheckbox) return;
-
-    const isPrivate = privateCheckbox.checked;
+    const name = dashify(repoName);
 
     try {
       await Data.createNew(name, isPrivate, authData);
@@ -145,53 +137,45 @@ export const RepoPage = (props: IProps) => {
       />
       <div>
         <h3>New Repository</h3>
-        <form>
-          <div className="form-group">
-            <label htmlFor="name">Repository Name</label>
-            <input
-              type="text"
-              className="form-control form-control-lg padded-input"
-              id="name"
-              placeholder="Enter New Repository Name"
-            />
-          </div>
-          <div className="custom-control custom-checkbox custom-control-lg mb-3">
-            <input
-              type="checkbox"
-              className="custom-control-input"
-              id="isPrivate"
-              defaultChecked
-            />
-            <label className="custom-control-label" htmlFor="isPrivate">
-              Private
-            </label>
-          </div>
-          <button
-            type="button"
-            className="btn btn-primary btn-lg"
-            onClick={() => createNew()}
-          >
-            Create
-          </button>
-        </form>
+        <Form.Group>
+          <Form.Label>Repository Name</Form.Label>
+          <Form.Control
+            type="text"
+            size="lg"
+            className="padded-input"
+            placeholder="Enter New Repository Name"
+            onChange={(e: ChangeEvent) => setRepoName(e.currentTarget.value)}
+          />
+        </Form.Group>
+        <Form.Check
+          custom
+          className="custom-control-lg mb-3"
+          defaultChecked
+          label="Private"
+          id="isPrivate"
+          onChange={(e: ChangeEvent) => setIsPrivate(e.target.checked)}
+        />
+        <Button size="lg" onClick={createNew}>
+          Create
+        </Button>
       </div>
       <div className="mt-4">
         <h3 className="mb-3">Existing Repository</h3>
         {!!repos.length && (
           <Fragment>
-            <div className="form-group">
-              <input
+            <Form.Group>
+              <Form.Control
+                className="padded-input"
                 type="text"
-                className="form-control form-control-lg padded-input"
-                id="filter"
+                size="lg"
                 placeholder="Search Repositories"
-                onChange={e => setFilter(e.target.value)}
+                onChange={(e: ChangeEvent) => setFilter(e.currentTarget.value)}
               />
-            </div>
-            <div className="list-group">
+            </Form.Group>
+            <ListGroup>
               {formatRepos().map(r => (
-                <span
-                  className="list-group-item d-flex flex-column flex-lg-row justify-content-between"
+                <ListGroup.Item
+                  className="d-flex flex-column flex-lg-row justify-content-between"
                   key={r.name}
                 >
                   <div>
@@ -201,42 +185,38 @@ export const RepoPage = (props: IProps) => {
                     </p>
                   </div>
                   <div className="d-flex justify-content-between">
-                    <a
+                    <Button
                       href={r.url}
-                      target="_blank"
-                      rel="noopener"
-                      className="btn btn-primary btn-lg w-lg-auto mt-2 mt-lg-0 mr-2"
+                      size="lg"
+                      className="w-lg-auto mt-2 mt-lg-0 mr-2"
                     >
                       View
-                    </a>
-                    <button
+                    </Button>
+                    <Button
                       onClick={() => useExisting(r.name)}
-                      className="btn btn-primary btn-lg w-lg-auto mt-2 mt-lg-0 text-nowrap"
+                      size="lg"
+                      className="w-lg-auto mt-2 mt-lg-0 text-nowrap"
                     >
                       Use This
-                    </button>
+                    </Button>
                   </div>
-                </span>
+                </ListGroup.Item>
               ))}
               {!formatRepos().length && (
-                <span className="list-group-item">
+                <ListGroup.Item>
                   <h5 className="mb-1">No Repositories Found</h5>
                   <p className="mb-0">
                     There are no repositories matching your search query.
                   </p>
-                </span>
+                </ListGroup.Item>
               )}
-            </div>
+            </ListGroup>
           </Fragment>
         )}
         {!repos.length && (
-          <button
-            type="button"
-            className="btn btn-primary btn-lg"
-            onClick={() => getRepos()}
-          >
+          <Button size="lg" onClick={getRepos}>
             Load Repositories
-          </button>
+          </Button>
         )}
       </div>
     </Fragment>

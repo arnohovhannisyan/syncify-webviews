@@ -3,4 +3,4 @@ export { getSettingComponent } from "~/utilities/getSettingComponent";
 export { isJSON } from "~/utilities/isJSON";
 export { runningOnVSCode } from "~/utilities/runningOnVSCode";
 export { useSearchParam } from "~/utilities/useSearchParam";
-export { getVSCode as useVSCode } from "~/utilities/getVSCode";
+export { getVSCode } from "~/utilities/getVSCode";
