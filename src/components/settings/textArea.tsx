@@ -44,9 +44,7 @@ export const TextAreaComponent = (props: IProps) => {
         onChange={e => {
           const update: IUpdate = {
             setting: correspondingSetting,
-            value: e.currentTarget.value
-              .split("\n")
-              .filter(a => !!a && !/^\s*$/.test(a))
+            value: e.currentTarget.value.split("\n")
           };
 
           setValue(update.value);
