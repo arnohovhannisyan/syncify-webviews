@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import { h, Fragment } from "preact";
 import { ISettingMap } from "~/models";
 import { getSettingComponent } from "~/utilities";
 
@@ -10,7 +10,7 @@ interface IProps {
 
 export const SectionComponent = (props: IProps) => (
   <Fragment>
-    <h3 className="mt-2">{props.name}</h3>
+    <h3 class="mt-2">{props.name}</h3>
     {props.map.map(setting => getSettingComponent(props.settings, setting))}
   </Fragment>
 );

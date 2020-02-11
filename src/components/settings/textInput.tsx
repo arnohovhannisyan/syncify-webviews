@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { h } from "preact";
+import { useEffect, useState } from "preact/hooks";
 import Form from "react-bootstrap/Form";
-import { Subject } from "rxjs";
-import { debounceTime } from "rxjs/operators";
+import { Subject } from "rxjs/internal/Subject";
+import { debounceTime } from "rxjs/internal/operators/debounceTime";
 import { ChangeEvent, ITextInput, IUpdate } from "~/models";
 import { getVSCode } from "~/utilities";
 

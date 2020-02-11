@@ -1,7 +1,6 @@
-import dashify from "dashify";
 import Fuse from "fuse.js";
-import React, { Fragment, useState } from "react";
-import Button from "react-bootstrap/Button";
+import { Fragment, h } from "preact";
+import { useState } from "preact/hooks";
 import Form from "react-bootstrap/Form";
 import ListGroup from "react-bootstrap/ListGroup";
 import { HeaderComponent, ModalComponent } from "~/components";
@@ -53,12 +52,10 @@ export const RepoPage = (props: IProps) => {
       return setShowModal(true);
     }
 
-    const name = dashify(repoName);
-
     try {
-      await Data.createNew(name, isPrivate, authData);
+      await Data.createNew(repoName, isPrivate, authData);
 
-      sendMessage(name);
+      sendMessage(repoName);
 
       setModalContent({
         id: "created",
@@ -153,14 +150,14 @@ export const RepoPage = (props: IProps) => {
           defaultChecked
           label="Private"
           id="isPrivate"
-          onChange={(e: ChangeEvent) => setIsPrivate(e.target.checked)}
+          onChange={(e: ChangeEvent) => setIsPrivate(e.currentTarget.checked)}
         />
-        <Button size="lg" onClick={createNew}>
+        <button class="btn btn-primary btn-lg" onClick={createNew}>
           Create
-        </Button>
+        </button>
       </div>
-      <div className="mt-4">
-        <h3 className="mb-3">Existing Repository</h3>
+      <div class="mt-4">
+        <h3 class="mb-3">Existing Repository</h3>
         {!!repos.length && (
           <Fragment>
             <Form.Group>
@@ -179,33 +176,31 @@ export const RepoPage = (props: IProps) => {
                   key={r.name}
                 >
                   <div>
-                    <h5 className="mb-1">{r.name}</h5>
-                    <p className="mb-0 pr-2">
+                    <h5 class="mb-1">{r.name}</h5>
+                    <p class="mb-0 pr-2">
                       {r.description || "No description for this repository."}
                     </p>
                   </div>
-                  <div className="d-flex justify-content-between">
-                    <Button
+                  <div class="d-flex justify-content-between">
+                    <button
                       href={r.url}
-                      size="lg"
-                      className="w-lg-auto mt-2 mt-lg-0 mr-2"
+                      class="btn btn-primary btn-lg w-lg-auto mt-2 mt-lg-0 mr-2"
                     >
                       View
-                    </Button>
-                    <Button
+                    </button>
+                    <button
                       onClick={() => useExisting(r.name)}
-                      size="lg"
-                      className="w-lg-auto mt-2 mt-lg-0 text-nowrap"
+                      class="btn btn-primary btn-lg w-lg-auto mt-2 mt-lg-0 text-nowrap"
                     >
                       Use This
-                    </Button>
+                    </button>
                   </div>
                 </ListGroup.Item>
               ))}
               {!formatRepos().length && (
                 <ListGroup.Item>
-                  <h5 className="mb-1">No Repositories Found</h5>
-                  <p className="mb-0">
+                  <h5 class="mb-1">No Repositories Found</h5>
+                  <p class="mb-0">
                     There are no repositories matching your search query.
                   </p>
                 </ListGroup.Item>
@@ -214,9 +209,9 @@ export const RepoPage = (props: IProps) => {
           </Fragment>
         )}
         {!repos.length && (
-          <Button size="lg" onClick={getRepos}>
+          <button class="btn btn-primary btn-lg" onClick={getRepos}>
             Load Repositories
-          </Button>
+          </button>
         )}
       </div>
     </Fragment>

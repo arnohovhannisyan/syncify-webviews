@@ -1,6 +1,4 @@
-import "bootstrap";
-import React from "react";
-import Button from "react-bootstrap/Button";
+import { h } from "preact";
 import Modal from "react-bootstrap/Modal";
 import { IModalContent } from "~/models";
 
@@ -13,7 +11,7 @@ interface IProps {
 export const ModalComponent = (props: IProps) => (
   <Modal show={props.show} onHide={props.handleClose} centered>
     <div
-      className={
+      class={
         document.body.className.includes("vscode-light")
           ? "bg-light"
           : "bg-dark"
@@ -25,16 +23,16 @@ export const ModalComponent = (props: IProps) => (
       <Modal.Body>{props.content.message}</Modal.Body>
       <Modal.Footer>
         {props.content.buttons.map(btn => (
-          <Button
+          <button
             onClick={() => {
               props.handleClose();
               btn.action();
             }}
+            class={`btn btn-${btn.color}`}
             key={btn.name}
-            variant={btn.color}
           >
             {btn.name}
-          </Button>
+          </button>
         ))}
       </Modal.Footer>
     </div>

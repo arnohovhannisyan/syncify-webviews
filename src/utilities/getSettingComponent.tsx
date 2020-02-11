@@ -1,5 +1,5 @@
 import get from "lodash/get";
-import React from "react";
+import { h } from "preact";
 import {
   CheckboxComponent,
   NumberInputComponent,

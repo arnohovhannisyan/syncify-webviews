@@ -1,11 +1,11 @@
-import axios from "axios";
 import { IAuthData, IRepo } from "~/models";
 
-const getAuthHeaders = (token: string) => ({
-  github: `token ${token}`,
-  gitlab: `Bearer ${token}`,
-  bitbucket: `Bearer ${token}`
-});
+const getAuthHeader = (token: string, provider: IAuthData["provider"]) =>
+  ({
+    github: `token ${token}`,
+    gitlab: `Bearer ${token}`,
+    bitbucket: `Bearer ${token}`
+  }[provider]);
 
 export class Data {
   public static async getRepos(authData: IAuthData): Promise<IRepo[]> {
@@ -17,11 +17,11 @@ export class Data {
       bitbucket: `https://api.bitbucket.org/2.0/repositories/${user}`
     };
 
-    let { data } = await axios.get(urls[provider], {
+    let data = await fetch(urls[provider], {
       headers: {
-        Authorization: getAuthHeaders(token)[provider]
+        Authorization: getAuthHeader(token, provider)
       }
-    });
+    }).then(res => res.json());
 
     if (provider === "bitbucket") data = data.values;
 
@@ -84,7 +84,7 @@ export class Data {
       body: JSON.stringify(bodies[provider]),
       headers: {
         "Content-Type": "application/json",
-        Authorization: getAuthHeaders(token)[provider]
+        Authorization: getAuthHeader(token, provider)
       }
     });
   }

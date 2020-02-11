@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import { Fragment, h } from "preact";
 import { HeaderComponent, SectionComponent } from "~/components";
 import { ISection } from "~/models";
 import { getVSCode } from "~/utilities";

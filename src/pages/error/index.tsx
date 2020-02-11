@@ -1,9 +1,7 @@
-import axios from "axios";
 import { sanitize } from "dompurify";
 import marked from "marked";
-import React, { Fragment, useEffect, useState } from "react";
-import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row";
+import { Fragment, h } from "preact";
+import { useEffect, useState } from "preact/hooks";
 import { HeaderComponent } from "~/components";
 import { IDescriptor } from "~/models";
 
@@ -25,7 +23,7 @@ export const ErrorPage = (props: IProps) => {
   const [descriptors, setDescriptors] = useState<IDescriptor[]>([]);
 
   const getDescriptor = async () => {
-    const { data } = await axios.get(url);
+    const data = await fetch(url).then(res => res.json());
 
     setDescriptors(
       [...data.feed.entry].map<IDescriptor>(e => ({
@@ -47,23 +45,23 @@ export const ErrorPage = (props: IProps) => {
   return (
     <Fragment>
       <HeaderComponent />
-      <Row>
-        <Col lg>
-          <h3 className="mx-auto mb-3">Description</h3>
+      <div class="row">
+        <div class="col col-lg">
+          <h3 class="mx-auto mb-3">Description</h3>
           <p
-            className="markdown"
+            class="markdown"
             dangerouslySetInnerHTML={{
               __html: getDescription()
             }}
           />
-        </Col>
-        <Col lg>
-          <h3 className="mx-auto mt-2 mt-lg-0 mb-3">Error</h3>
+        </div>
+        <div class="col col-lg">
+          <h3 class="mx-auto mt-2 mt-lg-0 mb-3">Error</h3>
           <pre>
             <code>{error}</code>
           </pre>
-        </Col>
-      </Row>
+        </div>
+      </div>
     </Fragment>
   );
 };

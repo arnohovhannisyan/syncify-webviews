@@ -1,9 +1,9 @@
 import cloneDeep from "lodash/cloneDeep";
 import set from "lodash/set";
-import React, { useEffect, useState } from "react";
-import Button from "react-bootstrap/Button";
-import { Subject } from "rxjs";
-import { debounceTime } from "rxjs/operators";
+import { h } from "preact";
+import { useEffect, useState } from "preact/hooks";
+import { Subject } from "rxjs/internal/Subject";
+import { debounceTime } from "rxjs/internal/operators/debounceTime";
 import { IObjectArray, IUpdate } from "~/models";
 import { getSettingComponent, getVSCode } from "~/utilities";
 
@@ -29,17 +29,17 @@ export const ObjectArrayComponent = (props: IProps) => {
   }, []);
 
   return (
-    <div className="form-group mb-4">
+    <div class="form-group mb-4">
       <label htmlFor={`setting:${correspondingSetting}`}>{name}</label>
       {value.map((val, i) => {
         const rootPath = `${correspondingSetting}[${i}]`;
         const settings = set({}, rootPath, val);
 
         return (
-          <div className="mb-4 mb-sm-0" key={i}>
-            <div className="d-flex flex-wrap">
-              <div className="flex-grow-1">
-                <p className="element-counter mb-1">Element {i}</p>
+          <div class="mb-4 mb-sm-0" key={i}>
+            <div class="d-flex flex-wrap">
+              <div class="flex-grow-1">
+                <p class="element-counter mb-1">Element {i}</p>
                 {Object.keys(val).map(key => (
                   <div key={key}>
                     {getSettingComponent(
@@ -61,8 +61,8 @@ export const ObjectArrayComponent = (props: IProps) => {
                   </div>
                 ))}
               </div>
-              <Button
-                className="w-sm-auto w-100 h-auto ml-sm-4 mb-sm-4"
+              <button
+                class="btn btn-primary w-sm-auto w-100 h-auto ml-sm-4 mb-sm-4"
                 onClick={() => {
                   setValue(prev => {
                     const newVal = prev.filter(v => v !== val);
@@ -76,13 +76,14 @@ export const ObjectArrayComponent = (props: IProps) => {
                   });
                 }}
               >
-                <span className="icon-close" />
-              </Button>
+                <span class="icon-close" />
+              </button>
             </div>
           </div>
         );
       })}
-      <Button
+      <button
+        class="btn btn-primary"
         onClick={() =>
           setValue(prev => {
             const newVal = [...prev, cloneDeep(newTemplate)];
@@ -96,8 +97,8 @@ export const ObjectArrayComponent = (props: IProps) => {
           })
         }
       >
-        <span className="icon-plus" />
-      </Button>
+        <span class="icon-plus" />
+      </button>
     </div>
   );
 };

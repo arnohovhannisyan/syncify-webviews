@@ -1,12 +1,12 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "~/styles";
 
-import React from "react";
-import { render } from "react-dom";
+import { h, render } from "preact";
 import { defaultSections, defaultSettings } from "~/defaults";
 import { PageType } from "~/models";
 import { ErrorPage, LandingPage, RepoPage, SettingsPage } from "~/pages";
-import { getData, runningOnVSCode, useSearchParam } from "~/utilities";
+import { getData, runningOnVSCode } from "~/utilities";
+import useSearchParam from "react-use/esm/useSearchParam";
 
 if (!runningOnVSCode()) {
   document.body.classList.add("runningOnWeb");
@@ -18,8 +18,6 @@ const page: PageType = runningOnVSCode()
 
 const PageElement = () => {
   switch (page) {
-    case "landing":
-      return <LandingPage />;
     case "repo":
       const data = runningOnVSCode()
         ? getData("auth")
@@ -44,8 +42,9 @@ const PageElement = () => {
 
       return <ErrorPage error={err} />;
     default:
+    case "landing":
       return <LandingPage />;
   }
 };
 
-render(<PageElement />, document.querySelector("#root"));
+render(<PageElement />, document.querySelector("#root") ?? document.body);
