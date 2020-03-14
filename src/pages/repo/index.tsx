@@ -1,219 +1,176 @@
 import Fuse from "fuse.js";
 import { Fragment, h } from "preact";
 import { useState } from "preact/hooks";
-import Form from "react-bootstrap/Form";
-import ListGroup from "react-bootstrap/ListGroup";
-import { HeaderComponent, ModalComponent } from "~/components";
-import { ChangeEvent, IAuthData, IModalContent, IRepo } from "~/models";
+import { IAuthData, IRepo } from "~/models";
 import { Data } from "~/pages/repo/data";
 import { getVSCode } from "~/utilities";
+import * as styles from "./styles.scss";
+import * as componentStyles from "~/styles/component.scss";
+import classnames from "classnames";
+import Notifications, { notify } from "react-notify-toast";
 
 interface IProps {
-  authData: IAuthData;
+	authData: IAuthData;
 }
 
 export const RepoPage = (props: IProps) => {
-  const { authData } = props;
+	const { authData } = props;
 
-  const [repos, setRepos] = useState<IRepo[]>([]);
-  const [filter, setFilter] = useState("");
+	const [repos, setRepos] = useState<IRepo[]>([]);
+	const [filter, setFilter] = useState("");
 
-  const [repoName, setRepoName] = useState("");
-  const [isPrivate, setIsPrivate] = useState(true);
+	const [repoName, setRepoName] = useState("");
+	const [isPrivate, setIsPrivate] = useState(true);
 
-  const [modalContent, setModalContent] = useState<IModalContent>({
-    buttons: [],
-    id: "",
-    message: "",
-    title: ""
-  });
+	const vscode = getVSCode();
 
-  const [showModal, setShowModal] = useState(false);
+	const getRepos = async () => {
+		try {
+			setRepos(await Data.getRepos(authData));
+		} catch (error) {
+			notify.show(
+				`Error fetching repositories: ${String(error.message)}`,
+				"error",
+				2000
+			);
+		}
+	};
 
-  const vscode = getVSCode();
+	const createNew = async () => {
+		if (!repoName) {
+			return notify.show(
+				"The name of the repository must not be empty.",
+				"error",
+				2000
+			);
+		}
 
-  const getRepos = async () => setRepos(await Data.getRepos(authData));
+		try {
+			await Data.createNew(repoName, isPrivate, authData);
 
-  const createNew = async () => {
-    if (!repoName) {
-      setModalContent({
-        id: "invalidName",
-        title: "Invalid Repository Name!",
-        message: `The name of the repository must not be empty.`,
-        buttons: [
-          {
-            name: "Back",
-            color: "secondary",
-            action: () => null
-          }
-        ]
-      });
+			sendMessage(repoName);
 
-      return setShowModal(true);
-    }
+			return notify.show(
+				"Repository created! You may now close this tab.",
+				"success",
+				2000
+			);
+		} catch (error) {
+			return notify.show(
+				`Error creating repository: ${String(error.message)}`,
+				"error",
+				2000
+			);
+		}
+	};
 
-    try {
-      await Data.createNew(repoName, isPrivate, authData);
+	const sendMessage = (name: string) => {
+		const urls = {
+			github: `https://${authData.user}:${authData.token}@github.com/${authData.user}/${name}`,
+			gitlab: `https://oauth2:${authData.token}@gitlab.com/${authData.user}/${name}`,
+			bitbucket: `https://x-token-auth:${authData.token}@bitbucket.org/${authData.user}/${name}`
+		};
 
-      sendMessage(repoName);
+		vscode.postMessage(urls[authData.provider]);
+	};
 
-      setModalContent({
-        id: "created",
-        title: "Repository Created!",
-        message: `The repository has been created and registered with Syncify! You may now lose
-      this tab.`,
-        buttons: [
-          {
-            name: "Close",
-            color: "primary",
-            action: () => vscode.postMessage({ close: true })
-          }
-        ]
-      });
+	const useExisting = (name: string) => {
+		sendMessage(name);
 
-      setShowModal(true);
-    } catch (err) {
-      setModalContent({
-        id: "created",
-        title: "Error Creating Repository!",
-        message: err.message,
-        buttons: [
-          {
-            name: "Back",
-            color: "secondary",
-            action: () => null
-          }
-        ]
-      });
+		return notify.show(
+			"Repository registered! You may now close this tab.",
+			"success",
+			2000
+		);
+	};
 
-      setShowModal(true);
-    }
-  };
+	const fuse = new Fuse(repos, { keys: ["name", "description"] });
 
-  const useExisting = async (name: string) => {
-    sendMessage(name);
+	const formatRepos = () => (filter ? fuse.search(filter) : repos);
 
-    setModalContent({
-      id: "registered",
-      title: "Repository Registered!",
-      message: `The repository has been registered with Syncify! You may now lose
-    this tab.`,
-      buttons: [
-        {
-          name: "Close",
-          color: "primary",
-          action: () => vscode.postMessage({ close: true })
-        }
-      ]
-    });
-
-    setShowModal(true);
-  };
-
-  const sendMessage = (name: string) => {
-    const urls = {
-      github: `https://${authData.user}:${authData.token}@github.com/${authData.user}/${name}`,
-      gitlab: `https://oauth2:${authData.token}@gitlab.com/${authData.user}/${name}`,
-      bitbucket: `https://x-token-auth:${authData.token}@bitbucket.org/${authData.user}/${name}`
-    };
-
-    vscode.postMessage(urls[authData.provider]);
-  };
-
-  const fuse = new Fuse(repos, { keys: ["name", "description"] });
-
-  const formatRepos = () => (filter ? fuse.search(filter) : repos);
-
-  return (
-    <Fragment>
-      <HeaderComponent />
-      <ModalComponent
-        content={modalContent}
-        handleClose={() => setShowModal(false)}
-        show={showModal}
-      />
-      <div>
-        <h3>New Repository</h3>
-        <Form.Group>
-          <Form.Label>Repository Name</Form.Label>
-          <Form.Control
-            type="text"
-            size="lg"
-            className="padded-input"
-            placeholder="Enter New Repository Name"
-            onChange={(e: ChangeEvent) => setRepoName(e.currentTarget.value)}
-          />
-        </Form.Group>
-        <Form.Check
-          custom
-          className="custom-control-lg mb-3"
-          defaultChecked
-          label="Private"
-          id="isPrivate"
-          onChange={(e: ChangeEvent) => setIsPrivate(e.currentTarget.checked)}
-        />
-        <button class="btn btn-primary btn-lg" onClick={createNew}>
-          Create
-        </button>
-      </div>
-      <div class="mt-4">
-        <h3 class="mb-3">Existing Repository</h3>
-        {!!repos.length && (
-          <Fragment>
-            <Form.Group>
-              <Form.Control
-                className="padded-input"
-                type="text"
-                size="lg"
-                placeholder="Search Repositories"
-                onChange={(e: ChangeEvent) => setFilter(e.currentTarget.value)}
-              />
-            </Form.Group>
-            <ListGroup>
-              {formatRepos().map(r => (
-                <ListGroup.Item
-                  className="d-flex flex-column flex-lg-row justify-content-between"
-                  key={r.name}
-                >
-                  <div>
-                    <h5 class="mb-1">{r.name}</h5>
-                    <p class="mb-0 pr-2">
-                      {r.description || "No description for this repository."}
-                    </p>
-                  </div>
-                  <div class="d-flex justify-content-between">
-                    <button
-                      href={r.url}
-                      class="btn btn-primary btn-lg w-lg-auto mt-2 mt-lg-0 mr-2"
-                    >
-                      View
-                    </button>
-                    <button
-                      onClick={() => useExisting(r.name)}
-                      class="btn btn-primary btn-lg w-lg-auto mt-2 mt-lg-0 text-nowrap"
-                    >
-                      Use This
-                    </button>
-                  </div>
-                </ListGroup.Item>
-              ))}
-              {!formatRepos().length && (
-                <ListGroup.Item>
-                  <h5 class="mb-1">No Repositories Found</h5>
-                  <p class="mb-0">
-                    There are no repositories matching your search query.
-                  </p>
-                </ListGroup.Item>
-              )}
-            </ListGroup>
-          </Fragment>
-        )}
-        {!repos.length && (
-          <button class="btn btn-primary btn-lg" onClick={getRepos}>
-            Load Repositories
-          </button>
-        )}
-      </div>
-    </Fragment>
-  );
+	return (
+		<Fragment>
+			<Notifications />
+			<div class={styles.grid}>
+				<div>
+					<h2>New Repository</h2>
+					<div class={styles.gappedGrid}>
+						<form class={styles.gappedGrid}>
+							<input
+								type="text"
+								class={classnames(
+									componentStyles.input,
+									!repoName && styles.isInvalid
+								)}
+								value={repoName}
+								placeholder="Enter New Repository Name"
+								onChange={event => setRepoName(event.currentTarget.value)}
+							/>
+							<label class={componentStyles.checkbox}>
+								Private
+								<input
+									type="checkbox"
+									checked={isPrivate}
+									onChange={event => setIsPrivate(event.currentTarget.checked)}
+								/>
+								<span class={componentStyles.checkmark} />
+							</label>
+						</form>
+						<button class={componentStyles.button} onClick={createNew}>
+							Create
+						</button>
+					</div>
+				</div>
+				<div>
+					<h2>Existing Repository</h2>
+					{!!repos.length && (
+						<Fragment>
+							<div class={styles.listGrid}>
+								<input
+									class={componentStyles.input}
+									type="text"
+									placeholder="Search Repositories"
+									onChange={event => setFilter(event.currentTarget.value)}
+								/>
+								{formatRepos().map(repo => (
+									<div class={styles.listItem} key={repo.name}>
+										<h3>{repo.name}</h3>
+										<p>
+											{repo.description ||
+												"No description for this repository."}
+										</p>
+										<div class={styles.listButtons}>
+											<button
+												class={componentStyles.button}
+												onClick={() => open(repo.url)}
+											>
+												View
+											</button>
+											<button
+												onClick={async () => useExisting(repo.name)}
+												class={componentStyles.button}
+											>
+												Use This
+											</button>
+										</div>
+									</div>
+								))}
+								{!formatRepos().length && (
+									<div class={styles.listItem}>
+										<h3>No Repositories Found</h3>
+										<p>There are no repositories matching your search query.</p>
+									</div>
+								)}
+							</div>
+						</Fragment>
+					)}
+					{!repos.length && (
+						<button class={componentStyles.button} onClick={getRepos}>
+							Load Repositories
+						</button>
+					)}
+				</div>
+			</div>
+		</Fragment>
+	);
 };

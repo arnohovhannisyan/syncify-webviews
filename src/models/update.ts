@@ -1,4 +1,4 @@
 export interface IUpdate {
-  setting: string;
-  value: any;
+	setting: string;
+	value: any;
 }

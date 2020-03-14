@@ -1,0 +1,91 @@
+@font-face {
+	font-family: Icons;
+	src: url("~/fonts/icons.woff");
+	font-style: normal;
+	font-weight: normal;
+	font-display: swap;
+}
+
+.mainGrid {
+	display: grid;
+	gap: 2rem;
+
+	grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+}
+
+.subGrid {
+	display: grid;
+	gap: 1rem;
+
+	grid-template-columns: 1fr;
+}
+
+.githubIcon,
+.gitlabIcon,
+.bitbucketIcon,
+.settingsIcon,
+.downloadIcon {
+	font-family: Icons;
+}
+
+.githubIcon:before {
+	content: "\e901";
+}
+
+.gitlabIcon:before {
+	content: "\e902";
+}
+
+.bitbucketIcon:before {
+	content: "\e900";
+}
+
+.settingsIcon:before {
+	content: "\e994";
+}
+
+.downloadIcon:before {
+	content: "\ea3e";
+}
+
+.githubButton {
+	composes: button from "~/styles/component.scss";
+
+	&,
+	&:focus {
+		background-color: #4f5a58 !important;
+	}
+
+	&:hover,
+	&:active {
+		background-color: #3f4746 !important;
+	}
+}
+
+.gitlabButton {
+	composes: button from "~/styles/component.scss";
+
+	&,
+	&:focus {
+		background-color: #dd8929 !important;
+	}
+
+	&:hover,
+	&:active {
+		background-color: #a36a29 !important;
+	}
+}
+
+.bitbucketButton {
+	composes: button from "~/styles/component.scss";
+
+	&,
+	&:focus {
+		background-color: #1f9bcc !important;
+	}
+
+	&:hover,
+	&:active {
+		background-color: #327e9c !important;
+	}
+}

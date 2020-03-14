@@ -1,50 +1,68 @@
 {
-  "name": "syncify-webviews",
-  "version": "2.0.0",
-  "description": "A reliable way of syncing your VSCode settings and extensions",
-  "license": "MIT",
-  "scripts": {
-    "start": "yarn clean && parcel src/index.html",
-    "build": "yarn clean && parcel build src/index.html --public-url . --no-source-maps && yarn postprocess",
-    "clean": "shx rm -rf dist",
-    "postprocess": "node scripts/postprocess.js"
-  },
-  "devDependencies": {
-    "@types/bootstrap": "^4.3.1",
-    "@types/dompurify": "^2.0.1",
-    "@types/fs-extra": "^8.0.1",
-    "@types/lodash": "^4.14.149",
-    "@types/marked": "^0.7.2",
-    "@types/node": "^13.7.0",
-    "fs-extra": "^8.1.0",
-    "parcel": "^1.12.4",
-    "prettier": "^1.19.1",
-    "sass": "^1.25.0",
-    "shx": "^0.3.2",
-    "tslib": "^1.10.0",
-    "tslint": "^6.0.0",
-    "tslint-config-airbnb": "^5.11.2",
-    "tslint-config-prettier": "^1.18.0",
-    "typescript": "^3.7.5"
-  },
-  "dependencies": {
-    "bootstrap": "4.4.1",
-    "dompurify": "^2.0.8",
-    "fuse.js": "^3.4.6",
-    "jquery": "^3.4.1",
-    "lodash": "^4.17.15",
-    "marked": "^0.8.0",
-    "preact": "^10.3.1",
-    "react-bootstrap": "^1.0.0-beta.16",
-    "react-dom": "^16.12.0",
-    "react-use": "^13.24.0",
-    "rxjs": "^6.5.4"
-  },
-  "browserslist": [
-    "last 10 Chrome versions"
-  ],
-  "alias": {
-    "react": "preact/compat",
-    "react-dom": "preact/compat"
-  }
+	"name": "syncify-webviews",
+	"version": "2.0.0",
+	"description": "A reliable way of syncing your VSCode settings and extensions",
+	"license": "MIT",
+	"scripts": {
+		"start": "parcel src/index.html",
+		"build": "parcel build src/index.html --public-url . --no-source-maps && yarn postprocess",
+		"postprocess": "node scripts/postprocess.js"
+	},
+	"devDependencies": {
+		"@types/classnames": "^2.2.10",
+		"@types/lodash": "^4.14.149",
+		"@types/marked": "^0.7.3",
+		"@types/react-notify-toast": "^0.5.2",
+		"eslint-config-xo-preact": "^1.0.0",
+		"eslint-plugin-react": "^7.19.0",
+		"parcel": "^1.12.4",
+		"postcss-modules": "^1.5.0",
+		"prettier": "^1.19.1",
+		"sass": "^1.26.3",
+		"typescript": "^3.8.3",
+		"xo": "^0.28.0"
+	},
+	"dependencies": {
+		"classnames": "^2.2.6",
+		"fuse.js": "^3.6.1",
+		"lodash": "^4.17.15",
+		"marked": "^0.8.0",
+		"preact": "^10.3.4",
+		"react-notify-toast": "^0.5.1",
+		"react-use": "^13.27.0",
+		"rxjs": "^6.5.4"
+	},
+	"browserslist": [
+		"last 10 Chrome versions"
+	],
+	"alias": {
+		"react": "preact/compat",
+		"react-dom": "preact/compat"
+	},
+	"xo": {
+		"prettier": true,
+		"extends": [
+			"xo-preact"
+		],
+		"rules": {
+			"unicorn/filename-case": 0,
+			"react/jsx-filename-extension": 0,
+			"react/jsx-no-bind": 0,
+			"react/no-danger": 0,
+			"react/no-unknown-property": 0,
+			"no-undef": 0,
+			"@typescript-eslint/explicit-function-return-type": 0,
+			"@typescript-eslint/return-await": 0,
+			"@typescript-eslint/restrict-template-expressions": 0,
+			"@typescript-eslint/restrict-plus-operands": 0,
+			"no-implicit-coercion": 0,
+			"promise/param-names": 0,
+			"no-inner-declarations": 0,
+			"import/extensions": 0,
+			"import/no-unassigned-import": 0
+		}
+	},
+	"postcss": {
+		"modules": true
+	}
 }

@@ -1,60 +1,62 @@
 import { h } from "preact";
 import { useEffect, useState } from "preact/hooks";
-import Form from "react-bootstrap/Form";
 import { Subject } from "rxjs/internal/Subject";
 import { debounceTime } from "rxjs/internal/operators/debounceTime";
-import { ChangeEvent, INumberInput, IUpdate } from "~/models";
+import { INumberInput, IUpdate } from "~/models";
 import { getVSCode } from "~/utilities";
+import * as styles from "./styles.scss";
+import * as componentStyles from "~/styles/component.scss";
 
 interface IProps {
-  map: INumberInput;
-  value: number;
-  onChange?: (update: IUpdate) => any;
+	map: INumberInput;
+	value: number;
+	onChange?: (update: IUpdate) => any;
 }
 
 export const NumberInputComponent = (props: IProps) => {
-  const vscode = getVSCode();
+	const vscode = getVSCode();
 
-  const { name, placeholder, correspondingSetting, min, max } = props.map;
+	const { name, placeholder, correspondingSetting, min, max } = props.map;
 
-  const [value, setValue] = useState(props.value);
-  const [subject] = useState(new Subject<IUpdate>());
+	const [value, setValue] = useState(props.value);
+	const [subject] = useState(new Subject<IUpdate>());
 
-  useEffect(() => {
-    setValue(props.value);
-  }, [props.value]);
+	useEffect(() => {
+		setValue(props.value);
+	}, [props.value]);
 
-  useEffect(() => {
-    const subscription = subject
-      .pipe(debounceTime(1000))
-      .subscribe(update => vscode.postMessage(update));
+	useEffect(() => {
+		const subscription = subject
+			.pipe(debounceTime(1000))
+			.subscribe(update => vscode.postMessage(update));
 
-    return () => subscription.unsubscribe();
-  }, []);
+		return () => subscription.unsubscribe();
+	}, []);
 
-  return (
-    <Form.Group className="mb-4">
-      <Form.Label>{name}</Form.Label>
-      <Form.Control
-        type="number"
-        value={value.toString()}
-        className="padded-input"
-        id={`setting:${correspondingSetting}`}
-        placeholder={placeholder}
-        min={min}
-        max={max}
-        onChange={(e: ChangeEvent) => {
-          const update: IUpdate = {
-            setting: correspondingSetting,
-            value: Number(e.currentTarget.value)
-          };
+	return (
+		<div class={styles.container}>
+			<label for={`setting:${correspondingSetting}`}>{name}</label>
+			<input
+				type="number"
+				value={value.toString()}
+				class={componentStyles.input}
+				id={`setting:${correspondingSetting}`}
+				placeholder={placeholder}
+				min={min}
+				max={max}
+				onChange={event => {
+					const update: IUpdate = {
+						setting: correspondingSetting,
+						value: Number(event.currentTarget.value)
+					};
 
-          setValue(update.value);
+					setValue(update.value);
 
-          subject.next(update);
-          if (props.onChange) props.onChange(update);
-        }}
-      />
-    </Form.Group>
-  );
+					subject.next(update);
+
+					props.onChange?.(update);
+				}}
+			/>
+		</div>
+	);
 };

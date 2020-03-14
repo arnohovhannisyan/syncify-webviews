@@ -1,50 +1,58 @@
-import "bootstrap/dist/css/bootstrap.min.css";
-import "~/styles";
+import "~/styles/global.scss";
 
-import { h, render } from "preact";
+import { h, render, Fragment } from "preact";
 import { defaultSections, defaultSettings } from "~/defaults";
-import { PageType } from "~/models";
+import { PageType, IAuthData } from "~/models";
 import { ErrorPage, LandingPage, RepoPage, SettingsPage } from "~/pages";
 import { getData, runningOnVSCode } from "~/utilities";
 import useSearchParam from "react-use/esm/useSearchParam";
+import { HeaderComponent } from "~/components";
 
 if (!runningOnVSCode()) {
-  document.body.classList.add("runningOnWeb");
+	document.body.classList.add("runningOnWeb");
 }
 
 const page: PageType = runningOnVSCode()
-  ? getData("page")
-  : window.location.pathname.slice(1);
+	? getData("page")
+	: (window.location.pathname.slice(1) as any);
 
-const PageElement = () => {
-  switch (page) {
-    case "repo":
-      const data = runningOnVSCode()
-        ? getData("auth")
-        : {
-            token: useSearchParam("token"),
-            user: useSearchParam("user"),
-            provider: useSearchParam("provider")
-          };
+const App = () => {
+	const pages: { [key in PageType]: () => h.JSX.Element } = {
+		landing: LandingPage,
+		repo: () => {
+			const data: IAuthData = runningOnVSCode()
+				? getData<IAuthData>("auth")
+				: {
+						token: useSearchParam("token")!,
+						user: useSearchParam("user")!,
+						provider: useSearchParam("provider")! as any
+				  };
 
-      return <RepoPage authData={data} />;
-    case "settings":
-      return (
-        <SettingsPage
-          sections={runningOnVSCode() ? getData("sections") : defaultSections}
-          settings={runningOnVSCode() ? getData("settings") : defaultSettings}
-        />
-      );
-    case "error":
-      const err = runningOnVSCode()
-        ? getData("error")
-        : useSearchParam("error") || "";
+			return <RepoPage authData={data} />;
+		},
+		settings: () => (
+			<SettingsPage
+				sections={runningOnVSCode() ? getData("sections") : defaultSections}
+				settings={runningOnVSCode() ? getData("settings") : defaultSettings}
+			/>
+		),
+		error: () => {
+			const error: string = runningOnVSCode()
+				? getData("error")
+				: useSearchParam("error") ?? "";
 
-      return <ErrorPage error={err} />;
-    default:
-    case "landing":
-      return <LandingPage />;
-  }
+			return <ErrorPage error={error} />;
+		}
+	};
+
+	const Page = pages[page] ?? pages.landing;
+
+	return (
+		<Fragment>
+			<HeaderComponent />
+			<Page />
+		</Fragment>
+	);
 };
 
-render(<PageElement />, document.querySelector("#root") ?? document.body);
+render(<App />, document.querySelector("#root")!);

@@ -1,55 +1,58 @@
 import { h } from "preact";
 import { useEffect, useState } from "preact/hooks";
-import Form from "react-bootstrap/Form";
 import { Subject } from "rxjs/internal/Subject";
 import { debounceTime } from "rxjs/internal/operators/debounceTime";
-import { ChangeEvent, ICheckbox, IUpdate } from "~/models";
+import { ICheckbox, IUpdate } from "~/models";
 import { getVSCode } from "~/utilities";
+import * as componentStyles from "~/styles/component.scss";
 
 interface IProps {
-  map: ICheckbox;
-  value: boolean;
-  onChange?: (update: IUpdate) => any;
+	map: ICheckbox;
+	value: boolean;
+	onChange?: (update: IUpdate) => any;
 }
 
 export const CheckboxComponent = (props: IProps) => {
-  const vscode = getVSCode();
+	const vscode = getVSCode();
 
-  const { name, correspondingSetting } = props.map;
+	const { name, correspondingSetting } = props.map;
 
-  const [value, setValue] = useState(props.value);
-  const [subject] = useState(new Subject<IUpdate>());
+	const [value, setValue] = useState(props.value);
+	const [subject] = useState(new Subject<IUpdate>());
 
-  useEffect(() => {
-    setValue(props.value);
-  }, [props.value]);
+	useEffect(() => {
+		setValue(props.value);
+	}, [props.value]);
 
-  useEffect(() => {
-    const subscription = subject
-      .pipe(debounceTime(1000))
-      .subscribe(update => vscode.postMessage(update));
+	useEffect(() => {
+		const subscription = subject
+			.pipe(debounceTime(1000))
+			.subscribe(update => vscode.postMessage(update));
 
-    return () => subscription.unsubscribe();
-  }, []);
+		return () => subscription.unsubscribe();
+	}, []);
 
-  return (
-    <Form.Check
-      custom
-      className="custom-control-lg my-2"
-      checked={value}
-      id={`setting:${correspondingSetting}`}
-      onChange={(e: ChangeEvent) => {
-        const update: IUpdate = {
-          setting: correspondingSetting,
-          value: e.target.checked
-        };
+	return (
+		<label class={componentStyles.checkbox}>
+			{name}
+			<input
+				type="checkbox"
+				checked={value}
+				id={`setting:${correspondingSetting}`}
+				onChange={event => {
+					const update: IUpdate = {
+						setting: correspondingSetting,
+						value: event.currentTarget.checked
+					};
 
-        setValue(update.value);
+					setValue(update.value);
 
-        subject.next(update);
-        if (props.onChange) props.onChange(update);
-      }}
-      label={name}
-    />
-  );
+					subject.next(update);
+
+					props.onChange?.(update);
+				}}
+			/>
+			<span class={componentStyles.checkmark} />
+		</label>
+	);
 };

@@ -1,16 +1,17 @@
 import { h, Fragment } from "preact";
 import { ISettingMap } from "~/models";
 import { getSettingComponent } from "~/utilities";
+import * as styles from "./styles.scss";
 
 interface IProps {
-  name: string;
-  map: ISettingMap[];
-  settings: any;
+	name: string;
+	map: ISettingMap[];
+	settings: any;
 }
 
 export const SectionComponent = (props: IProps) => (
-  <Fragment>
-    <h3 class="mt-2">{props.name}</h3>
-    {props.map.map(setting => getSettingComponent(props.settings, setting))}
-  </Fragment>
+	<Fragment>
+		<h2 class={styles.heading}>{props.name}</h2>
+		{props.map.map(setting => getSettingComponent(props.settings, setting))}
+	</Fragment>
 );
