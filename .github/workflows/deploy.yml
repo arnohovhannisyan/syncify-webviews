@@ -12,15 +12,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Setup Node
+        uses: actions/setup-node@v1
+
       - name: Install Dependencies
-        uses: borales/actions-yarn@v2.1.0
-        with:
-          cmd: install
+        run: yarn install
 
       - name: Build
-        uses: borales/actions-yarn@v2.1.0
-        with:
-          cmd: build
+        run: yarn build
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3

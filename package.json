@@ -1,12 +1,8 @@
 {
 	"name": "syncify-webviews",
-	"version": "2.0.0",
-	"description": "A reliable way of syncing your VSCode settings and extensions",
-	"license": "MIT",
 	"scripts": {
 		"start": "parcel src/index.html",
-		"build": "parcel build src/index.html --public-url . --no-source-maps && yarn postprocess",
-		"postprocess": "node scripts/postprocess.js"
+		"build": "parcel build src/index.html --public-url . --no-source-maps && node scripts/postprocess.js"
 	},
 	"devDependencies": {
 		"@types/classnames": "^2.2.10",
@@ -38,29 +34,6 @@
 	"alias": {
 		"react": "preact/compat",
 		"react-dom": "preact/compat"
-	},
-	"xo": {
-		"prettier": true,
-		"extends": [
-			"xo-preact"
-		],
-		"rules": {
-			"unicorn/filename-case": 0,
-			"react/jsx-filename-extension": 0,
-			"react/jsx-no-bind": 0,
-			"react/no-danger": 0,
-			"react/no-unknown-property": 0,
-			"no-undef": 0,
-			"@typescript-eslint/explicit-function-return-type": 0,
-			"@typescript-eslint/return-await": 0,
-			"@typescript-eslint/restrict-template-expressions": 0,
-			"@typescript-eslint/restrict-plus-operands": 0,
-			"no-implicit-coercion": 0,
-			"promise/param-names": 0,
-			"no-inner-declarations": 0,
-			"import/extensions": 0,
-			"import/no-unassigned-import": 0
-		}
 	},
 	"postcss": {
 		"modules": true

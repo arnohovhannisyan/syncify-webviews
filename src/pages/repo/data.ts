@@ -59,7 +59,7 @@ export namespace Data {
 	): Promise<void> {
 		const { token, user, provider } = authData;
 
-		const gitlabParameters = `path=${name}&description=${`${user}’s Syncify Settings Repository`}&visibility=${
+		const gitlabParameters = `path=${name}&description=${`${user}'s Syncify Settings Repository`}&visibility=${
 			isPrivate ? "private" : "public"
 		}`;
 
@@ -73,14 +73,14 @@ export namespace Data {
 			github: {
 				name,
 				owner: user,
-				description: `${user}’s Syncify Settings Repository`,
+				description: `${user}'s Syncify Settings Repository`,
 				private: isPrivate
 			},
 			gitlab: {},
 			bitbucket: {
 				name,
 				scm: "git",
-				description: `${user}’s Syncify Settings Repository`,
+				description: `${user}'s Syncify Settings Repository`,
 				is_private: isPrivate
 			}
 		};
