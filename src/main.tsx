@@ -8,6 +8,8 @@ import { getData, runningOnVSCode } from "~/utilities";
 import useSearchParam from "react-use/esm/useSearchParam";
 import { HeaderComponent } from "~/components";
 
+document.querySelector("#_defaultStyles")?.remove();
+
 if (!runningOnVSCode()) {
 	document.body.classList.add("runningOnWeb");
 }
