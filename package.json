@@ -2,7 +2,8 @@
 	"name": "syncify-webviews",
 	"scripts": {
 		"start": "parcel src/index.html",
-		"build": "parcel build src/index.html --public-url . --no-source-maps && node scripts/postprocess.js"
+		"build": "parcel build src/index.html --public-url . --no-source-maps && node scripts/postprocess.js",
+		"lint": "xo 'src/**/*'"
 	},
 	"devDependencies": {
 		"@types/classnames": "^2.2.10",
