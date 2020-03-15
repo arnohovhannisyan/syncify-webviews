@@ -13,7 +13,7 @@ interface IProps {
 	onChange?: (update: IUpdate) => any;
 }
 
-export const NumberInputComponent = (props: IProps) => {
+export const NumberInputComponent = (props: IProps): h.JSX.Element => {
 	const vscode = getVSCode();
 
 	const { name, placeholder, correspondingSetting, min, max } = props.map;

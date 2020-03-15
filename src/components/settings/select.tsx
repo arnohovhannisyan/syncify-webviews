@@ -13,7 +13,7 @@ interface IProps {
 	onChange?: (update: IUpdate) => any;
 }
 
-export const SelectComponent = (props: IProps) => {
+export const SelectComponent = (props: IProps): h.JSX.Element => {
 	const vscode = getVSCode();
 
 	const { name, options, correspondingSetting } = props.map;
@@ -31,7 +31,7 @@ export const SelectComponent = (props: IProps) => {
 			.subscribe(update => vscode.postMessage(update));
 
 		return () => subscription.unsubscribe();
-	}, []);
+	});
 
 	return (
 		<div class={styles.container}>
@@ -54,7 +54,7 @@ export const SelectComponent = (props: IProps) => {
 				}}
 			>
 				{options.map(option => (
-					<option value={option.value} key={option.value}>
+					<option key={option.value} value={option.value}>
 						{option.name}
 					</option>
 				))}

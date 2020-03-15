@@ -6,11 +6,13 @@
 	},
 	"devDependencies": {
 		"@types/classnames": "^2.2.10",
+		"@types/dompurify": "^2.0.1",
 		"@types/lodash": "^4.14.149",
 		"@types/marked": "^0.7.3",
 		"@types/react-notify-toast": "^0.5.2",
-		"eslint-config-xo-preact": "^1.0.0",
+		"eslint-config-xo-react": "^0.23.0",
 		"eslint-plugin-react": "^7.19.0",
+		"eslint-plugin-react-hooks": "^2.5.0",
 		"parcel": "^1.12.4",
 		"postcss-modules": "^1.5.0",
 		"prettier": "^1.19.1",
@@ -20,6 +22,7 @@
 	},
 	"dependencies": {
 		"classnames": "^2.2.6",
+		"dompurify": "^2.0.8",
 		"fuse.js": "^3.6.1",
 		"lodash": "^4.17.15",
 		"marked": "^0.8.0",

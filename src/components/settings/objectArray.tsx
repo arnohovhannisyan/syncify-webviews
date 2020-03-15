@@ -13,7 +13,7 @@ interface IProps {
 	value: object[];
 }
 
-export const ObjectArrayComponent = (props: IProps) => {
+export const ObjectArrayComponent = (props: IProps): h.JSX.Element => {
 	const vscode = getVSCode();
 
 	const { name, schema, newTemplate, correspondingSetting } = props.map;
@@ -27,7 +27,7 @@ export const ObjectArrayComponent = (props: IProps) => {
 			.subscribe(update => vscode.postMessage(update));
 
 		return () => subscription.unsubscribe();
-	}, []);
+	});
 
 	return (
 		<div class={styles.container}>
@@ -38,7 +38,7 @@ export const ObjectArrayComponent = (props: IProps) => {
 					const settings = set({}, rootPath, object);
 
 					return (
-						<Fragment key={index}>
+						<Fragment key={object}>
 							<div class={styles.grid}>
 								<div class={styles.indexCounter}>{index}</div>
 								<div class={styles.fields}>
@@ -64,6 +64,7 @@ export const ObjectArrayComponent = (props: IProps) => {
 									))}
 								</div>
 								<button
+									type="button"
 									class={styles.deleteButton}
 									onClick={() => {
 										setValue(state => {
@@ -85,6 +86,7 @@ export const ObjectArrayComponent = (props: IProps) => {
 					);
 				})}
 				<button
+					type="button"
 					class={styles.addButton}
 					onClick={() =>
 						setValue(state => {

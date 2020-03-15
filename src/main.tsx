@@ -16,7 +16,7 @@ const page: PageType = runningOnVSCode()
 	? getData("page")
 	: (window.location.pathname.slice(1) as any);
 
-const App = () => {
+const App = (): h.JSX.Element => {
 	const pages: { [key in PageType]: () => h.JSX.Element } = {
 		landing: LandingPage,
 		repo: () => {

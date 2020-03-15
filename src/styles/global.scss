@@ -23,11 +23,16 @@
 
 		:global body.vscode-light & {
 			color: #346962;
+
+			&:focus,
+			&:hover {
+				color: #6ab7ad;
+			}
 		}
 
 		&:focus,
 		&:hover {
-			color: #6ab7ad !important;
+			color: #6ab7ad;
 		}
 	}
 

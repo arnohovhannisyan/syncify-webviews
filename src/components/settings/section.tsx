@@ -9,7 +9,7 @@ interface IProps {
 	settings: any;
 }
 
-export const SectionComponent = (props: IProps) => (
+export const SectionComponent = (props: IProps): h.JSX.Element => (
 	<Fragment>
 		<h2 class={styles.heading}>{props.name}</h2>
 		{props.map.map(setting => getSettingComponent(props.settings, setting))}

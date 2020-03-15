@@ -1,7 +1,7 @@
 import { h } from "preact";
 import * as styles from "./styles.scss";
 
-export const HeaderComponent = () => (
+export const HeaderComponent = (): h.JSX.Element => (
 	<div class={styles.container}>
 		<h1 class={styles.title}>Syncify</h1>
 		<h2 class={styles.subtitle}>

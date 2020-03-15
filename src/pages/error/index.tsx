@@ -1,4 +1,5 @@
 import { parse as parseMarkdown } from "marked";
+import { sanitize } from "dompurify";
 import { h } from "preact";
 import { useEffect, useState } from "preact/hooks";
 import { IDescriptor } from "~/models";
@@ -16,7 +17,7 @@ const defaultDescriptor: IDescriptor = {
 	matcher: /a/
 };
 
-export const ErrorPage = (props: IProps) => {
+export const ErrorPage = (props: IProps): h.JSX.Element => {
 	const { error } = props;
 
 	const [descriptors, setDescriptors] = useState<IDescriptor[]>([]);
@@ -26,17 +27,17 @@ export const ErrorPage = (props: IProps) => {
 
 		setDescriptors(
 			[...data.feed.entry].map<IDescriptor>(entry => ({
-				description: parseMarkdown(entry.gsx$description.$t),
+				description: sanitize(parseMarkdown(entry.gsx$description.$t)),
 				matcher: new RegExp(entry.gsx$matcher.$t, "gi")
 			}))
 		);
 	};
 
-	useEffect(() => {
+	useEffect((): void => {
 		getDescriptor();
 	}, []);
 
-	const getDescription = () => {
+	const getDescription = (): string => {
 		const desc = descriptors.find(d => d.matcher.test(error));
 		return (desc ?? defaultDescriptor).description;
 	};
@@ -46,10 +47,10 @@ export const ErrorPage = (props: IProps) => {
 			<div>
 				<h2>Description</h2>
 				<p
-					class={styles.markdown}
 					dangerouslySetInnerHTML={{
 						__html: getDescription()
 					}}
+					class={styles.markdown}
 				/>
 			</div>
 			<div>

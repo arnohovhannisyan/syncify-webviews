@@ -12,7 +12,7 @@ interface IProps {
 	onChange?: (update: IUpdate) => any;
 }
 
-export const CheckboxComponent = (props: IProps) => {
+export const CheckboxComponent = (props: IProps): h.JSX.Element => {
 	const vscode = getVSCode();
 
 	const { name, correspondingSetting } = props.map;
@@ -30,7 +30,7 @@ export const CheckboxComponent = (props: IProps) => {
 			.subscribe(update => vscode.postMessage(update));
 
 		return () => subscription.unsubscribe();
-	}, []);
+	}, [subject, vscode]);
 
 	return (
 		<label class={componentStyles.checkbox}>

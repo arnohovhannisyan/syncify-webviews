@@ -9,7 +9,7 @@ interface IProps {
 	sections: ISection[];
 }
 
-export const SettingsPage = (props: IProps) => {
+export const SettingsPage = (props: IProps): h.JSX.Element => {
 	const { sections, settings } = props;
 
 	const vscode = getVSCode();
@@ -24,10 +24,10 @@ export const SettingsPage = (props: IProps) => {
 			<div class={styles.grid}>
 				{sections.map(section => (
 					<SectionComponent
+						key={section.name}
 						name={section.name}
 						map={section.settings}
 						settings={settings}
-						key={section.name}
 					/>
 				))}
 			</div>

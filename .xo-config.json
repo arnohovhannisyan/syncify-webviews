@@ -1,21 +1,23 @@
 {
 	"prettier": true,
-	"extends": ["xo-preact"],
+	"extends": ["xo-react"],
+	"globals": ["acquireVsCodeApi"],
+	"envs": ["es2020", "browser"],
+	"settings": {
+		"react": {
+			"pragma": "h"
+		}
+	},
 	"rules": {
 		"unicorn/filename-case": 0,
 		"unicorn/string-content": 0,
 		"react/jsx-filename-extension": 0,
 		"react/jsx-no-bind": 0,
 		"react/no-danger": 0,
-		"react/no-unknown-property": 0,
-		"no-undef": 0,
+		"react/no-unknown-property": [2, { "ignore": ["class", "for"] }],
+		"react-hooks/exhaustive-deps": 0,
+		"react-hooks/rules-of-hooks": 0,
 		"@typescript-eslint/explicit-function-return-type": 0,
-		"@typescript-eslint/return-await": 0,
-		"@typescript-eslint/restrict-template-expressions": 0,
-		"@typescript-eslint/restrict-plus-operands": 0,
-		"no-implicit-coercion": 0,
-		"promise/param-names": 0,
-		"no-inner-declarations": 0,
 		"import/extensions": 0,
 		"import/no-unassigned-import": 0
 	}
