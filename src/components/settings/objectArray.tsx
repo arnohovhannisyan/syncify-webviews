@@ -1,7 +1,7 @@
 import cloneDeep from "lodash/cloneDeep";
 import set from "lodash/set";
 import { h, Fragment } from "preact";
-import { useEffect, useState } from "preact/hooks";
+import { useEffect, useState, useRef } from "preact/hooks";
 import { Subject } from "rxjs/internal/Subject";
 import { debounceTime } from "rxjs/internal/operators/debounceTime";
 import { IObjectArray, IUpdate } from "~/models";
@@ -19,15 +19,15 @@ export const ObjectArrayComponent = (props: IProps): h.JSX.Element => {
 	const { name, schema, newTemplate, correspondingSetting } = props.map;
 
 	const [value, setValue] = useState(props.value);
-	const [subject] = useState(new Subject<IUpdate>());
+	const subject = useRef(new Subject<IUpdate>()).current;
 
 	useEffect(() => {
-		const subscription = subject
-			.pipe(debounceTime(1000))
-			.subscribe(update => vscode.postMessage(update));
+		const subscription = subject.pipe(debounceTime(1000)).subscribe(update => {
+			vscode.postMessage(update);
+		});
 
 		return () => subscription.unsubscribe();
-	});
+	}, []);
 
 	return (
 		<div class={styles.container}>

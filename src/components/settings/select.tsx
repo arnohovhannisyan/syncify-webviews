@@ -1,5 +1,5 @@
 import { h } from "preact";
-import { useEffect, useState } from "preact/hooks";
+import { useEffect, useState, useRef } from "preact/hooks";
 import { Subject } from "rxjs/internal/Subject";
 import { debounceTime } from "rxjs/internal/operators/debounceTime";
 import { ISelect, IUpdate } from "~/models";
@@ -19,7 +19,7 @@ export const SelectComponent = (props: IProps): h.JSX.Element => {
 	const { name, options, correspondingSetting } = props.map;
 
 	const [value, setValue] = useState(props.value);
-	const [subject] = useState(new Subject<IUpdate>());
+	const subject = useRef(new Subject<IUpdate>()).current;
 
 	useEffect(() => {
 		setValue(props.value);
@@ -31,7 +31,7 @@ export const SelectComponent = (props: IProps): h.JSX.Element => {
 			.subscribe(update => vscode.postMessage(update));
 
 		return () => subscription.unsubscribe();
-	});
+	}, []);
 
 	return (
 		<div class={styles.container}>
