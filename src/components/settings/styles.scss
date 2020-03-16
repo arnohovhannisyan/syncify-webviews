@@ -14,6 +14,7 @@
 	display: grid;
 	gap: 1rem;
 	margin-left: 1.5rem;
+	position: relative;
 
 	grid-template-areas:
 		"f f"
@@ -30,7 +31,7 @@
 
 .indexCounter {
 	position: absolute;
-	left: 2.3rem;
+	left: -1.2rem;
 	color: rgb(116, 116, 116);
 }
 

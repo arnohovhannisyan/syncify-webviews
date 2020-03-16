@@ -16,35 +16,40 @@ export const LandingPage = (): h.JSX.Element => {
 						class={styles.githubButton}
 						onClick={() => vscode.postMessage("github")}
 					>
-						<span class={styles.githubIcon} /> Login with GitHub
+						<span class={styles.githubIcon} />
+						&nbsp;Login with GitHub
 					</button>
 					<button
 						type="button"
 						class={styles.gitlabButton}
 						onClick={() => vscode.postMessage("gitlab")}
 					>
-						<span class={styles.gitlabIcon} /> Login with GitLab
+						<span class={styles.gitlabIcon} />
+						&nbsp;Login with GitLab
 					</button>
 					<button
 						type="button"
 						class={styles.bitbucketButton}
 						onClick={() => vscode.postMessage("bitbucket")}
 					>
-						<span class={styles.bitbucketIcon} /> Login with BitBucket
+						<span class={styles.bitbucketIcon} />
+						&nbsp;Login with BitBucket
 					</button>
 					<button
 						type="button"
 						class={componentStyles.button}
 						onClick={() => vscode.postMessage("nologin")}
 					>
-						<span class={styles.downloadIcon} /> Download Without Login
+						<span class={styles.downloadIcon} />
+						&nbsp;Download Without Login
 					</button>
 					<button
 						type="button"
 						class={componentStyles.button}
 						onClick={() => vscode.postMessage("settings")}
 					>
-						<span class={styles.settingsIcon} /> Open Settings
+						<span class={styles.settingsIcon} />
+						&nbsp;Open Settings
 					</button>
 				</div>
 			</div>
