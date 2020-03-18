@@ -56,6 +56,31 @@ export const defaultSections: ISection[] = [
 				name: "Test Boolean",
 				correspondingSetting: "testBool",
 				type: ISettingType.Checkbox
+			},
+			{
+				name: "Test Boolean",
+				correspondingSetting: "testBool",
+				type: ISettingType.Checkbox
+			},
+			{
+				name: "Test Boolean",
+				correspondingSetting: "testBool",
+				type: ISettingType.Checkbox
+			},
+			{
+				name: "Test Boolean",
+				correspondingSetting: "testBool",
+				type: ISettingType.Checkbox
+			},
+			{
+				name: "Test Boolean",
+				correspondingSetting: "testBool",
+				type: ISettingType.Checkbox
+			},
+			{
+				name: "Test Boolean",
+				correspondingSetting: "testBool",
+				type: ISettingType.Checkbox
 			}
 		]
 	}
