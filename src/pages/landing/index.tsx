@@ -58,9 +58,9 @@ export const LandingPage = (): h.JSX.Element => {
 				<div class={styles.subGrid}>
 					<a
 						class={componentStyles.button}
-						href="https://github.com/arnohovhannisyan/vscode-syncify/wiki/Quick-Start"
+						href="https://arnohovhannisyan.space/vscode-syncify/docs/getting-started/prerequisites"
 					>
-						Quick Start Guide
+						Getting Started Guide
 					</a>
 					<a
 						class={componentStyles.button}
@@ -70,9 +70,9 @@ export const LandingPage = (): h.JSX.Element => {
 					</a>
 					<a
 						class={componentStyles.button}
-						href="https://join.slack.com/t/vscode-syncify/shared_invite/enQtNzc5MjYyMjYyNzEwLWQ5MGMxNDljZjk5NmYwNWZlYTBmYjk0MjliNjgyYWRkM2NiYjU2YjExY2RmODg2MGIyZTUwY2YzYWM2YThjMmM"
+						href="https://spectrum.chat/vscode-syncify"
 					>
-						Join the Slack Workspace
+						Join the Spectrum Community
 					</a>
 					<a class={componentStyles.button} href="https://discord.gg/DwFKj57">
 						Join the Discord Server
