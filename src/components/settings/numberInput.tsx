@@ -4,8 +4,8 @@ import { Subject } from "rxjs/internal/Subject";
 import { debounceTime } from "rxjs/internal/operators/debounceTime";
 import { INumberInput, IUpdate } from "~/models";
 import { getVSCode } from "~/utilities";
-import * as styles from "./styles.scss";
-import * as componentStyles from "~/styles/component.scss";
+import styles from "./styles";
+import components from "~/css/components";
 
 interface IProps {
 	map: INumberInput;
@@ -39,7 +39,7 @@ export const NumberInputComponent = (props: IProps): h.JSX.Element => {
 			<input
 				type="number"
 				value={value.toString()}
-				class={componentStyles.input}
+				class={components.input}
 				id={`setting:${correspondingSetting}`}
 				placeholder={placeholder}
 				min={min}

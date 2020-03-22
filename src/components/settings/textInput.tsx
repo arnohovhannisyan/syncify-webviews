@@ -4,8 +4,8 @@ import { Subject } from "rxjs/internal/Subject";
 import { debounceTime } from "rxjs/internal/operators/debounceTime";
 import { ITextInput, IUpdate } from "~/models";
 import { getVSCode } from "~/utilities";
-import * as styles from "./styles.scss";
-import * as componentStyles from "~/styles/component.scss";
+import styles from "./styles";
+import components from "~/css/components";
 
 interface IProps {
 	map: ITextInput;
@@ -38,7 +38,7 @@ export const TextInputComponent = (props: IProps): h.JSX.Element => {
 			<label for={`setting:${correspondingSetting}`}>{name}</label>
 			<input
 				type="text"
-				class={componentStyles.input}
+				class={components.input}
 				value={value}
 				id={`setting:${correspondingSetting}`}
 				placeholder={placeholder}

@@ -4,7 +4,7 @@ import { Subject } from "rxjs/internal/Subject";
 import { debounceTime } from "rxjs/internal/operators/debounceTime";
 import { ICheckbox, IUpdate } from "~/models";
 import { getVSCode } from "~/utilities";
-import * as componentStyles from "~/styles/component.scss";
+import components from "~/css/components";
 
 interface IProps {
 	map: ICheckbox;
@@ -33,7 +33,7 @@ export const CheckboxComponent = (props: IProps): h.JSX.Element => {
 	}, [subject, vscode]);
 
 	return (
-		<label class={componentStyles.checkbox}>
+		<label class={components.checkbox}>
 			{name}
 			<input
 				type="checkbox"
@@ -52,7 +52,7 @@ export const CheckboxComponent = (props: IProps): h.JSX.Element => {
 					props.onChange?.(update);
 				}}
 			/>
-			<span class={componentStyles.checkmark} />
+			<span />
 		</label>
 	);
 };

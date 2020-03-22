@@ -1,4 +1,4 @@
-import "~/styles/global.scss";
+import "~/css/global";
 
 import { h, render, Fragment } from "preact";
 import { defaultSections, defaultSettings } from "~/defaults";
@@ -9,10 +9,6 @@ import useSearchParam from "react-use/esm/useSearchParam";
 import { HeaderComponent } from "~/components";
 
 document.querySelector("#_defaultStyles")?.remove();
-
-if (!runningOnVSCode()) {
-	document.body.classList.add("runningOnWeb");
-}
 
 const page: PageType = runningOnVSCode()
 	? getData("page")

@@ -4,14 +4,68 @@ import { useState } from "preact/hooks";
 import { IAuthData, IRepo } from "~/models";
 import * as Data from "~/pages/repo/data";
 import { getVSCode } from "~/utilities";
-import * as styles from "./styles.scss";
-import * as componentStyles from "~/styles/component.scss";
-import classnames from "classnames";
+import css from "csz";
+import components from "~/css/components";
 import Notifications, { notify } from "react-notify-toast";
+import compose from "~/css/compose";
 
 interface IProps {
 	authData: IAuthData;
 }
+
+const styles = {
+	gappedGrid: css`
+		display: grid;
+		gap: 1rem;
+	`,
+
+	grid: css`
+		display: grid;
+		gap: 2rem;
+
+		grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+	`,
+
+	listItem: css`
+		display: grid;
+		gap: 1rem;
+
+		grid-template-areas:
+			"n n n n"
+			"d d d d"
+			"b b b b";
+
+		grid-template-columns: auto auto auto auto;
+
+		@media (min-width: 992px) {
+			grid-template-areas:
+				"n n n b"
+				"d d d b";
+
+			grid-template-columns: auto auto auto 300px;
+		}
+
+		& > div {
+			grid-area: b;
+		}
+
+		& > h3 {
+			grid-area: n;
+			margin: 0;
+			font-weight: 600;
+		}
+
+		& > p {
+			grid-area: d;
+			margin: 0;
+		}
+
+		padding: 1rem;
+		background-color: #e9e9e9;
+		border-radius: 0.3rem;
+		color: #343a40;
+	`
+};
 
 export const RepoPage = (props: IProps) => {
 	const { authData } = props;
@@ -98,29 +152,22 @@ export const RepoPage = (props: IProps) => {
 						<form class={styles.gappedGrid}>
 							<input
 								type="text"
-								class={classnames(
-									componentStyles.input,
-									!repoName && styles.isInvalid
-								)}
+								class={components.input}
 								value={repoName}
 								placeholder="Enter New Repository Name"
 								onChange={event => setRepoName(event.currentTarget.value)}
 							/>
-							<label class={componentStyles.checkbox}>
+							<label class={components.checkbox}>
 								Private
 								<input
 									type="checkbox"
 									checked={isPrivate}
 									onChange={event => setIsPrivate(event.currentTarget.checked)}
 								/>
-								<span class={componentStyles.checkmark} />
+								<span />
 							</label>
 						</form>
-						<button
-							type="button"
-							class={componentStyles.button}
-							onClick={createNew}
-						>
+						<button type="button" class={components.button} onClick={createNew}>
 							Create
 						</button>
 					</div>
@@ -128,17 +175,13 @@ export const RepoPage = (props: IProps) => {
 				<div>
 					<h2>Existing Repository</h2>
 					{repos.length === 0 ? (
-						<button
-							type="button"
-							class={componentStyles.button}
-							onClick={getRepos}
-						>
+						<button type="button" class={components.button} onClick={getRepos}>
 							Load Repositories
 						</button>
 					) : (
-						<div class={styles.listGrid}>
+						<div class={compose(styles.gappedGrid, `margin-bottom: 1rem;`)}>
 							<input
-								class={componentStyles.input}
+								class={components.input}
 								type="text"
 								placeholder="Search Repositories"
 								onChange={event => setFilter(event.currentTarget.value)}
@@ -149,13 +192,18 @@ export const RepoPage = (props: IProps) => {
 									<p>
 										{repo.description || "No description for this repository."}
 									</p>
-									<div class={styles.listButtons}>
-										<a class={componentStyles.button} href={repo.url}>
+									<div
+										class={compose(
+											styles.gappedGrid,
+											`grid-template-columns: 1fr 1fr;`
+										)}
+									>
+										<a class={components.button} href={repo.url}>
 											View
 										</a>
 										<button
 											type="button"
-											class={componentStyles.button}
+											class={components.button}
 											onClick={async () => saveExisting(repo.name)}
 										>
 											Use This

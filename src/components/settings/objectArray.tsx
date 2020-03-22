@@ -6,7 +6,9 @@ import { Subject } from "rxjs/internal/Subject";
 import { debounceTime } from "rxjs/internal/operators/debounceTime";
 import { IObjectArray, IUpdate } from "~/models";
 import { getSettingComponent, getVSCode } from "~/utilities";
-import * as styles from "./styles.scss";
+import styles from "./styles";
+import compose from "~/css/compose";
+import components from "~/css/components";
 
 interface IProps {
 	map: IObjectArray;
@@ -65,7 +67,7 @@ export const ObjectArrayComponent = (props: IProps): h.JSX.Element => {
 								</div>
 								<button
 									type="button"
-									class={styles.deleteButton}
+									class={compose(components.button, `grid-area: b;`)}
 									onClick={() => {
 										setValue(state => {
 											const filteredList = state.filter(v => v !== object);
@@ -79,7 +81,7 @@ export const ObjectArrayComponent = (props: IProps): h.JSX.Element => {
 										});
 									}}
 								>
-									<span class={styles.deleteIcon} />
+									<span class={compose(styles.icon, styles.deleteIcon)} />
 								</button>
 							</div>
 						</Fragment>
@@ -87,7 +89,7 @@ export const ObjectArrayComponent = (props: IProps): h.JSX.Element => {
 				})}
 				<button
 					type="button"
-					class={styles.addButton}
+					class={components.button}
 					onClick={() =>
 						setValue(state => {
 							const newList = [...state, cloneDeep(newTemplate)];
@@ -101,7 +103,7 @@ export const ObjectArrayComponent = (props: IProps): h.JSX.Element => {
 						})
 					}
 				>
-					<span class={styles.addIcon} />
+					<span class={compose(styles.icon, styles.addIcon)} />
 				</button>
 			</div>
 		</div>

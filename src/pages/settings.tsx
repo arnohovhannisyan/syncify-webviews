@@ -2,12 +2,23 @@ import { Fragment, h } from "preact";
 import { SectionComponent } from "~/components";
 import { ISection } from "~/models";
 import { getVSCode } from "~/utilities";
-import * as styles from "./styles.scss";
+import css from "csz";
 
 interface IProps {
 	settings: any;
 	sections: ISection[];
 }
+
+const styles = {
+	openFile: css`
+		margin-bottom: 1rem;
+	`,
+
+	grid: css`
+		display: grid;
+		gap: 1rem;
+	`
+};
 
 export const SettingsPage = (props: IProps): h.JSX.Element => {
 	const { sections, settings } = props;

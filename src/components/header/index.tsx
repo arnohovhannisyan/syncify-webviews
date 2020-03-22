@@ -1,5 +1,23 @@
 import { h } from "preact";
-import * as styles from "./styles.scss";
+import css from "csz";
+
+const styles = {
+	container: css`
+		text-align: center;
+		margin-bottom: 1.5rem;
+	`,
+
+	title: css`
+		margin-bottom: 1.5rem;
+		font-size: 3.5rem;
+		line-height: 2.5rem;
+		font-weight: 600;
+	`,
+
+	subtitle: css`
+		font-weight: 600;
+	`
+};
 
 export const HeaderComponent = (): h.JSX.Element => (
 	<div class={styles.container}>

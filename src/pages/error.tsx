@@ -3,7 +3,7 @@ import { sanitize } from "dompurify";
 import { h } from "preact";
 import { useEffect, useState } from "preact/hooks";
 import { IDescriptor } from "~/models";
-import * as styles from "./styles.scss";
+import css from "csz";
 
 const sheetId = `1nbbW74yPHti1SX4LSYgESKqLgMBmHUhwhS14wISwGHE`;
 const url = `https://spreadsheets.google.com/feeds/list/${sheetId}/1/public/values?alt=json`;
@@ -11,6 +11,45 @@ const url = `https://spreadsheets.google.com/feeds/list/${sheetId}/1/public/valu
 interface IProps {
 	error: string;
 }
+
+const styles = {
+	grid: css`
+		display: grid;
+		gap: 2rem;
+
+		grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+	`,
+
+	markdown: css`
+		ul,
+		ol,
+		p {
+			margin-bottom: 0.5rem;
+			margin-top: 0.5rem;
+		}
+
+		ul,
+		ol {
+			padding-left: 1.25rem;
+		}
+
+		p,
+		li {
+			font-size: 1.2rem;
+		}
+
+		h2 {
+			margin-top: 1rem;
+		}
+	`,
+
+	code: css`
+		color: var(--code-text) !important;
+		padding: 1rem;
+		background-color: var(--code-bg);
+		border-radius: 0.5rem;
+	`
+};
 
 const defaultDescriptor: IDescriptor = {
 	description: `No description found for this error`,

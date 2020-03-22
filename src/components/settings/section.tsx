@@ -1,7 +1,7 @@
 import { h, Fragment } from "preact";
 import { ISettingMap } from "~/models";
 import { getSettingComponent } from "~/utilities";
-import * as styles from "./styles.scss";
+import styles from "./styles";
 
 interface IProps {
 	name: string;

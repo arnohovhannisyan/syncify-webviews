@@ -8,7 +8,7 @@
 		/>
 		<meta
 			http-equiv="Content-Security-Policy"
-			content="default-src 'none'; script-src 'self' vscode-resource:; style-src 'self' vscode-resource:; font-src 'self' vscode-resource: data:; img-src data:; connect-src https://*.github.com https://gitlab.com https://api.bitbucket.org https://spreadsheets.google.com;"
+			content="default-src 'none'; script-src 'self' vscode-resource:; style-src 'unsafe-inline'; font-src 'self' vscode-resource: data:; img-src data:; connect-src https://*.github.com https://gitlab.com https://api.bitbucket.org https://spreadsheets.google.com;"
 		/>
 		<title>Syncify</title>
 		<data-receiver
@@ -17,6 +17,7 @@
 			data-sections="@SECTIONS"
 			data-auth="@AUTH"
 			data-error="@ERROR"
+			data-pwd="@PWD"
 		/>
 	</head>
 	<body class="container d-flex">

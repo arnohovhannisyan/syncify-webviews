@@ -4,8 +4,8 @@ import { Subject } from "rxjs/internal/Subject";
 import { debounceTime } from "rxjs/internal/operators/debounceTime";
 import { ISelect, IUpdate } from "~/models";
 import { getVSCode } from "~/utilities";
-import * as styles from "./styles.scss";
-import * as componentStyles from "~/styles/component.scss";
+import styles from "./styles";
+import components from "~/css/components";
 
 interface IProps {
 	map: ISelect;
@@ -37,7 +37,7 @@ export const SelectComponent = (props: IProps): h.JSX.Element => {
 		<div class={styles.container}>
 			<label for={`setting:${correspondingSetting}`}>{name}</label>
 			<select
-				class={componentStyles.input}
+				class={components.input}
 				id={`setting:${correspondingSetting}`}
 				value={value}
 				onChange={event => {

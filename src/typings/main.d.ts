@@ -1,7 +1,13 @@
 declare const acquireVsCodeApi: any;
 
-declare module "*.scss" {
-	const exported: { [key: string]: string };
+declare module "csz" {
+	const fn: (strings: TemplateStringsArray, ...values: string[]) => string;
 
-	export = exported;
+	export default fn;
+}
+
+declare module "~/fonts/*" {
+	const exported: string;
+
+	export default exported;
 }
