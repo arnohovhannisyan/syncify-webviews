@@ -1,5 +1,4 @@
-import { parse as parseMarkdown } from "marked";
-import { sanitize } from "dompurify";
+import Markdown from "preact-markdown";
 import { h } from "preact";
 import { useEffect, useState } from "preact/hooks";
 import { IDescriptor } from "~/models";
@@ -61,12 +60,12 @@ export const ErrorPage = (props: IProps): h.JSX.Element => {
 
 	const [descriptors, setDescriptors] = useState<IDescriptor[]>([]);
 
-	const getDescriptor = async () => {
+	const getDescriptor = async (): Promise<void> => {
 		const data = await fetch(url).then(async result => result.json());
 
 		setDescriptors(
 			[...data.feed.entry].map<IDescriptor>(entry => ({
-				description: sanitize(parseMarkdown(entry.gsx$description.$t)),
+				description: entry.gsx$description.$t,
 				matcher: new RegExp(entry.gsx$matcher.$t, "gi")
 			}))
 		);
@@ -85,12 +84,9 @@ export const ErrorPage = (props: IProps): h.JSX.Element => {
 		<div class={styles.grid}>
 			<div>
 				<h2>Description</h2>
-				<p
-					dangerouslySetInnerHTML={{
-						__html: getDescription()
-					}}
-					class={styles.markdown}
-				/>
+				<p class={styles.markdown}>
+					{h(Markdown, { markdown: getDescription() })}
+				</p>
 			</div>
 			<div>
 				<h2>Error</h2>

@@ -67,7 +67,7 @@ const styles = {
 	`
 };
 
-export const RepoPage = (props: IProps) => {
+export const RepoPage = (props: IProps): h.JSX.Element => {
 	const { authData } = props;
 
 	const [repos, setRepos] = useState<IRepo[]>([]);

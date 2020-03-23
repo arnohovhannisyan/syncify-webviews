@@ -7,9 +7,7 @@
 	},
 	"devDependencies": {
 		"@types/classnames": "^2.2.10",
-		"@types/dompurify": "^2.0.1",
 		"@types/lodash": "^4.14.149",
-		"@types/marked": "^0.7.3",
 		"@types/react-notify-toast": "^0.5.2",
 		"eslint-config-xo-react": "^0.23.0",
 		"eslint-plugin-react": "^7.19.0",
@@ -22,11 +20,10 @@
 	"dependencies": {
 		"classnames": "^2.2.6",
 		"csz": "^1.2.0",
-		"dompurify": "^2.0.8",
 		"fuse.js": "^3.6.1",
 		"lodash": "^4.17.15",
-		"marked": "^0.8.0",
 		"preact": "^10.3.4",
+		"preact-markdown": "^2.0.0",
 		"react-notify-toast": "^0.5.1",
 		"react-use": "^13.27.0",
 		"rxjs": "^6.5.4"
