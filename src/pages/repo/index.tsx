@@ -140,7 +140,10 @@ export const RepoPage = (props: IProps): h.JSX.Element => {
 
 	const fuse = new Fuse(repos, { keys: ["name", "description"] });
 
-	const formatRepos = (): IRepo[] => (filter ? fuse.search(filter) : repos);
+	const formatRepos = (): IRepo[] => {
+		if (filter) return fuse.search(filter).map(v => v.item);
+		return repos;
+	};
 
 	return (
 		<Fragment>

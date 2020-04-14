@@ -11,22 +11,22 @@
 		"@types/react-notify-toast": "^0.5.2",
 		"eslint-config-xo-react": "^0.23.0",
 		"eslint-plugin-react": "^7.19.0",
-		"eslint-plugin-react-hooks": "^2.5.0",
+		"eslint-plugin-react-hooks": "^3.0.0",
 		"parcel": "^1.12.4",
-		"prettier": "^1.19.1",
+		"prettier": "^2.0.4",
 		"typescript": "^3.8.3",
-		"xo": "^0.28.0"
+		"xo": "^0.29.1"
 	},
 	"dependencies": {
 		"classnames": "^2.2.6",
 		"csz": "^1.2.0",
-		"fuse.js": "^3.6.1",
+		"fuse.js": "^5.1.0",
 		"lodash": "^4.17.15",
-		"preact": "^10.3.4",
+		"preact": "^10.4.0",
 		"preact-markdown": "^2.0.0",
 		"react-notify-toast": "^0.5.1",
-		"react-use": "^13.27.0",
-		"rxjs": "^6.5.4"
+		"react-use": "^14.1.1",
+		"rxjs": "^6.5.5"
 	},
 	"browserslist": [
 		"last 10 Chrome versions"

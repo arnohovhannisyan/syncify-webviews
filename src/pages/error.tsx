@@ -47,6 +47,7 @@ const styles = {
 		padding: 1rem;
 		background-color: var(--code-bg);
 		border-radius: 0.5rem;
+		white-space: pre-wrap;
 	`
 };
 
