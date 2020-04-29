@@ -87,7 +87,7 @@ const styles = {
 		&:active {
 			background-color: #327e9c !important;
 		}
-	`
+	`,
 };
 
 export const LandingPage = (): h.JSX.Element => {

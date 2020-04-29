@@ -1,6 +1,6 @@
-import { ISettingMap } from "~/models";
+import { SettingMap } from "~/models";
 
-export interface ISection {
+export type Section = {
 	name: string;
-	settings: ISettingMap[];
-}
+	settings: SettingMap[];
+};

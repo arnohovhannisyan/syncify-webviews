@@ -1,13 +1,13 @@
 import { Fragment, h } from "preact";
 import { SectionComponent } from "~/components";
-import { ISection } from "~/models";
+import { Section } from "~/models";
 import { getVSCode } from "~/utilities";
 import css from "csz";
 
-interface IProps {
+type Props = {
 	settings: any;
-	sections: ISection[];
-}
+	sections: Section[];
+};
 
 const styles = {
 	openFile: css`
@@ -17,10 +17,10 @@ const styles = {
 	grid: css`
 		display: grid;
 		gap: 1rem;
-	`
+	`,
 };
 
-export const SettingsPage = (props: IProps): h.JSX.Element => {
+export const SettingsPage = (props: Props): h.JSX.Element => {
 	const { sections, settings } = props;
 
 	const vscode = getVSCode();
@@ -33,7 +33,7 @@ export const SettingsPage = (props: IProps): h.JSX.Element => {
 				</a>
 			</div>
 			<div class={styles.grid}>
-				{sections.map(section => (
+				{sections.map((section) => (
 					<SectionComponent
 						key={section.name}
 						name={section.name}

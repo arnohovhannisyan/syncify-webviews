@@ -1,15 +1,15 @@
 import Markdown from "preact-markdown";
 import { h } from "preact";
 import { useEffect, useState } from "preact/hooks";
-import { IDescriptor } from "~/models";
+import { Descriptor } from "~/models";
 import css from "csz";
 
 const sheetId = `1nbbW74yPHti1SX4LSYgESKqLgMBmHUhwhS14wISwGHE`;
 const url = `https://spreadsheets.google.com/feeds/list/${sheetId}/1/public/values?alt=json`;
 
-interface IProps {
+type Props = {
 	error: string;
-}
+};
 
 const styles = {
 	grid: css`
@@ -48,27 +48,27 @@ const styles = {
 		background-color: var(--code-bg);
 		border-radius: 0.5rem;
 		white-space: pre-wrap;
-	`
+	`,
 };
 
-const defaultDescriptor: IDescriptor = {
+const defaultDescriptor: Descriptor = {
 	description: `No description found for this error`,
-	matcher: /a/
+	matcher: /a/,
 };
 
-export const ErrorPage = (props: IProps): h.JSX.Element => {
+export const ErrorPage = (props: Props): h.JSX.Element => {
 	const { error } = props;
 
-	const [descriptors, setDescriptors] = useState<IDescriptor[]>([]);
+	const [descriptors, setDescriptors] = useState<Descriptor[]>([]);
 
 	const getDescriptor = async (): Promise<void> => {
-		const data = await fetch(url).then(async result => result.json());
+		const data = await fetch(url).then(async (result) => result.json());
 
 		setDescriptors(
-			[...data.feed.entry].map<IDescriptor>(entry => ({
+			[...data.feed.entry].map<Descriptor>((entry) => ({
 				description: entry.gsx$description.$t,
-				matcher: new RegExp(entry.gsx$matcher.$t, "gi")
-			}))
+				matcher: new RegExp(entry.gsx$matcher.$t, "gi"),
+			})),
 		);
 	};
 
@@ -77,7 +77,7 @@ export const ErrorPage = (props: IProps): h.JSX.Element => {
 	}, []);
 
 	const getDescription = (): string => {
-		const desc = descriptors.find(d => d.matcher.test(error));
+		const desc = descriptors.find((d) => d.matcher.test(error));
 		return (desc ?? defaultDescriptor).description;
 	};
 

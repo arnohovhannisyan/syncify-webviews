@@ -1,5 +1,5 @@
-export { getData } from "~/utilities/getData";
-export { getSettingComponent } from "~/utilities/getSettingComponent";
-export { isJSON } from "~/utilities/isJSON";
-export { runningOnVSCode } from "~/utilities/runningOnVSCode";
-export { getVSCode } from "~/utilities/getVSCode";
+export * from "~/utilities/getData";
+export * from "~/utilities/getSettingComponent";
+export * from "~/utilities/isJSON";
+export * from "~/utilities/runningOnVSCode";
+export * from "~/utilities/getVSCode";

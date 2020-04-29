@@ -6,17 +6,17 @@ import {
 	ObjectArrayComponent,
 	SelectComponent,
 	TextAreaComponent,
-	TextInputComponent
+	TextInputComponent,
 } from "~/components";
-import { ISettingMap, ISettingType, IUpdate } from "~/models";
+import { SettingMap, SettingType, Update } from "~/models";
 
 export const getSettingComponent = (
 	settings: any,
-	map: ISettingMap,
-	onChange?: (update: IUpdate) => any
+	map: SettingMap,
+	onChange?: (update: Update) => any,
 ): h.JSX.Element => {
 	switch (map.type) {
-		case ISettingType.TextInput:
+		case SettingType.TextInput:
 			return (
 				<TextInputComponent
 					key={map.correspondingSetting}
@@ -25,7 +25,7 @@ export const getSettingComponent = (
 					onChange={onChange}
 				/>
 			);
-		case ISettingType.NumberInput:
+		case SettingType.NumberInput:
 			return (
 				<NumberInputComponent
 					key={map.correspondingSetting}
@@ -34,7 +34,7 @@ export const getSettingComponent = (
 					onChange={onChange}
 				/>
 			);
-		case ISettingType.Select:
+		case SettingType.Select:
 			return (
 				<SelectComponent
 					key={map.correspondingSetting}
@@ -43,7 +43,7 @@ export const getSettingComponent = (
 					onChange={onChange}
 				/>
 			);
-		case ISettingType.Checkbox:
+		case SettingType.Checkbox:
 			return (
 				<CheckboxComponent
 					key={map.correspondingSetting}
@@ -52,7 +52,7 @@ export const getSettingComponent = (
 					onChange={onChange}
 				/>
 			);
-		case ISettingType.TextArea:
+		case SettingType.TextArea:
 			return (
 				<TextAreaComponent
 					key={map.correspondingSetting}
@@ -61,7 +61,7 @@ export const getSettingComponent = (
 					onChange={onChange}
 				/>
 			);
-		case ISettingType.ObjectArray:
+		case SettingType.ObjectArray:
 			return (
 				<ObjectArrayComponent
 					key={map.correspondingSetting}

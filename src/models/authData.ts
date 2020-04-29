@@ -1,7 +1,7 @@
 import { Provider } from "~/models";
 
-export interface IAuthData {
+export type AuthData = {
 	token: string;
 	user: string;
 	provider: Provider;
-}
+};

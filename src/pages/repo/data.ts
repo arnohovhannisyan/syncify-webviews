@@ -1,26 +1,33 @@
-import { IAuthData, IRepo } from "~/models";
+import { AuthData, Repo } from "~/models";
 
-function getAuthHeader(token: string, provider: IAuthData["provider"]): string {
-	return {
-		github: `token ${token}`,
-		gitlab: `Bearer ${token}`,
-		bitbucket: `Bearer ${token}`
-	}[provider];
-}
+const getAuthHeader = (
+	token: string,
+	provider: AuthData["provider"],
+): string => {
+	switch (provider) {
+		case "github":
+			return `token ${token}`;
+		case "bitbucket":
+		case "gitlab":
+			return `Bearer ${token}`;
+		default:
+			return token;
+	}
+};
 
-export async function getRepos(authData: IAuthData): Promise<IRepo[]> {
+export const getRepos = async (authData: AuthData): Promise<Repo[]> => {
 	const { token, user, provider } = authData;
 
 	const urls = {
 		github: `https://api.github.com/user/repos`,
 		gitlab: `https://gitlab.com/api/v4/users/${user}/projects`,
-		bitbucket: `https://api.bitbucket.org/2.0/repositories/${user}`
+		bitbucket: `https://api.bitbucket.org/2.0/repositories/${user}`,
 	};
 
 	const response = await fetch(urls[provider], {
 		headers: {
-			Authorization: getAuthHeader(token, provider)
-		}
+			Authorization: getAuthHeader(token, provider),
+		},
 	});
 
 	if (!response.ok) {
@@ -35,28 +42,28 @@ export async function getRepos(authData: IAuthData): Promise<IRepo[]> {
 		github: (r: any) => ({
 			name: r.name,
 			description: r.description,
-			url: r.html_url
+			url: r.html_url,
 		}),
 		gitlab: (r: any) => ({
 			name: r.path,
 			description: r.description,
-			url: r.web_url
+			url: r.web_url,
 		}),
 		bitbucket: (r: any) => ({
 			name: r.name,
 			description: r.description,
-			url: r.links.html.href
-		})
+			url: r.links.html.href,
+		}),
 	};
 
-	return [...data].map<IRepo>(mappers[provider]);
-}
+	return [...data].map<Repo>(mappers[provider]);
+};
 
-export async function createNew(
+export const createNew = async (
 	name: string,
 	isPrivate: boolean,
-	authData: IAuthData
-): Promise<void> {
+	authData: AuthData,
+): Promise<void> => {
 	const { token, user, provider } = authData;
 
 	const gitlabParameters = `path=${name}&description=${`${user}'s Syncify Settings Repository`}&visibility=${
@@ -66,7 +73,7 @@ export async function createNew(
 	const urls = {
 		github: `https://api.github.com/user/repos`,
 		gitlab: `https://gitlab.com/api/v4/projects?${gitlabParameters}`,
-		bitbucket: `https://api.bitbucket.org/2.0/repositories/${user}/${name}`
+		bitbucket: `https://api.bitbucket.org/2.0/repositories/${user}/${name}`,
 	};
 
 	const bodies = {
@@ -74,15 +81,15 @@ export async function createNew(
 			name,
 			owner: user,
 			description: `${user}'s Syncify Settings Repository`,
-			private: isPrivate
+			private: isPrivate,
 		},
 		gitlab: {},
 		bitbucket: {
 			name,
 			scm: "git",
 			description: `${user}'s Syncify Settings Repository`,
-			is_private: isPrivate
-		}
+			is_private: isPrivate,
+		},
 	};
 
 	const response = await fetch(urls[provider], {
@@ -90,11 +97,11 @@ export async function createNew(
 		body: JSON.stringify(bodies[provider]),
 		headers: {
 			"Content-Type": "application/json",
-			Authorization: getAuthHeader(token, provider)
-		}
+			Authorization: getAuthHeader(token, provider),
+		},
 	});
 
 	if (!response.ok) {
 		throw new Error(response.statusText);
 	}
-}
+};

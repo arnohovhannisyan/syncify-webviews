@@ -16,7 +16,7 @@ const styles = {
 
 	subtitle: css`
 		font-weight: 600;
-	`
+	`,
 };
 
 export const HeaderComponent = (): h.JSX.Element => (

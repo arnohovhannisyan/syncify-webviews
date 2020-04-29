@@ -4,29 +4,31 @@ import { h, Fragment } from "preact";
 import { useEffect, useState, useRef } from "preact/hooks";
 import { Subject } from "rxjs/internal/Subject";
 import { debounceTime } from "rxjs/internal/operators/debounceTime";
-import { IObjectArray, IUpdate } from "~/models";
+import { ObjectArray, Update } from "~/models";
 import { getSettingComponent, getVSCode } from "~/utilities";
 import styles from "./styles";
 import compose from "~/css/compose";
 import components from "~/css/components";
 
-interface IProps {
-	map: IObjectArray;
+type Props = {
+	map: ObjectArray;
 	value: object[];
-}
+};
 
-export const ObjectArrayComponent = (props: IProps): h.JSX.Element => {
+export const ObjectArrayComponent = (props: Props): h.JSX.Element => {
 	const vscode = getVSCode();
 
 	const { name, schema, newTemplate, correspondingSetting } = props.map;
 
 	const [value, setValue] = useState(props.value);
-	const subject = useRef(new Subject<IUpdate>()).current;
+	const subject = useRef(new Subject<Update>()).current;
 
 	useEffect(() => {
-		const subscription = subject.pipe(debounceTime(1000)).subscribe(update => {
-			vscode.postMessage(update);
-		});
+		const subscription = subject
+			.pipe(debounceTime(1000))
+			.subscribe((update) => {
+				vscode.postMessage(update);
+			});
 
 		return () => subscription.unsubscribe();
 	}, []);
@@ -44,23 +46,25 @@ export const ObjectArrayComponent = (props: IProps): h.JSX.Element => {
 							<div class={styles.grid}>
 								<div class={styles.indexCounter}>{index}</div>
 								<div class={styles.fields}>
-									{Object.keys(object).map(key => (
+									{Object.keys(object).map((key) => (
 										<div key={key}>
 											{getSettingComponent(
 												settings,
 												{
-													...schema.find(s => s.correspondingSetting === key)!,
-													correspondingSetting: `${rootPath}.${key}`
+													...schema.find(
+														(s) => s.correspondingSetting === key,
+													)!,
+													correspondingSetting: `${rootPath}.${key}`,
 												},
-												update => {
+												(update) => {
 													const path = update.setting.slice(
-														rootPath.length + 1
+														rootPath.length + 1,
 													);
 
-													setValue(state =>
-														set([...state], `[${index}].${path}`, update.value)
+													setValue((state) =>
+														set([...state], `[${index}].${path}`, update.value),
 													);
-												}
+												},
 											)}
 										</div>
 									))}
@@ -69,12 +73,12 @@ export const ObjectArrayComponent = (props: IProps): h.JSX.Element => {
 									type="button"
 									class={compose(components.button, `grid-area: b;`)}
 									onClick={() => {
-										setValue(state => {
-											const filteredList = state.filter(v => v !== object);
+										setValue((state) => {
+											const filteredList = state.filter((v) => v !== object);
 
 											subject.next({
 												setting: correspondingSetting,
-												value: filteredList
+												value: filteredList,
 											});
 
 											return filteredList;
@@ -91,12 +95,12 @@ export const ObjectArrayComponent = (props: IProps): h.JSX.Element => {
 					type="button"
 					class={components.button}
 					onClick={() =>
-						setValue(state => {
+						setValue((state) => {
 							const newList = [...state, cloneDeep(newTemplate)];
 
 							subject.next({
 								setting: correspondingSetting,
-								value: newList
+								value: newList,
 							});
 
 							return newList;

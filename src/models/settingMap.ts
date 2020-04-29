@@ -1,53 +1,53 @@
-import { IOption, ISettingType } from "~/models";
+import { Option, SettingType } from "~/models";
 
-export interface ICheckbox {
+export type Checkbox = {
 	name: string;
-	type: ISettingType.Checkbox;
+	type: SettingType.Checkbox;
 	correspondingSetting: string;
-}
+};
 
-export interface ITextInput {
+export type TextInput = {
 	name: string;
-	type: ISettingType.TextInput;
-	correspondingSetting: string;
-	placeholder: string;
-}
-
-export interface ITextArea {
-	name: string;
-	type: ISettingType.TextArea;
+	type: SettingType.TextInput;
 	correspondingSetting: string;
 	placeholder: string;
-}
+};
 
-export interface INumberInput {
+export type TextArea = {
 	name: string;
-	type: ISettingType.NumberInput;
+	type: SettingType.TextArea;
+	correspondingSetting: string;
+	placeholder: string;
+};
+
+export type NumberInput = {
+	name: string;
+	type: SettingType.NumberInput;
 	correspondingSetting: string;
 	placeholder: string;
 	min?: number;
 	max?: number;
-}
+};
 
-export interface ISelect {
+export type Select = {
 	name: string;
-	type: ISettingType.Select;
+	type: SettingType.Select;
 	correspondingSetting: string;
-	options: IOption[];
-}
+	options: Option[];
+};
 
-export interface IObjectArray {
+export type ObjectArray = {
 	name: string;
-	type: ISettingType.ObjectArray;
+	type: SettingType.ObjectArray;
 	correspondingSetting: string;
-	schema: ISettingMap[];
+	schema: SettingMap[];
 	newTemplate: object;
-}
+};
 
-export type ISettingMap =
-	| ICheckbox
-	| ISelect
-	| ITextArea
-	| ITextInput
-	| INumberInput
-	| IObjectArray;
+export type SettingMap =
+	| Checkbox
+	| Select
+	| TextArea
+	| TextInput
+	| NumberInput
+	| ObjectArray;

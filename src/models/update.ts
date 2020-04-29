@@ -1,4 +1,4 @@
-export interface IUpdate {
+export type Update = {
 	setting: string;
 	value: any;
-}
+};

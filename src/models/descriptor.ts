@@ -1,4 +1,4 @@
-export interface IDescriptor {
+export type Descriptor = {
 	matcher: RegExp;
 	description: string;
-}
+};

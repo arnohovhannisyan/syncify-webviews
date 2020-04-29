@@ -3,7 +3,7 @@ import Inter from "~/fonts/Inter.woff2";
 import Icons from "~/fonts/icons.woff";
 import { getData } from "~/utilities";
 
-const pwd = getData<string>("pwd") === "@PWD" ? "." : getData<string>("pwd");
+const pwd = getData("pwd") === "@PWD" ? "." : getData("pwd");
 
 export default css`
 	@font-face {

@@ -1,3 +1,1 @@
-export function runningOnVSCode(): boolean {
-	return typeof acquireVsCodeApi !== "undefined";
-}
+export const runningOnVSCode = () => typeof acquireVsCodeApi !== "undefined";

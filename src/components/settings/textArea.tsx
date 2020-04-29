@@ -2,24 +2,24 @@ import { h } from "preact";
 import { useEffect, useState, useRef } from "preact/hooks";
 import { Subject } from "rxjs/internal/Subject";
 import { debounceTime } from "rxjs/internal/operators/debounceTime";
-import { ITextArea, IUpdate } from "~/models";
+import { TextArea, Update } from "~/models";
 import { getVSCode } from "~/utilities";
 import styles from "./styles";
 import components from "~/css/components";
 
-interface IProps {
-	map: ITextArea;
+type Props = {
+	map: TextArea;
 	value: string[];
-	onChange?: (update: IUpdate) => any;
-}
+	onChange?: (update: Update) => any;
+};
 
-export const TextAreaComponent = (props: IProps): h.JSX.Element => {
+export const TextAreaComponent = (props: Props): h.JSX.Element => {
 	const vscode = getVSCode();
 
 	const { name, placeholder, correspondingSetting } = props.map;
 
 	const [value, setValue] = useState(props.value);
-	const subject = useRef(new Subject<IUpdate>()).current;
+	const subject = useRef(new Subject<Update>()).current;
 
 	useEffect(() => {
 		setValue(props.value);
@@ -28,7 +28,7 @@ export const TextAreaComponent = (props: IProps): h.JSX.Element => {
 	useEffect(() => {
 		const subscription = subject
 			.pipe(debounceTime(1000))
-			.subscribe(update => vscode.postMessage(update));
+			.subscribe((update) => vscode.postMessage(update));
 
 		return () => subscription.unsubscribe();
 	}, []);
@@ -42,10 +42,10 @@ export const TextAreaComponent = (props: IProps): h.JSX.Element => {
 				rows={value.length}
 				placeholder={placeholder}
 				value={value.join("\n")}
-				onChange={event => {
-					const update: IUpdate = {
+				onChange={(event) => {
+					const update: Update = {
 						setting: correspondingSetting,
-						value: event.currentTarget.value.split("\n")
+						value: event.currentTarget.value.split("\n"),
 					};
 
 					setValue(update.value);

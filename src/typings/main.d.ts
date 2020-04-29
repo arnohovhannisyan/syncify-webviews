@@ -1,4 +1,6 @@
-declare const acquireVsCodeApi: any;
+declare const acquireVsCodeApi: () => {
+	postMessage: (message: any) => void;
+};
 
 declare module "csz" {
 	const fn: (strings: TemplateStringsArray, ...values: string[]) => string;

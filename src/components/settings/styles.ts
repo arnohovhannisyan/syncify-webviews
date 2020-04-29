@@ -63,5 +63,5 @@ export default {
 	items: css`
 		display: grid;
 		gap: 1rem;
-	`
+	`,
 };

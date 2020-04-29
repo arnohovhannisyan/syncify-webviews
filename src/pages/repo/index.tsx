@@ -1,7 +1,7 @@
 import Fuse from "fuse.js";
 import { Fragment, h } from "preact";
 import { useState } from "preact/hooks";
-import { IAuthData, IRepo } from "~/models";
+import { AuthData, Repo } from "~/models";
 import * as Data from "~/pages/repo/data";
 import { getVSCode } from "~/utilities";
 import css from "csz";
@@ -9,9 +9,9 @@ import components from "~/css/components";
 import Notifications, { notify } from "react-notify-toast";
 import compose from "~/css/compose";
 
-interface IProps {
-	authData: IAuthData;
-}
+type Props = {
+	authData: AuthData;
+};
 
 const styles = {
 	gappedGrid: css`
@@ -64,13 +64,13 @@ const styles = {
 		background-color: #e9e9e9;
 		border-radius: 0.3rem;
 		color: #343a40;
-	`
+	`,
 };
 
-export const RepoPage = (props: IProps): h.JSX.Element => {
+export const RepoPage = (props: Props): h.JSX.Element => {
 	const { authData } = props;
 
-	const [repos, setRepos] = useState<IRepo[]>([]);
+	const [repos, setRepos] = useState<Repo[]>([]);
 	const [filter, setFilter] = useState("");
 
 	const [repoName, setRepoName] = useState("");
@@ -85,7 +85,7 @@ export const RepoPage = (props: IProps): h.JSX.Element => {
 			notify.show(
 				`Error fetching repositories: ${String(error.message)}`,
 				"error",
-				2000
+				2000,
 			);
 		}
 	};
@@ -95,7 +95,7 @@ export const RepoPage = (props: IProps): h.JSX.Element => {
 			return notify.show(
 				"The name of the repository must not be empty.",
 				"error",
-				2000
+				2000,
 			);
 		}
 
@@ -107,13 +107,13 @@ export const RepoPage = (props: IProps): h.JSX.Element => {
 			return notify.show(
 				"Repository created! You may now close this tab.",
 				"success",
-				2000
+				2000,
 			);
 		} catch (error) {
 			return notify.show(
 				`Error creating repository: ${String(error.message)}`,
 				"error",
-				2000
+				2000,
 			);
 		}
 	};
@@ -122,7 +122,7 @@ export const RepoPage = (props: IProps): h.JSX.Element => {
 		const urls = {
 			github: `https://${authData.user}:${authData.token}@github.com/${authData.user}/${name}`,
 			gitlab: `https://oauth2:${authData.token}@gitlab.com/${authData.user}/${name}`,
-			bitbucket: `https://x-token-auth:${authData.token}@bitbucket.org/${authData.user}/${name}`
+			bitbucket: `https://x-token-auth:${authData.token}@bitbucket.org/${authData.user}/${name}`,
 		};
 
 		vscode.postMessage(urls[authData.provider]);
@@ -134,14 +134,14 @@ export const RepoPage = (props: IProps): h.JSX.Element => {
 		return notify.show(
 			"Repository registered! You may now close this tab.",
 			"success",
-			2000
+			2000,
 		);
 	};
 
 	const fuse = new Fuse(repos, { keys: ["name", "description"] });
 
-	const formatRepos = (): IRepo[] => {
-		if (filter) return fuse.search(filter).map(v => v.item);
+	const formatRepos = (): Repo[] => {
+		if (filter) return fuse.search(filter).map((v) => v.item);
 		return repos;
 	};
 
@@ -158,14 +158,16 @@ export const RepoPage = (props: IProps): h.JSX.Element => {
 								class={components.input}
 								value={repoName}
 								placeholder="Enter New Repository Name"
-								onChange={event => setRepoName(event.currentTarget.value)}
+								onChange={(event) => setRepoName(event.currentTarget.value)}
 							/>
 							<label class={components.checkbox}>
 								Private
 								<input
 									type="checkbox"
 									checked={isPrivate}
-									onChange={event => setIsPrivate(event.currentTarget.checked)}
+									onChange={(event) =>
+										setIsPrivate(event.currentTarget.checked)
+									}
 								/>
 								<span />
 							</label>
@@ -187,9 +189,9 @@ export const RepoPage = (props: IProps): h.JSX.Element => {
 								class={components.input}
 								type="text"
 								placeholder="Search Repositories"
-								onChange={event => setFilter(event.currentTarget.value)}
+								onChange={(event) => setFilter(event.currentTarget.value)}
 							/>
-							{formatRepos().map(repo => (
+							{formatRepos().map((repo) => (
 								<div key={repo.name} class={styles.listItem}>
 									<h3>{repo.name}</h3>
 									<p>
@@ -198,7 +200,7 @@ export const RepoPage = (props: IProps): h.JSX.Element => {
 									<div
 										class={compose(
 											styles.gappedGrid,
-											`grid-template-columns: 1fr 1fr;`
+											`grid-template-columns: 1fr 1fr;`,
 										)}
 									>
 										<a class={components.button} href={repo.url}>

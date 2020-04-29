@@ -1,11 +1,11 @@
 import css from "csz";
 
-type Style = string | undefined | null | false;
+type Style = string | undefined | false;
 
-export default function compose(...styles: Style[]): string {
+const compose = (...styles: Style[]): string => {
 	return styles
-		.map(style => {
-			if (!style) return null;
+		.map((style) => {
+			if (!style) return undefined;
 
 			if (style.startsWith("csz-")) return style;
 
@@ -15,4 +15,6 @@ export default function compose(...styles: Style[]): string {
 		})
 		.filter(Boolean)
 		.join(" ");
-}
+};
+
+export default compose;

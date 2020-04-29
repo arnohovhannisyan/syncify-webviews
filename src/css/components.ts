@@ -89,7 +89,7 @@ const components = {
 				display: block;
 			}
 		}
-	`
+	`,
 };
 
 export default components;

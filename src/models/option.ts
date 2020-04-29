@@ -1,4 +1,4 @@
-export interface IOption {
+export type Option = {
 	value: string;
 	name: string;
-}
+};
