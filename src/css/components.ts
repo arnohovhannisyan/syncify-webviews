@@ -31,6 +31,7 @@ const components = {
 	input: css`
 		width: 100%;
 		font-size: 1.2rem;
+		font-family: inherit;
 		line-height: 1.5;
 		color: var(--input-text);
 		background-color: var(--input-bg);

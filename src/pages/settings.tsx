@@ -1,13 +1,10 @@
 import { Fragment, h } from "preact";
+import { useState } from "preact/hooks";
 import { SectionComponent } from "~/components";
 import { Section } from "~/models";
-import { getVSCode } from "~/utilities";
+import { getVSCode, runningOnVSCode } from "~/utilities";
 import css from "csz";
-
-type Props = {
-	settings: any;
-	sections: Section[];
-};
+import { defaultSettings, defaultSections } from "~/defaults";
 
 const styles = {
 	openFile: css`
@@ -20,8 +17,18 @@ const styles = {
 	`,
 };
 
-export const SettingsPage = (props: Props): h.JSX.Element => {
-	const { sections, settings } = props;
+export const SettingsPage = ({ data }: { data: any }): h.JSX.Element => {
+	const [{ sections, settings }] = useState<{
+		sections: Section[];
+		settings: any;
+	}>(
+		runningOnVSCode()
+			? data
+			: {
+					settings: defaultSettings,
+					sections: defaultSections,
+			  },
+	);
 
 	const vscode = getVSCode();
 

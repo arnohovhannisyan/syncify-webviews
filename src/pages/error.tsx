@@ -3,13 +3,11 @@ import { h } from "preact";
 import { useEffect, useState } from "preact/hooks";
 import { Descriptor } from "~/models";
 import css from "csz";
+import useSearchParam from "react-use/esm/useSearchParam";
+import { runningOnVSCode } from "~/utilities";
 
 const sheetId = `1nbbW74yPHti1SX4LSYgESKqLgMBmHUhwhS14wISwGHE`;
 const url = `https://spreadsheets.google.com/feeds/list/${sheetId}/1/public/values?alt=json`;
-
-type Props = {
-	error: string;
-};
 
 const styles = {
 	grid: css`
@@ -56,8 +54,8 @@ const defaultDescriptor: Descriptor = {
 	matcher: /a/,
 };
 
-export const ErrorPage = (props: Props): h.JSX.Element => {
-	const { error } = props;
+export const ErrorPage = ({ data }: { data: any }): h.JSX.Element => {
+	const error = runningOnVSCode() ? data : useSearchParam("error") ?? "";
 
 	const [descriptors, setDescriptors] = useState<Descriptor[]>([]);
 

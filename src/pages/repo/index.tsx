@@ -3,15 +3,12 @@ import { Fragment, h } from "preact";
 import { useState } from "preact/hooks";
 import { AuthData, Repo } from "~/models";
 import * as Data from "~/pages/repo/data";
-import { getVSCode } from "~/utilities";
+import { getVSCode, runningOnVSCode } from "~/utilities";
 import css from "csz";
 import components from "~/css/components";
+import useSearchParam from "react-use/esm/useSearchParam";
 import Notifications, { notify } from "react-notify-toast";
 import compose from "~/css/compose";
-
-type Props = {
-	authData: AuthData;
-};
 
 const styles = {
 	gappedGrid: css`
@@ -67,8 +64,14 @@ const styles = {
 	`,
 };
 
-export const RepoPage = (props: Props): h.JSX.Element => {
-	const { authData } = props;
+export const RepoPage = ({ data }: { data: any }): h.JSX.Element => {
+	const authData: AuthData = runningOnVSCode()
+		? data
+		: {
+				token: useSearchParam("token"),
+				user: useSearchParam("user"),
+				provider: useSearchParam("provider"),
+		  };
 
 	const [repos, setRepos] = useState<Repo[]>([]);
 	const [filter, setFilter] = useState("");
