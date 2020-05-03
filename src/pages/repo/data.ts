@@ -56,7 +56,7 @@ export const getRepos = async (authData: AuthData): Promise<Repo[]> => {
 		}),
 	};
 
-	return [...data].map<Repo>(mappers[provider]);
+	return [...data].map<Repo>((d) => mappers[provider](d));
 };
 
 export const createNew = async (

@@ -71,7 +71,7 @@ export const ErrorPage = ({ data }: { data: any }): h.JSX.Element => {
 	};
 
 	useEffect((): void => {
-		getDescriptor();
+		getDescriptor().catch(() => undefined);
 	}, []);
 
 	const getDescription = (): string => {
