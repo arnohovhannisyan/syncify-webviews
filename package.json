@@ -1,31 +1,30 @@
 {
 	"name": "syncify-webviews",
+	"license": "MIT",
 	"scripts": {
 		"start": "parcel src/index.html",
 		"build": "parcel build src/index.html --public-url . --no-source-maps && node scripts/postprocess.js",
 		"lint": "xo 'src/**/*'"
 	},
 	"devDependencies": {
-		"@types/classnames": "^2.2.10",
-		"@types/lodash": "^4.14.149",
+		"@types/lodash": "^4.14.150",
 		"@types/react-notify-toast": "^0.5.2",
 		"eslint-config-xo-react": "^0.23.0",
 		"eslint-plugin-react": "^7.19.0",
-		"eslint-plugin-react-hooks": "^3.0.0",
+		"eslint-plugin-react-hooks": "^4.0.0",
 		"parcel": "^1.12.4",
-		"prettier": "^2.0.4",
+		"prettier": "^2.0.5",
 		"typescript": "^3.8.3",
-		"xo": "^0.29.1"
+		"xo": "^0.30.0"
 	},
 	"dependencies": {
-		"classnames": "^2.2.6",
 		"csz": "^1.2.0",
-		"fuse.js": "^5.1.0",
+		"fuse.js": "^5.2.3",
 		"lodash": "^4.17.15",
-		"preact": "^10.4.0",
+		"preact": "^10.4.1",
 		"preact-markdown": "^2.0.0",
 		"react-notify-toast": "^0.5.1",
-		"react-use": "^14.1.1",
+		"react-use": "^14.2.0",
 		"rxjs": "^6.5.5"
 	},
 	"browserslist": [
