@@ -7,24 +7,24 @@
 		"lint": "xo 'src/**/*'"
 	},
 	"devDependencies": {
-		"@types/lodash": "^4.14.150",
+		"@types/lodash": "^4.14.152",
 		"@types/react-notify-toast": "^0.5.2",
 		"eslint-config-xo-react": "^0.23.0",
-		"eslint-plugin-react": "^7.19.0",
-		"eslint-plugin-react-hooks": "^4.0.0",
+		"eslint-plugin-react": "^7.20.0",
+		"eslint-plugin-react-hooks": "^4.0.2",
 		"parcel": "^1.12.4",
 		"prettier": "^2.0.5",
-		"typescript": "^3.8.3",
+		"typescript": "^3.9.3",
 		"xo": "^0.30.0"
 	},
 	"dependencies": {
 		"csz": "^1.2.0",
-		"fuse.js": "^5.2.3",
+		"fuse.js": "^6.0.0",
 		"lodash": "^4.17.15",
-		"preact": "^10.4.1",
+		"preact": "^10.4.4",
 		"preact-markdown": "^2.0.0",
 		"react-notify-toast": "^0.5.1",
-		"react-use": "^14.2.0",
+		"react-use": "^15.1.0",
 		"rxjs": "^6.5.5"
 	},
 	"browserslist": [
