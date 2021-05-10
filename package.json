@@ -20,7 +20,7 @@
 	"dependencies": {
 		"csz": "^1.2.0",
 		"fuse.js": "^6.0.0",
-		"lodash": "^4.17.15",
+		"lodash": "^4.17.21",
 		"preact": "^10.4.4",
 		"preact-markdown": "^2.0.0",
 		"react-notify-toast": "^0.5.1",
